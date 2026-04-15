@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-sand: #E8DFD3;
+  --color-driftwood: #C4B5A3;
+  --color-harbour: #4A6670;
+  --color-deep-navy: #1E2D3D;
+  --color-linen-white: #F5F1EC;
+  --color-rope: #A69178;
+  --color-sea-foam: #B8C9C3;
+  --color-salt: #FAFAF8;
+  --color-charcoal: #2C2C2C;
+  --color-cta: #8B7355;
+  --color-cta-hover: #6E5A42;
+  --color-available: #6B8F71;
+  --color-under-offer: #C4A35A;
+  --color-sold: #8B4D4D;
+
+  /* Full-bleed sections: inset from viewport edges, scale with screen */
+  --section-pad-x: clamp(1.25rem, 3.5vw + 0.35rem, 3.5rem);
+  --section-pad-y: clamp(3.5rem, 7vw + 1.25rem, 8.5rem);
+  --section-pad-y-tight: clamp(3rem, 5.5vw + 1rem, 7rem);
+  --section-gap: clamp(2rem, 4vw + 0.5rem, 4rem);
+  --section-gap-sm: clamp(1rem, 2.5vw + 0.35rem, 2rem);
+  --nav-pad-y: clamp(1rem, 1.5vw + 0.65rem, 1.65rem);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-linen-white);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Hide scrollbar for image carousels while keeping scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Nav link underline effect */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0; height: 1px;
+  background: currentColor;
+  transition: width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.nav-link:hover::after,
+.nav-link[data-active='true']::after {
+  width: 100%;
+}
+
+@layer utilities {
+  .section-px {
+    padding-left: var(--section-pad-x);
+    padding-right: var(--section-pad-x);
+  }
+  .section-py {
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
+  }
+  .section-py-tight {
+    padding-top: var(--section-pad-y-tight);
+    padding-bottom: var(--section-pad-y-tight);
+  }
+  .gap-section {
+    gap: var(--section-gap);
+  }
+  .gap-section-sm {
+    gap: var(--section-gap-sm);
+  }
+  .type-body {
+    font-size: clamp(0.9375rem, 0.42vw + 0.82rem, 1.125rem);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+}
