@@ -150,7 +150,12 @@ export function EnquiryForm({
       id="enquire"
       className={cn('bg-salt', variant === 'section' ? 'section-py' : 'section-py-tight')}
     >
-      <div className="w-full max-w-none px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]">
+      <div
+        className={cn(
+          'w-full px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]',
+          variant === 'section' ? 'mx-auto max-w-3xl' : 'max-w-none',
+        )}
+      >
         {body}
       </div>
     </section>

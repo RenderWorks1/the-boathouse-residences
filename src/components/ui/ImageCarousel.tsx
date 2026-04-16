@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 type Slide = { src: string; alt: string };
@@ -9,6 +10,33 @@ type Slide = { src: string; alt: string };
 export function ImageCarousel({ slides }: { slides: Slide[] }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const reduceMotion = useReducedMotion();
+
+  const { containerVariants, itemVariants } = useMemo(() => {
+    const item: Variants = {
+      hidden: reduceMotion
+        ? { opacity: 1, y: 0 }
+        : { opacity: 0, y: 18 },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: reduceMotion ? 0 : 0.7,
+          ease: [0.25, 0.1, 0.25, 1],
+        },
+      },
+    };
+    const container: Variants = {
+      hidden: {},
+      show: {
+        transition: {
+          staggerChildren: reduceMotion ? 0 : 0.11,
+          delayChildren: reduceMotion ? 0 : 0.05,
+        },
+      },
+    };
+    return { containerVariants: container, itemVariants: item };
+  }, [reduceMotion]);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -41,13 +69,18 @@ export function ImageCarousel({ slides }: { slides: Slide[] }) {
 
   return (
     <div className="relative">
-      <div
+      <motion.div
         ref={scrollerRef}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
         className="no-scrollbar flex snap-x snap-mandatory gap-[clamp(0.65rem,2vw,1.1rem)] overflow-x-auto pb-[clamp(0.75rem,2vw,1.1rem)] px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))] [scroll-padding-inline:calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]"
       >
         {slides.map((s, i) => (
-          <div
+          <motion.div
             key={i}
+            variants={itemVariants}
             className="relative aspect-[4/5] w-[min(70vw,28rem)] flex-none snap-center overflow-hidden rounded-sm md:aspect-[3/4] md:w-[min(22vw,20rem)]"
           >
             <Image
@@ -57,11 +90,17 @@ export function ImageCarousel({ slides }: { slides: Slide[] }) {
               sizes="(min-width:768px) 25vw, 70vw"
               className="object-cover transition-transform duration-700 hover:scale-105"
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="mt-[clamp(1.25rem,3vw,2rem)] flex justify-center gap-[clamp(0.35rem,1vw,0.5rem)]">
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0 }}
+        whileInView={reduceMotion ? undefined : { opacity: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+        className="mt-[clamp(1.25rem,3vw,2rem)] flex justify-center gap-[clamp(0.35rem,1vw,0.5rem)]"
+      >
         {slides.map((_, i) => (
           <button
             key={i}
@@ -73,7 +112,7 @@ export function ImageCarousel({ slides }: { slides: Slide[] }) {
             )}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

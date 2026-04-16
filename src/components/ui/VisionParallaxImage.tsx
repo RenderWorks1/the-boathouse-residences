@@ -35,7 +35,7 @@ export function VisionParallaxImage({
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 1024px) 100vw, 55vw"
+          sizes="90vw"
           className="object-cover"
         />
       </motion.div>

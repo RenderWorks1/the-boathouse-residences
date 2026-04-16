@@ -3,13 +3,14 @@ import { Hero } from '@/components/sections/Hero';
 import { LifestyleIntro } from '@/components/sections/LifestyleIntro';
 import { FullBleedImage } from '@/components/sections/FullBleedImage';
 import { ArchitecturalVision } from '@/components/sections/ArchitecturalVision';
+import { TextureSpacerSection } from '@/components/sections/TextureSpacerSection';
 import { CoastalLiving } from '@/components/sections/CoastalLiving';
-import { ResidencesPreview } from '@/components/sections/ResidencesPreview';
+import { ParallaxSection } from '@/components/sections/ParallaxSection';
+import { ResidencesTriptych } from '@/components/sections/ResidencesTriptych';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import {
   heroImage,
   fullBleedLifestyleImage,
-  residencesPreviewImage,
   coastalLivingImages,
 } from '@/lib/placeholder-images';
 
@@ -54,11 +55,37 @@ export default function HomePage() {
         videoUrl="/harbourside-living.mp4"
       />
       <ArchitecturalVision heading={fallback.visionHeading} body={fallback.visionBody} />
+      <TextureSpacerSection />
       <CoastalLiving slides={coastalLivingImages} />
-      <ResidencesPreview
-        image={residencesPreviewImage}
-        heading={fallback.residencesHeading}
-        body={fallback.residencesBody}
+      <ParallaxSection
+        image="/images/nested-sequence-43-frame.png"
+        alt="Boathouse Residences — harbourside detail"
+        height="lg"
+        overlayOpacity={0}
+        strength={0.28}
+      />
+      <ResidencesTriptych
+        eyebrow=""
+        items={[
+          {
+            primary: '/images/2bedroom_v1_.jpg',
+            secondary: '/images/2bedroom_v5.jpg',
+            alt: 'Marina view residence',
+            href: '/residences/residence-01',
+          },
+          {
+            primary: '/images/studio_int_v1.jpg',
+            secondary: '/images/studio_int_v4.jpg',
+            alt: 'Studio interior',
+            href: '/residences/residence-07',
+          },
+          {
+            primary: '/images/2bedroom_v7.jpg',
+            secondary: '/images/2bedroom_v10_.jpg',
+            alt: 'Harbour corner residence',
+            href: '/residences/residence-04',
+          },
+        ]}
       />
       <EnquiryForm />
     </>

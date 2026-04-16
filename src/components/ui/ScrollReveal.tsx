@@ -13,16 +13,19 @@ export function ScrollReveal({
   delay = 0,
   direction = 'up',
   duration = 0.8,
+  fadeOnly = false,
   className,
 }: {
   children: ReactNode;
   delay?: number;
   direction?: Direction;
   duration?: number;
+  /** Opacity-only fade (no slide offset) */
+  fadeOnly?: boolean;
   className?: string;
 }) {
   const variants: Variants = {
-    hidden: { opacity: 0, ...offset(direction) },
+    hidden: fadeOnly ? { opacity: 0 } : { opacity: 0, ...offset(direction) },
     show: {
       opacity: 1,
       x: 0,
