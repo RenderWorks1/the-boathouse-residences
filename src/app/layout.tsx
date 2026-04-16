@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Cormorant_Garamond, Outfit } from 'next/font/google';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
+import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import '@/styles/globals.css';
 
 const display = Cormorant_Garamond({
@@ -46,9 +47,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

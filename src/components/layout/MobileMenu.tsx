@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
@@ -40,10 +41,16 @@ export function MobileMenu({
             transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             className="flex h-full w-full flex-col section-px pt-[clamp(1.75rem,4vw,2.25rem)]"
           >
-            <div className="flex items-center justify-between">
-              <span className="font-display tracking-[0.08em] text-linen-white text-[clamp(1.125rem,1.2vw+0.85rem,1.35rem)]">
-                THE BOATHOUSE
-              </span>
+            <div className="flex items-center justify-between gap-4">
+              <div className="relative h-[clamp(3.75rem,10vw,5.5rem)] w-[min(78vw,26rem)] shrink-0 overflow-hidden">
+                <Image
+                  src="/images/newlogo4.png"
+                  alt="The Boathouse Residences"
+                  fill
+                  className="object-contain object-left [clip-path:inset(14%_0_14%_0)] brightness-0 invert"
+                  sizes="(max-width: 768px) 78vw, 416px"
+                />
+              </div>
               <button aria-label="Close menu" onClick={onClose} className="text-linen-white">
                 <X size={26} strokeWidth={1.25} />
               </button>
@@ -75,7 +82,7 @@ export function MobileMenu({
                 <Link
                   href="/enquire"
                   onClick={onClose}
-                  className="inline-flex items-center rounded-full bg-deep-navy font-sans uppercase tracking-[0.2em] text-linen-white shadow-sm ring-1 ring-linen-white/25 transition-colors duration-300 hover:bg-harbour hover:text-linen-white px-[clamp(1.35rem,3vw,2.25rem)] py-[clamp(0.65rem,1.5vw,0.9rem)] text-[clamp(0.75rem,0.35vw+0.65rem,0.875rem)]"
+                  className="inline-flex items-center rounded-xl bg-deep-navy font-sans uppercase tracking-[0.2em] text-linen-white shadow-sm ring-1 ring-linen-white/25 transition-colors duration-300 hover:bg-harbour hover:text-linen-white px-[clamp(1.35rem,3vw,2.25rem)] py-[clamp(0.65rem,1.5vw,0.9rem)] text-[clamp(0.75rem,0.35vw+0.65rem,0.875rem)]"
                 >
                   Enquire
                 </Link>
