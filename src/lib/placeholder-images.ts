@@ -1,7 +1,7 @@
 // Hand-picked placeholder image assignments sourced from /public/images/
 // Until Sanity delivers real imagery, every section references these files.
 
-export const heroImage = '/images/2bedroom_v1_.jpg';
+export const heroImage = '/images/2bedroom_v7.jpg';
 export const fullBleedLifestyleImage = '/images/2bedroom_v4.jpg';
 export const residencesPreviewImage = '/images/2bedroom_v7.jpg';
 

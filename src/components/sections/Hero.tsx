@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export function Hero({
   image,
@@ -11,31 +12,47 @@ export function Hero({
   image: string;
   videoUrl?: string;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const onPlaying = () => setVideoPlaying(true);
+    el.addEventListener('playing', onPlaying);
+
+    el.play().catch(() => {});
+
+    return () => el.removeEventListener('playing', onPlaying);
+  }, [videoUrl]);
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {videoUrl ? (
+      <Image
+        src={image}
+        alt="The Boathouse Residences — waterfront exterior"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
+
+      {videoUrl && (
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          ref={videoRef}
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+          style={{ opacity: videoPlaying ? 1 : 0 }}
           autoPlay
           loop
           muted
           playsInline
-          poster={image}
+          preload="auto"
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
-      ) : (
-        <Image
-          src={image}
-          alt="The Boathouse Residences — waterfront exterior"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
       )}
 
-      {/* Top nav readability + subtle bottom darkening */}
       <div className="absolute inset-0 bg-gradient-to-b from-deep-navy/30 via-transparent to-deep-navy/40" />
 
       <motion.div
