@@ -66,7 +66,7 @@ export function Navigation() {
               : 'bg-linen-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.05)]'),
         )}
       >
-        <div className="relative flex w-full items-center section-px py-[var(--nav-pad-y)]">
+        <div className="relative flex w-full items-center section-px py-[calc(var(--nav-pad-y)+0.5rem)] md:py-[var(--nav-pad-y)]">
           <div className="z-20 hidden min-w-0 flex-1 items-center justify-start gap-[clamp(1rem,2.2vw,2rem)] md:flex">
             {linksLeft.map((l) => (
               <span
@@ -81,7 +81,7 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="absolute left-1/2 top-1/2 z-10 block h-[clamp(2.875rem,7.5vw,5rem)] w-[min(72vw,32rem)] -translate-x-1/2 -translate-y-1/2 shrink-0 overflow-hidden md:relative md:left-auto md:top-auto md:translate-x-0 md:translate-y-0">
+          <div className="absolute left-1/2 top-1/2 z-10 block h-[clamp(3.5rem,7.5vw,5rem)] w-[min(72vw,32rem)] -translate-x-1/2 -translate-y-1/2 shrink-0 overflow-hidden md:relative md:left-auto md:top-auto md:translate-x-0 md:translate-y-0">
             <Image
               src="/images/newlogo5nosub.png"
               alt="The Boathouse Residences"
