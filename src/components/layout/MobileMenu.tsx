@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
 
@@ -42,13 +41,13 @@ export function MobileMenu({
             className="flex h-full w-full flex-col section-px pt-[clamp(1.75rem,4vw,2.25rem)]"
           >
             <div className="flex items-center justify-between gap-4">
-              <div className="relative h-[clamp(3.75rem,10vw,5.5rem)] w-[min(78vw,26rem)] shrink-0 overflow-hidden">
+              <div className="relative h-[clamp(3.35rem,9vw,4.85rem)] w-[min(72vw,23rem)] shrink-0 overflow-hidden">
                 <Image
-                  src="/images/newlogo4.png"
+                  src="/images/newlogo5nosub.png"
                   alt="The Boathouse Residences"
                   fill
-                  className="object-contain object-left [clip-path:inset(14%_0_14%_0)] brightness-0 invert"
-                  sizes="(max-width: 768px) 78vw, 416px"
+                  className="object-contain object-left brightness-0 invert"
+                  sizes="(max-width: 768px) 72vw, 368px"
                 />
               </div>
               <button aria-label="Close menu" onClick={onClose} className="text-linen-white">
@@ -56,7 +55,7 @@ export function MobileMenu({
               </button>
             </div>
 
-            <nav className="mt-[clamp(3.5rem,10vw,5rem)] flex flex-col gap-[clamp(1.25rem,4vw,2rem)]">
+            <div className="mt-[clamp(3.5rem,10vw,5rem)] flex flex-col gap-[clamp(1.25rem,4vw,2rem)]">
               {links.map((l, i) => (
                 <motion.div
                   key={l.href}
@@ -64,13 +63,9 @@ export function MobileMenu({
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 + i * 0.06, duration: 0.4 }}
                 >
-                  <Link
-                    href={l.href}
-                    onClick={onClose}
-                    className="font-display font-light tracking-wide text-linen-white text-[clamp(1.75rem,5vw+0.75rem,2.75rem)]"
-                  >
+                  <span className="cursor-default select-none font-display font-light tracking-wide text-linen-white text-[clamp(1.75rem,5vw+0.75rem,2.75rem)]">
                     {l.label}
-                  </Link>
+                  </span>
                 </motion.div>
               ))}
               <motion.div
@@ -79,15 +74,11 @@ export function MobileMenu({
                 transition={{ delay: 0.5, duration: 0.4 }}
                 className="mt-6"
               >
-                <Link
-                  href="/enquire"
-                  onClick={onClose}
-                  className="inline-flex items-center rounded-xl bg-deep-navy font-sans uppercase tracking-[0.2em] text-linen-white shadow-sm ring-1 ring-linen-white/25 transition-colors duration-300 hover:bg-harbour hover:text-linen-white px-[clamp(1.35rem,3vw,2.25rem)] py-[clamp(0.65rem,1.5vw,0.9rem)] text-[clamp(0.75rem,0.35vw+0.65rem,0.875rem)]"
-                >
+                <span className="inline-flex cursor-default select-none items-center rounded-none border border-white bg-transparent font-sans uppercase tracking-[0.2em] text-linen-white px-[clamp(1.35rem,3vw,2.25rem)] py-[clamp(0.65rem,1.5vw,0.9rem)] text-[clamp(0.75rem,0.35vw+0.65rem,0.875rem)]">
                   Enquire
-                </Link>
+                </span>
               </motion.div>
-            </nav>
+            </div>
           </motion.div>
         </motion.div>
       )}
