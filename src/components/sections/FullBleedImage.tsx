@@ -2,13 +2,12 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const luxeEase = [0.25, 0.1, 0.25, 1] as const;
 
-/** Extra time before `ended` so the curtain can finish while the clip is still playing underneath. */
 const LEAD_PAD_SEC = 0.1;
 
 export function FullBleedImage({
@@ -21,9 +20,11 @@ export function FullBleedImage({
   videoUrl?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const closingRef = useRef(false);
   const [closingStarted, setClosingStarted] = useState(false);
   const [curtainComplete, setCurtainComplete] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -33,6 +34,17 @@ export function FullBleedImage({
 
   const curtainDuration = reduceMotion ? 0 : 1.15;
   const leadBeforeEnd = curtainDuration + LEAD_PAD_SEC;
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const onPlaying = () => setVideoPlaying(true);
+    el.addEventListener('playing', onPlaying);
+    el.play().catch(() => {});
+
+    return () => el.removeEventListener('playing', onPlaying);
+  }, [videoUrl]);
 
   const tryStartClosing = useCallback(
     (video: HTMLVideoElement) => {
@@ -55,7 +67,6 @@ export function FullBleedImage({
     [tryStartClosing],
   );
 
-  /** If `timeupdate` is coarse or the tab was backgrounded, `ended` still has `remaining === 0`. */
   const onEnded = useCallback(
     (e: React.SyntheticEvent<HTMLVideoElement>) => {
       tryStartClosing(e.currentTarget);
@@ -75,21 +86,24 @@ export function FullBleedImage({
       )}
     >
       <motion.div style={{ y }} className="absolute inset-[-3%]">
-        {videoUrl ? (
+        <Image src={src} alt={alt} fill sizes="100vw" className="object-cover" />
+
+        {videoUrl && (
           <>
             <video
-              className="absolute inset-0 z-0 h-full w-full object-cover"
+              ref={videoRef}
+              className="absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700"
+              style={{ opacity: videoPlaying ? 1 : 0 }}
               autoPlay
               muted
               playsInline
-              poster={src}
+              preload="auto"
               aria-label={alt}
               onTimeUpdate={onTimeUpdate}
               onEnded={onEnded}
             >
               <source src={videoUrl} type="video/mp4" />
             </video>
-            {/* Only mount after playback nears the end so nothing can sit over the video earlier. */}
             {closingStarted ? (
               <motion.div
                 aria-hidden
@@ -103,8 +117,6 @@ export function FullBleedImage({
               />
             ) : null}
           </>
-        ) : (
-          <Image src={src} alt={alt} fill sizes="100vw" className="object-cover" />
         )}
       </motion.div>
     </section>
