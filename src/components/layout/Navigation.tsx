@@ -2,19 +2,23 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
 
-const links = [
+const linksLeft = [
   { href: '/', label: 'Home' },
   { href: '/lifestyle', label: 'Lifestyle' },
   { href: '/residences', label: 'Residences' },
+];
+
+const linksRight = [
   { href: '/vision', label: 'Vision' },
   { href: '/updates', label: 'Updates' },
 ];
+
+const links = [...linksLeft, ...linksRight];
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
@@ -62,58 +66,69 @@ export function Navigation() {
               : 'bg-linen-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.05)]'),
         )}
       >
-        <div className="flex w-full items-center justify-between section-px py-[var(--nav-pad-y)]">
-          <Link
-            href="/"
-            className="relative block h-[clamp(2.65rem,6.5vw,4.1rem)] w-[min(68vw,28rem)] shrink-0 overflow-hidden md:w-[min(50vw,28rem)] lg:w-[min(40vw,28rem)]"
-          >
-            <Image
-              src="/images/newlogo4.png"
-              alt="The Boathouse Residences"
-              fill
-              className={cn(
-                'object-contain object-left [clip-path:inset(14%_0_14%_0)] transition-[filter] duration-300',
-                transparentMode && 'brightness-0 invert',
-              )}
-              sizes="(max-width: 768px) 75vw, 512px"
-              priority
-            />
-          </Link>
-
-          <nav className="hidden items-center md:flex gap-[clamp(1.25rem,2.5vw,2.35rem)]">
-            {links.map((l) => (
-              <Link
+        <div className="relative flex w-full items-center section-px py-[var(--nav-pad-y)]">
+          <div className="z-20 hidden min-w-0 flex-1 items-center justify-start gap-[clamp(1rem,2.2vw,2rem)] md:flex">
+            {linksLeft.map((l) => (
+              <span
                 key={l.href}
-                href={l.href}
-                data-active={pathname === l.href}
                 className={cn(
-                  'nav-link font-sans uppercase tracking-[0.2em] transition-colors text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
-                  transparentMode
-                    ? 'text-linen-white hover:text-white'
-                    : 'text-charcoal hover:text-harbour',
+                  'cursor-default select-none font-sans uppercase tracking-[0.2em] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
+                  transparentMode ? 'text-linen-white' : 'text-charcoal',
                 )}
               >
                 {l.label}
-              </Link>
+              </span>
             ))}
-            <Link
-              href="/enquire"
-              className="inline-flex items-center rounded-xl bg-deep-navy font-sans uppercase tracking-[0.2em] text-linen-white shadow-sm transition-colors duration-300 hover:bg-harbour hover:text-linen-white px-[clamp(1rem,2vw,1.65rem)] py-[clamp(0.45rem,0.9vw,0.7rem)] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]"
+          </div>
+
+          <div className="absolute left-1/2 top-1/2 z-10 block h-[clamp(2.875rem,7.5vw,5rem)] w-[min(72vw,32rem)] -translate-x-1/2 -translate-y-1/2 shrink-0 overflow-hidden md:relative md:left-auto md:top-auto md:translate-x-0 md:translate-y-0">
+            <Image
+              src="/images/newlogo5nosub.png"
+              alt="The Boathouse Residences"
+              fill
+              className={cn(
+                'object-contain object-center transition-[filter] duration-300',
+                transparentMode && 'brightness-0 invert',
+              )}
+              sizes="(max-width: 768px) 72vw, 512px"
+              priority
+            />
+          </div>
+
+          <div className="z-20 flex min-w-0 flex-1 items-center justify-end gap-[clamp(0.75rem,1.75vw,1.5rem)]">
+            <div className="hidden items-center gap-[clamp(1rem,2.2vw,2rem)] md:flex">
+              {linksRight.map((l) => (
+                <span
+                  key={l.href}
+                  className={cn(
+                    'cursor-default select-none font-sans uppercase tracking-[0.2em] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
+                    transparentMode ? 'text-linen-white' : 'text-charcoal',
+                  )}
+                >
+                  {l.label}
+                </span>
+              ))}
+            </div>
+            <span
+              className={cn(
+                'hidden cursor-default select-none items-center rounded-none border bg-transparent font-sans uppercase tracking-[0.2em] md:inline-flex px-[clamp(1rem,2vw,1.65rem)] py-[clamp(0.45rem,0.9vw,0.7rem)] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
+                transparentMode ? 'border-white text-linen-white' : 'border-charcoal text-charcoal',
+              )}
             >
               Enquire
-            </Link>
-          </nav>
-
-          <button
-            aria-label="Open menu"
-            onClick={() => setOpen(true)}
-            className={cn(
-              'md:hidden transition-colors',
-              transparentMode ? 'text-linen-white' : 'text-charcoal',
-            )}
-          >
-            <Menu className="h-[clamp(1.35rem,3.5vw,1.65rem)] w-[clamp(1.35rem,3.5vw,1.65rem)]" strokeWidth={1.25} />
-          </button>
+            </span>
+            <button
+              aria-label="Open menu"
+              type="button"
+              onClick={() => setOpen(true)}
+              className={cn(
+                'md:hidden transition-colors',
+                transparentMode ? 'text-linen-white' : 'text-charcoal',
+              )}
+            >
+              <Menu className="h-[clamp(1.35rem,3.5vw,1.65rem)] w-[clamp(1.35rem,3.5vw,1.65rem)]" strokeWidth={1.25} />
+            </button>
+          </div>
         </div>
       </header>
 

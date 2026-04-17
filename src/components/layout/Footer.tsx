@@ -12,10 +12,10 @@ export function Footer() {
             className="relative mb-[clamp(1.75rem,4vw,2.75rem)] block h-[clamp(4.5rem,14vw,8rem)] w-[min(94vw,40rem)] overflow-hidden"
           >
             <Image
-              src="/images/newlogo4.png"
+              src="/images/newlogo5.png"
               alt="The Boathouse Residences"
               fill
-              className="object-contain object-center [clip-path:inset(14%_0_14%_0)] brightness-0 invert"
+              className="object-contain object-center brightness-0 invert"
               sizes="(max-width: 768px) 94vw, 640px"
             />
           </Link>
