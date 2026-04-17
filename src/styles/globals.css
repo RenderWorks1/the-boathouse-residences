@@ -19,12 +19,12 @@
   --color-sold: #8B4D4D;
 
   /* Full-bleed sections: inset from viewport edges, scale with screen */
-  --section-pad-x: clamp(1.25rem, 3.5vw + 0.35rem, 3.5rem);
+  --section-pad-x: clamp(1.5rem, 3.5vw + 0.35rem, 3.5rem);
   --section-pad-y: clamp(3.5rem, 7vw + 1.25rem, 8.5rem);
   --section-pad-y-tight: clamp(3rem, 5.5vw + 1rem, 7rem);
   --section-gap: clamp(2rem, 4vw + 0.5rem, 4rem);
   --section-gap-sm: clamp(1rem, 2.5vw + 0.35rem, 2rem);
-  --nav-pad-y: clamp(0.45rem, 0.85vw + 0.35rem, 0.95rem);
+  --nav-pad-y: clamp(0.85rem, 0.85vw + 0.35rem, 0.95rem);
 }
 
 html {

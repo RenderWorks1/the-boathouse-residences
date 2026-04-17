@@ -12,7 +12,7 @@ export function LifestyleIntro({ heading, body }: { heading: string; body: strin
             </SectionHeading>
           </StaggerItem>
           <StaggerItem>
-            <p className="font-sans font-light leading-[1.65] text-charcoal px-[clamp(2.5rem,14vw+2rem,16rem)] text-[clamp(1.0625rem,0.55vw+0.92rem,1.375rem)]">
+            <p className="font-sans font-light leading-[1.65] text-charcoal px-0 md:px-[clamp(2.5rem,8vw,16rem)] text-[clamp(1.0625rem,0.55vw+0.92rem,1.375rem)]">
               {body}
             </p>
           </StaggerItem>

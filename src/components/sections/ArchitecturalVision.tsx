@@ -24,7 +24,7 @@ export function ArchitecturalVision({
               className="absolute inset-0 h-full w-full"
             />
           </div>
-          <StaggerReveal className="mx-auto flex w-full max-w-xs min-w-0 flex-col items-start gap-[clamp(1rem,2vw,1.5rem)] py-10 text-left sm:max-w-sm md:py-14">
+          <StaggerReveal className="mx-auto flex w-full max-w-none min-w-0 flex-col items-start gap-[clamp(1rem,2vw,1.5rem)] py-10 text-left sm:max-w-sm md:max-w-md md:py-14">
             <StaggerItem>
               <SectionHeading className="w-full text-left">{heading}</SectionHeading>
             </StaggerItem>
