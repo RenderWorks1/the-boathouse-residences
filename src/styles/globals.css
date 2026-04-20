@@ -25,6 +25,23 @@
   --section-gap: clamp(2rem, 4vw + 0.5rem, 4rem);
   --section-gap-sm: clamp(1rem, 2.5vw + 0.35rem, 2rem);
   --nav-pad-y: clamp(0.85rem, 0.85vw + 0.35rem, 0.95rem);
+  /* Logo slot — keep in sync with Navigation.tsx (flying hero logo uses the same numbers). */
+  --nav-logo-height: clamp(2.75rem, 6.5vw, 4rem);
+  --nav-logo-width: min(72vw, 28rem);
+  /* Mobile: at least logo or menu row + extra vertical padding (matches row py below). */
+  --nav-header-bar-height: max(
+    var(--nav-logo-height),
+    calc(1.65rem + 2 * (var(--nav-pad-y) + 0.5rem))
+  );
+  --nav-logo-slot-top: calc((var(--nav-header-bar-height) - var(--nav-logo-height)) * 0.5);
+}
+
+@media (min-width: 768px) {
+  :root {
+    /* Desktop: bar height = logo + md vertical padding; top offset equals var(--nav-pad-y). */
+    --nav-header-bar-height: calc(var(--nav-logo-height) + 2 * var(--nav-pad-y));
+    --nav-logo-slot-top: calc((var(--nav-header-bar-height) - var(--nav-logo-height)) * 0.5);
+  }
 }
 
 html {

@@ -41,13 +41,13 @@ export function MobileMenu({
             className="flex h-full w-full flex-col section-px pt-[clamp(1.75rem,4vw,2.25rem)]"
           >
             <div className="flex items-center justify-between gap-4">
-              <div className="relative h-[clamp(3.35rem,9vw,4.85rem)] w-[min(72vw,23rem)] shrink-0 overflow-hidden">
+              <div className="relative h-[var(--nav-logo-height)] w-[var(--nav-logo-width)] max-w-[calc(100vw-4.5rem)] shrink-0 overflow-hidden">
                 <Image
-                  src="/images/newlogo5nosub.png"
+                  src="/images/logo4.png"
                   alt="The Boathouse Residences"
                   fill
-                  className="object-contain object-left brightness-0 invert"
-                  sizes="(max-width: 768px) 72vw, 368px"
+                  className="object-contain object-left mix-blend-lighten"
+                  sizes="(max-width: 768px) 72vw, 448px"
                 />
               </div>
               <button aria-label="Close menu" onClick={onClose} className="text-linen-white">

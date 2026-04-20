@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Outfit } from 'next/font/google';
+import { Cormorant_Garamond, IBM_Plex_Serif, Outfit } from 'next/font/google';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
@@ -19,6 +19,15 @@ const sans = Outfit({
   variable: '--font-sans',
   display: 'swap',
   preload: true,
+});
+
+/** Architectural Vision heading — geometric serif, squarer strokes than humanist serifs. */
+const visionDisplay = IBM_Plex_Serif({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-vision-display',
+  display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -45,7 +54,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${visionDisplay.variable}`}
+    >
       <body>
         <SmoothScroll>
           <Navigation />

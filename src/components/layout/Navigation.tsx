@@ -5,6 +5,12 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { HERO_EXPANDED_EVENT, HERO_HANDOFF_EVENT } from '@/lib/hero-handoff';
+import {
+  logoOpacityTransitionCss,
+  NAV_HEADER_ROW_CLASS,
+  NAV_LOGO_WRAPPER_CLASS,
+} from '@/lib/nav-header-layout';
 import { MobileMenu } from './MobileMenu';
 
 const linksLeft = [
@@ -20,15 +26,51 @@ const linksRight = [
 
 const links = [...linksLeft, ...linksRight];
 
+/** Homepage: hide nav links / CTAs / menu until the hero is full-bleed; hide nav logo until flying-logo handoff. */
+function homeChromeClass(isHome: boolean, visible: boolean) {
+  if (!isHome) return '';
+  return visible
+    ? 'opacity-100 pointer-events-auto transition-opacity duration-700 ease-luxe'
+    : 'pointer-events-none opacity-0';
+}
+
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [open, setOpen] = useState(false);
+  /** Hero peel finished: show links, Enquire, hamburger. */
+  const [heroExpanded, setHeroExpanded] = useState(false);
+  /** Flying logo crossfaded out: show real nav logo. */
+  const [heroHandoffDone, setHeroHandoffDone] = useState(false);
   const pathname = usePathname();
 
   const isHome = pathname === '/';
   const transparentMode = isHome && !scrolled;
   const headerHidden = isHome && pastHero;
+  const homeChromeHidden = isHome && !heroExpanded;
+
+  useEffect(() => {
+    if (!isHome) {
+      setHeroExpanded(true);
+      setHeroHandoffDone(true);
+      return;
+    }
+    setHeroExpanded(false);
+    setHeroHandoffDone(false);
+    const onExpanded = () => setHeroExpanded(true);
+    const onHandoff = () => setHeroHandoffDone(true);
+    window.addEventListener(HERO_EXPANDED_EVENT, onExpanded);
+    window.addEventListener(HERO_HANDOFF_EVENT, onHandoff);
+    const fallback = window.setTimeout(() => {
+      setHeroExpanded(true);
+      setHeroHandoffDone(true);
+    }, 8000);
+    return () => {
+      window.removeEventListener(HERO_EXPANDED_EVENT, onExpanded);
+      window.removeEventListener(HERO_HANDOFF_EVENT, onHandoff);
+      window.clearTimeout(fallback);
+    };
+  }, [isHome]);
 
   useEffect(() => {
     const update = () => {
@@ -56,7 +98,7 @@ export function Navigation() {
   return (
     <>
       <header
-        aria-hidden={headerHidden}
+        aria-hidden={headerHidden || homeChromeHidden}
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-luxe',
           headerHidden && 'pointer-events-none -translate-y-full opacity-0',
@@ -66,8 +108,13 @@ export function Navigation() {
               : 'bg-linen-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.05)]'),
         )}
       >
-        <div className="relative flex w-full items-center section-px py-[calc(var(--nav-pad-y)+0.5rem)] md:py-[var(--nav-pad-y)]">
-          <div className="z-20 hidden min-w-0 flex-1 items-center justify-start gap-[clamp(1rem,2.2vw,2rem)] md:flex">
+        <div className={NAV_HEADER_ROW_CLASS}>
+          <div
+            className={cn(
+              'z-20 hidden min-w-0 flex-1 items-center justify-start gap-[clamp(1rem,2.2vw,2rem)] md:flex',
+              homeChromeClass(isHome, heroExpanded),
+            )}
+          >
             {linksLeft.map((l) => (
               <span
                 key={l.href}
@@ -81,21 +128,32 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="absolute left-1/2 top-1/2 z-10 block h-[clamp(3.5rem,7.5vw,5rem)] w-[min(72vw,32rem)] -translate-x-1/2 -translate-y-1/2 shrink-0 overflow-hidden md:relative md:left-auto md:top-auto md:translate-x-0 md:translate-y-0">
+          <div
+            className={cn(NAV_LOGO_WRAPPER_CLASS, isHome && !heroHandoffDone && 'pointer-events-none')}
+            style={{
+              opacity: isHome ? (heroHandoffDone ? 1 : 0) : 1,
+              transition: logoOpacityTransitionCss(),
+            }}
+          >
             <Image
-              src="/images/newlogo5nosub.png"
+              src="/images/logo4.png"
               alt="The Boathouse Residences"
               fill
               className={cn(
                 'object-contain object-center transition-[filter] duration-300',
-                transparentMode && 'brightness-0 invert',
+                transparentMode ? 'mix-blend-lighten' : 'invert',
               )}
-              sizes="(max-width: 768px) 72vw, 512px"
+              sizes="(max-width: 768px) 72vw, 448px"
               priority
             />
           </div>
 
-          <div className="z-20 flex min-w-0 flex-1 items-center justify-end gap-[clamp(0.75rem,1.75vw,1.5rem)]">
+          <div
+            className={cn(
+              'z-20 flex min-w-0 flex-1 items-center justify-end gap-[clamp(0.75rem,1.75vw,1.5rem)]',
+              homeChromeClass(isHome, heroExpanded),
+            )}
+          >
             <div className="hidden items-center gap-[clamp(1rem,2.2vw,2rem)] md:flex">
               {linksRight.map((l) => (
                 <span

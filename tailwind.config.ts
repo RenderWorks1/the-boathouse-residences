@@ -23,6 +23,7 @@ const config: Config = {
       fontFamily: {
         display: ['var(--font-display)', 'Georgia', 'serif'],
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        vision: ['var(--font-vision-display)', 'Georgia', 'serif'],
       },
       transitionTimingFunction: {
         luxe: 'cubic-bezier(0.25, 0.1, 0.25, 1)',

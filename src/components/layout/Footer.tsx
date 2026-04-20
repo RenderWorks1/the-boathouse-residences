@@ -9,14 +9,14 @@ export function Footer() {
         <div className="flex justify-center">
           <Link
             href="/"
-            className="relative mb-[clamp(1.75rem,4vw,2.75rem)] block h-[clamp(4.5rem,14vw,8rem)] w-[min(94vw,40rem)] overflow-hidden"
+            className="relative mb-[clamp(1.75rem,4vw,2.75rem)] block h-[clamp(6.5rem,22vw,14rem)] w-[min(98vw,90rem)] overflow-hidden"
           >
             <Image
-              src="/images/newlogo5.png"
-              alt="The Boathouse Residences"
+              src="/images/logo4subtext.png"
+              alt="The Boathouse Residences — Hobsonville, Pine Harbour, and Bayswater Marinas"
               fill
-              className="object-contain object-center brightness-0 invert"
-              sizes="(max-width: 768px) 94vw, 640px"
+              className="object-contain object-center mix-blend-lighten"
+              sizes="(max-width: 768px) 98vw, 1440px"
             />
           </Link>
         </div>
