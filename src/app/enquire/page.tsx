@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
-import { SectionHeading, Eyebrow } from '@/components/ui/SectionHeading';
+import { Eyebrow } from '@/components/ui/SectionHeading';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -28,7 +28,9 @@ export default function EnquirePage() {
           <div className="bg-salt section-px py-[var(--section-pad-y)] md:py-[var(--section-pad-y)]">
             <Eyebrow>Register Interest</Eyebrow>
             <div className="mt-[clamp(0.5rem,1.5vw,0.85rem)]">
-              <SectionHeading as="h1">Enquire</SectionHeading>
+              <h1 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+                Enquire
+              </h1>
             </div>
             <p className="type-body mt-[clamp(1.25rem,3vw,1.75rem)] font-sans text-charcoal">
               Leave your details with our sales team and we&apos;ll be in touch with availability,

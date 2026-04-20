@@ -1,7 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -9,6 +15,9 @@ import { cn } from '@/lib/utils';
 const luxeEase = [0.25, 0.1, 0.25, 1] as const;
 
 const LEAD_PAD_SEC = 0.1;
+
+/** Start playback when the block is this close to entering the viewport (scroll down). */
+const IN_VIEW_MARGIN = '0px 0px 22% 0px';
 
 export function FullBleedImage({
   src,
@@ -26,6 +35,7 @@ export function FullBleedImage({
   const [curtainComplete, setCurtainComplete] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const reduceMotion = useReducedMotion();
+  const inView = useInView(ref, { once: true, margin: IN_VIEW_MARGIN });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
@@ -37,14 +47,15 @@ export function FullBleedImage({
 
   useEffect(() => {
     const el = videoRef.current;
-    if (!el) return;
+    if (!el || !videoUrl || !inView) return;
 
     const onPlaying = () => setVideoPlaying(true);
     el.addEventListener('playing', onPlaying);
+    el.load();
     el.play().catch(() => {});
 
     return () => el.removeEventListener('playing', onPlaying);
-  }, [videoUrl]);
+  }, [videoUrl, inView]);
 
   const tryStartClosing = useCallback(
     (video: HTMLVideoElement) => {
@@ -94,10 +105,9 @@ export function FullBleedImage({
               ref={videoRef}
               className="absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700"
               style={{ opacity: videoPlaying ? 1 : 0 }}
-              autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="none"
               aria-label={alt}
               onTimeUpdate={onTimeUpdate}
               onEnded={onEnded}

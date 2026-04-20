@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { cn } from '@/lib/utils';
 
@@ -59,7 +58,9 @@ export function EnquiryForm({
   const body = (
     <>
       <ScrollReveal className="mb-[clamp(2rem,4vw,3rem)] flex flex-col items-center gap-section-sm text-center">
-        <SectionHeading>Enquire Now</SectionHeading>
+        <h2 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+          Enquire Now
+        </h2>
         <p className="type-body mt-2 font-sans text-charcoal">
           Leave your details and our sales team will be in touch with availability,
           price guides and private viewing times.
