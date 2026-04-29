@@ -59,7 +59,7 @@ export default function HomePage() {
       <TextureSpacerSection />
       <CoastalLiving slides={coastalLivingImages} />
       <ParallaxSection
-        image="/images/nested-sequence-43-frame.png"
+        image="/images/nested-sequence-43-frame.jpg"
         alt="Boathouse Residences — harbourside detail"
         height="lg"
         overlayOpacity={0}

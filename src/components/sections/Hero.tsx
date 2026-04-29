@@ -78,6 +78,18 @@ export function Hero({
     skipIntroRef.current ? 'final' : 'logoOnly',
   );
   const [videoReady, setVideoReady] = useState(false);
+  /** True once the hero logo image has finished decoding/loading. The intro
+   *  sequence waits on this so the logo is visible from the very first frame
+   *  of the animation rather than popping in part-way through. */
+  const [logoReady, setLogoReady] = useState(false);
+
+  // Safety fallback: if the load callback never fires (slow network / odd
+  // cache state), kick off the intro after 2.5s so the page never stalls.
+  useEffect(() => {
+    if (logoReady) return;
+    const t = window.setTimeout(() => setLogoReady(true), 2500);
+    return () => window.clearTimeout(t);
+  }, [logoReady]);
 
   // Prime decode immediately: load() + play() as early as possible so motion
   // isn’t waiting on the decoder when the mask opens.
@@ -114,6 +126,9 @@ export function Hero({
       setStage('final');
       return;
     }
+    // Don't start the intro timeline until the logo image has loaded — the
+    // animation depends on the logo being visible from frame 1.
+    if (!logoReady) return;
     const toIntro = window.setTimeout(() => setStage('intro'), LOGO_ONLY_HOLD_MS);
     const toReveal = window.setTimeout(() => setStage('reveal'), REVEAL_START_MS);
     const toFinal = window.setTimeout(() => setStage('final'), FINAL_STAGE_MS);
@@ -122,7 +137,7 @@ export function Hero({
       window.clearTimeout(toReveal);
       window.clearTimeout(toFinal);
     };
-  }, [reducedMotion, skipIntro]);
+  }, [reducedMotion, skipIntro, logoReady]);
 
   useEffect(() => {
     if (stage !== 'final') return;
@@ -309,9 +324,11 @@ export function Hero({
           alt={logoAlt}
           fill
           priority
+          fetchPriority="high"
           sizes="(max-width: 768px) 72vw, 448px"
           className="select-none object-contain object-center"
           draggable={false}
+          onLoadingComplete={() => setLogoReady(true)}
         />
       </motion.div>
 

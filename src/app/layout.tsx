@@ -9,7 +9,7 @@ import '@/styles/globals.css';
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['400'],
   variable: '--font-display',
   display: 'swap',
   preload: true,
@@ -17,7 +17,7 @@ const display = Cormorant_Garamond({
 
 const sans = Outfit({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400'],
   variable: '--font-sans',
   display: 'swap',
   preload: true,
@@ -26,21 +26,21 @@ const sans = Outfit({
 /** Architectural Vision heading — geometric serif, squarer strokes than humanist serifs. */
 const visionDisplay = IBM_Plex_Serif({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400'],
   variable: '--font-vision-display',
   display: 'swap',
   preload: false,
 });
 
-/** Gilroy — local files in public/gilroy-fonts. Light (300) + ExtraBold (800). */
+/** Gilroy — local WOFF2 files in public/gilroy-fonts. Loaded only when referenced via font-gilroy. */
 const gilroy = localFont({
   src: [
-    { path: '../../public/gilroy-fonts/Gilroy-Light.otf', weight: '300', style: 'normal' },
-    { path: '../../public/gilroy-fonts/Gilroy-ExtraBold.otf', weight: '800', style: 'normal' },
+    { path: '../../public/gilroy-fonts/Gilroy-Light.woff2', weight: '300', style: 'normal' },
+    { path: '../../public/gilroy-fonts/Gilroy-ExtraBold.woff2', weight: '800', style: 'normal' },
   ],
   variable: '--font-gilroy',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -71,6 +71,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${display.variable} ${sans.variable} ${visionDisplay.variable} ${gilroy.variable}`}
     >
+      <head>
+        {/* Preload the hero/nav logo at HTML-parse time so it's ready before
+            the hero intro animation starts. fetchPriority=high tells the
+            browser to prioritise it ahead of other resources. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/logos/logo-white.png"
+          fetchPriority="high"
+          type="image/png"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/logos/logo-navy.png"
+          type="image/png"
+        />
+      </head>
       <body>
         <SmoothScroll>
           <Navigation />
