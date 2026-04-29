@@ -4,6 +4,22 @@ export const HERO_EXPANDED_EVENT = 'boathouse:hero-expanded';
 /** Fired when the flying logo hands off to the real header logo (crossfade). */
 export const HERO_HANDOFF_EVENT = 'boathouse:hero-handoff';
 
+/**
+ * Module-level flag that survives client-side navigation but resets on hard
+ * refresh — lets Hero and Navigation share the "intro already played this
+ * session" decision without depending on event-dispatch timing across the
+ * parent/child useEffect boundary.
+ */
+let heroIntroPlayed = false;
+
+export function hasHeroIntroPlayed() {
+  return heroIntroPlayed;
+}
+
+export function markHeroIntroPlayed() {
+  heroIntroPlayed = true;
+}
+
 export function dispatchHeroExpanded() {
   if (typeof window === 'undefined') return;
   window.dispatchEvent(new CustomEvent(HERO_EXPANDED_EVENT));

@@ -3,17 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --color-sand: #E8DFD3;
-  --color-driftwood: #C4B5A3;
-  --color-harbour: #4A6670;
-  --color-deep-navy: #1E2D3D;
-  --color-linen-white: #F5F1EC;
-  --color-rope: #A69178;
-  --color-sea-foam: #B8C9C3;
-  --color-salt: #FAFAF8;
-  --color-charcoal: #2C2C2C;
-  --color-cta: #8B7355;
-  --color-cta-hover: #6E5A42;
+  /* Brand pack: Harbour Slate (primary), Shell (neutral), Dune Linen, Coastal Mist,
+     Driftwood (accent), Tide, Ink. Tokens below keep existing roles, shifted toward
+     brand pack values. */
+  --color-sand: #DCD6CB;          /* toward Dune Linen #C7C3BD */
+  --color-driftwood: #B0A393;     /* toward Driftwood #9D8C7C */
+  --color-harbour: #35434B;       /* Harbour Slate (brand primary) */
+  --color-deep-navy: #1A2228;     /* deeper Harbour Slate family */
+  --color-linen-white: #EFEBE4;   /* toward Shell #E6E6E4, retains warmth */
+  --color-rope: #9D8C7C;          /* Driftwood (brand accent) */
+  --color-sea-foam: #A9B6BC;      /* toward Tide #6C7E8C, lightened */
+  --color-salt: #F6F4EE;          /* near-white, gentle Shell cast */
+  --color-charcoal: #26292F;      /* slate-tinged dark */
+  --color-cta: #7E6B58;           /* deeper Driftwood for CTA contrast */
+  --color-cta-hover: #5F4F3F;
   --color-available: #6B8F71;
   --color-under-offer: #C4A35A;
   --color-sold: #8B4D4D;
@@ -44,6 +47,24 @@
   }
 }
 
+/* Interior pages: smaller header logo than landing (Navigation + MobileMenu). */
+.nav-logo-compact {
+  --nav-logo-height: clamp(2rem, 4.5vw, 2.75rem);
+  --nav-logo-width: min(58vw, 20rem);
+  --nav-header-bar-height: max(
+    var(--nav-logo-height),
+    calc(1.65rem + 2 * (var(--nav-pad-y) + 0.5rem))
+  );
+  --nav-logo-slot-top: calc((var(--nav-header-bar-height) - var(--nav-logo-height)) * 0.5);
+}
+
+@media (min-width: 768px) {
+  .nav-logo-compact {
+    --nav-header-bar-height: calc(var(--nav-logo-height) + 2 * var(--nav-pad-y));
+    --nav-logo-slot-top: calc((var(--nav-header-bar-height) - var(--nav-logo-height)) * 0.5);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -57,7 +78,7 @@ body {
   font-weight: 300;
 }
 
-h1, h2, h3, h4, h5, h6 {
+:where(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-display), Georgia, serif;
 }
 

@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, IBM_Plex_Serif, Outfit } from 'next/font/google';
+import localFont from 'next/font/local';
 import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
+import { GlobalEnquiry } from '@/components/layout/GlobalEnquiry';
 import '@/styles/globals.css';
 
 const display = Cormorant_Garamond({
@@ -28,6 +30,17 @@ const visionDisplay = IBM_Plex_Serif({
   variable: '--font-vision-display',
   display: 'swap',
   preload: false,
+});
+
+/** Gilroy — local files in public/gilroy-fonts. Light (300) + ExtraBold (800). */
+const gilroy = localFont({
+  src: [
+    { path: '../../public/gilroy-fonts/Gilroy-Light.otf', weight: '300', style: 'normal' },
+    { path: '../../public/gilroy-fonts/Gilroy-ExtraBold.otf', weight: '800', style: 'normal' },
+  ],
+  variable: '--font-gilroy',
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -56,12 +69,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${visionDisplay.variable}`}
+      className={`${display.variable} ${sans.variable} ${visionDisplay.variable} ${gilroy.variable}`}
     >
       <body>
         <SmoothScroll>
           <Navigation />
           <main>{children}</main>
+          <GlobalEnquiry />
           <Footer />
         </SmoothScroll>
       </body>
