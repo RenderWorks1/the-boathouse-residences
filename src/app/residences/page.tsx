@@ -38,12 +38,12 @@ export default function ResidencesPage() {
       <PageHero image="/images/sectionheros/BVP09104.jpg" title="A Collection by the Water" />
 
       <section className="bg-salt">
-        <div className="section-px py-[clamp(5rem,10vw,9rem)] w-full max-w-none">
-          <ScrollReveal className="ml-auto flex max-w-[78rem] flex-col items-end gap-[clamp(1.75rem,4vw,3rem)] text-right">
-            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+        <div className="section-px section-py w-full max-w-none">
+          <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
+            <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               An Intimate Collection
             </h2>
-            <p className="max-w-[60rem] text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.6] text-charcoal">
+            <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal max-w-[60rem]">
               The Boathouse Residences invites a limited collection of studio, one and two bedroom homes,
               thoughtfully positioned along the edge of the Hobsonville Marina. Each residence is designed
               to capture light, outlook and a direct connection to the water, resulting in homes that feel

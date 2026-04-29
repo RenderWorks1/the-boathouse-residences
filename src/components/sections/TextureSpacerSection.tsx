@@ -45,7 +45,7 @@ export function TextureSpacerSection() {
       ref={sectionRef}
       className="relative min-h-[clamp(28rem,68vh,56rem)] w-full overflow-hidden bg-salt"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[url('/images/sb7.png')] bg-cover bg-center bg-no-repeat" />
+      <div className="pointer-events-none absolute inset-0 bg-[url('/images/sb7.jpg')] bg-cover bg-center bg-no-repeat" />
 
       <div className="relative z-10 min-h-[clamp(28rem,68vh,56rem)] w-full">
         <motion.div
