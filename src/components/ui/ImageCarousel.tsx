@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -63,9 +64,13 @@ export function ImageCarousel({ slides }: { slides: Slide[] }) {
   const goTo = (i: number) => {
     const el = scrollerRef.current;
     if (!el) return;
-    const child = el.children[i] as HTMLElement | undefined;
+    const clamped = Math.max(0, Math.min(slides.length - 1, i));
+    const child = el.children[clamped] as HTMLElement | undefined;
     if (child) el.scrollTo({ left: child.offsetLeft - 16, behavior: 'smooth' });
   };
+
+  const prev = () => goTo(active - 1);
+  const next = () => goTo(active + 1);
 
   return (
     <div className="relative">
@@ -99,19 +104,41 @@ export function ImageCarousel({ slides }: { slides: Slide[] }) {
         whileInView={reduceMotion ? undefined : { opacity: 1 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
-        className="mt-[clamp(1.25rem,3vw,2rem)] flex justify-center gap-[clamp(0.35rem,1vw,0.5rem)]"
+        className="mt-[clamp(1.25rem,3vw,2rem)] flex items-center justify-center gap-[clamp(0.85rem,2vw,1.25rem)]"
       >
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Go to slide ${i + 1}`}
-            onClick={() => goTo(i)}
-            className={cn(
-              'h-[clamp(0.3rem,0.6vw,0.4rem)] rounded-full transition-all duration-300',
-              i === active ? 'w-[clamp(1.5rem,4vw,2rem)] bg-harbour' : 'w-[clamp(0.3rem,0.6vw,0.4rem)] bg-driftwood',
-            )}
-          />
-        ))}
+        <button
+          type="button"
+          aria-label="Previous slide"
+          onClick={prev}
+          disabled={active === 0}
+          className="inline-flex h-[clamp(2.25rem,4vw,2.75rem)] w-[clamp(2.25rem,4vw,2.75rem)] items-center justify-center rounded-full border border-harbour/30 text-harbour transition-colors duration-300 hover:bg-harbour hover:text-linen-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-harbour"
+        >
+          <ChevronLeft className="h-[clamp(1rem,2vw,1.25rem)] w-[clamp(1rem,2vw,1.25rem)]" strokeWidth={1.5} />
+        </button>
+
+        <div className="flex items-center gap-[clamp(0.35rem,1vw,0.5rem)]">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Go to slide ${i + 1}`}
+              onClick={() => goTo(i)}
+              className={cn(
+                'h-[clamp(0.3rem,0.6vw,0.4rem)] rounded-full transition-all duration-300',
+                i === active ? 'w-[clamp(1.5rem,4vw,2rem)] bg-harbour' : 'w-[clamp(0.3rem,0.6vw,0.4rem)] bg-driftwood',
+              )}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          aria-label="Next slide"
+          onClick={next}
+          disabled={active === slides.length - 1}
+          className="inline-flex h-[clamp(2.25rem,4vw,2.75rem)] w-[clamp(2.25rem,4vw,2.75rem)] items-center justify-center rounded-full border border-harbour/30 text-harbour transition-colors duration-300 hover:bg-harbour hover:text-linen-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-harbour"
+        >
+          <ChevronRight className="h-[clamp(1rem,2vw,1.25rem)] w-[clamp(1rem,2vw,1.25rem)]" strokeWidth={1.5} />
+        </button>
       </motion.div>
     </div>
   );

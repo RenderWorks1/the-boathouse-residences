@@ -7,6 +7,7 @@ import { TextureSpacerSection } from '@/components/sections/TextureSpacerSection
 import { CoastalLiving } from '@/components/sections/CoastalLiving';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
 import { ResidencesTriptych } from '@/components/sections/ResidencesTriptych';
+import { Faq } from '@/components/sections/Faq';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import {
   heroImage,
@@ -87,6 +88,7 @@ export default function HomePage() {
           },
         ]}
       />
+      <Faq />
       <EnquiryForm />
     </>
   );

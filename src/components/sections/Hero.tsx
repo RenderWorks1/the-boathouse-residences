@@ -13,7 +13,12 @@ import Image from 'next/image';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { dispatchHeroExpanded, dispatchHeroHandoff } from '@/lib/hero-handoff';
+import {
+  dispatchHeroExpanded,
+  dispatchHeroHandoff,
+  hasHeroIntroPlayed,
+  markHeroIntroPlayed,
+} from '@/lib/hero-handoff';
 import {
   LOGO_CROSSFADE_EASE,
   LOGO_CROSSFADE_MS,
@@ -57,15 +62,21 @@ const REVEAL_CLIP_S = 1.35;
 const REVEAL_START_MS = LOGO_ONLY_HOLD_MS + MASK_SQUARE_IN_S * 1000;
 const FINAL_STAGE_MS = REVEAL_START_MS + REVEAL_CLIP_S * 1000;
 
+
 export function Hero({
   videoUrl,
   image,
-  logoSrc = '/images/logo4.png',
+  logoSrc = '/logos/logo-white.png',
   logoAlt = 'The Boathouse Residences',
 }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
-  const [stage, setStage] = useState<Stage>('logoOnly');
+  /** Captured at first render — stable across re-renders even after the flag flips to true. */
+  const skipIntroRef = useRef(hasHeroIntroPlayed());
+  const skipIntro = skipIntroRef.current;
+  const [stage, setStage] = useState<Stage>(() =>
+    skipIntroRef.current ? 'final' : 'logoOnly',
+  );
   const [videoReady, setVideoReady] = useState(false);
 
   // Prime decode immediately: load() + play() as early as possible so motion
@@ -99,7 +110,7 @@ export function Hero({
   }, []);
 
   useEffect(() => {
-    if (reducedMotion) {
+    if (skipIntro || reducedMotion) {
       setStage('final');
       return;
     }
@@ -111,18 +122,22 @@ export function Hero({
       window.clearTimeout(toReveal);
       window.clearTimeout(toFinal);
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, skipIntro]);
 
   useEffect(() => {
     if (stage !== 'final') return;
     dispatchHeroExpanded();
-    if (reducedMotion) {
+    if (reducedMotion || skipIntro) {
       dispatchHeroHandoff();
+      markHeroIntroPlayed();
       return;
     }
-    const t = window.setTimeout(() => dispatchHeroHandoff(), logoHandoffDelayMs());
+    const t = window.setTimeout(() => {
+      dispatchHeroHandoff();
+      markHeroIntroPlayed();
+    }, logoHandoffDelayMs());
     return () => window.clearTimeout(t);
-  }, [stage, reducedMotion]);
+  }, [stage, reducedMotion, skipIntro]);
 
   useEffect(() => {
     const el = videoRef.current;
@@ -234,7 +249,7 @@ export function Hero({
     >
       <motion.div
         className="pointer-events-none absolute inset-0"
-        initial={{ clipPath: CLIP_HIDDEN, opacity: 1 }}
+        initial={skipIntro ? false : { clipPath: CLIP_HIDDEN, opacity: 1 }}
         variants={maskVariants}
         animate={stage}
         style={{ willChange: 'clip-path' }}
@@ -271,17 +286,21 @@ export function Hero({
       <motion.div
         className="pointer-events-none fixed z-[60] overflow-hidden"
         style={{ transformOrigin: '50% 50%' }}
-        initial={{
-          top: '50%',
-          left: '50%',
-          x: '-50%',
-          y: '-50%',
-          width: 'var(--nav-logo-width)',
-          height: 'var(--nav-logo-height)',
-          scale: INTRO_LOGO_SCALE,
-          opacity: 0,
-          filter: 'blur(10px)',
-        }}
+        initial={
+          skipIntro
+            ? false
+            : {
+                top: '50%',
+                left: '50%',
+                x: '-50%',
+                y: '-50%',
+                width: 'var(--nav-logo-width)',
+                height: 'var(--nav-logo-height)',
+                scale: INTRO_LOGO_SCALE,
+                opacity: 0,
+                filter: 'blur(10px)',
+              }
+        }
         variants={logoVariants}
         animate={stage}
       >
@@ -291,15 +310,15 @@ export function Hero({
           fill
           priority
           sizes="(max-width: 768px) 72vw, 448px"
-          className="select-none object-contain object-center mix-blend-lighten"
+          className="select-none object-contain object-center"
           draggable={false}
         />
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={skipIntro ? false : { opacity: 0, y: 10 }}
         animate={stage === 'final' ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ duration: 1.0, ease: EASE, delay: 0.25 }}
+        transition={skipIntro ? { duration: 0 } : { duration: 1.0, ease: EASE, delay: 0.25 }}
         className="absolute bottom-[clamp(1.75rem,4vw,2.75rem)] left-1/2 z-30 -translate-x-1/2 text-linen-white"
       >
         <div className="flex flex-col items-center gap-[clamp(0.5rem,1.5vw,0.75rem)]">

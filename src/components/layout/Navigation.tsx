@@ -1,11 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { HERO_EXPANDED_EVENT, HERO_HANDOFF_EVENT } from '@/lib/hero-handoff';
+import {
+  HERO_EXPANDED_EVENT,
+  HERO_HANDOFF_EVENT,
+  hasHeroIntroPlayed,
+} from '@/lib/hero-handoff';
 import {
   logoOpacityTransitionCss,
   NAV_HEADER_ROW_CLASS,
@@ -14,17 +19,20 @@ import {
 import { MobileMenu } from './MobileMenu';
 
 const linksLeft = [
-  { href: '/', label: 'Home' },
-  { href: '/lifestyle', label: 'Lifestyle' },
   { href: '/residences', label: 'Residences' },
+  { href: '/interiors', label: 'Interiors' },
+  { href: '/vision', label: 'Vision' },
 ];
 
 const linksRight = [
-  { href: '/vision', label: 'Vision' },
-  { href: '/updates', label: 'Updates' },
+  { href: '/masterplan', label: 'Masterplan' },
+  { href: '/lifestyle', label: 'Lifestyle' },
 ];
 
 const links = [...linksLeft, ...linksRight];
+
+const navLinkClass =
+  'relative font-sans uppercase tracking-[0.2em] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)] transition-colors after:pointer-events-none after:absolute after:left-0 after:right-0 after:-bottom-[6px] after:h-px after:origin-center after:scale-x-0 aria-[current=page]:after:scale-x-100 after:transition-transform after:duration-300 after:ease-luxe';
 
 /** Homepage: hide nav links / CTAs / menu until the hero is full-bleed; hide nav logo until flying-logo handoff. */
 function homeChromeClass(isHome: boolean, visible: boolean) {
@@ -35,22 +43,32 @@ function homeChromeClass(isHome: boolean, visible: boolean) {
 }
 
 export function Navigation() {
+  const pathname = usePathname();
+  /**
+   * Captured at first render so the home page nav stays visible immediately on
+   * client-side navigations back to `/` (after the intro has already played).
+   */
+  const skipHeroIntroRef = useRef(false);
+  if (!skipHeroIntroRef.current && hasHeroIntroPlayed()) {
+    skipHeroIntroRef.current = true;
+  }
+  const skipHeroIntro = skipHeroIntroRef.current;
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [open, setOpen] = useState(false);
   /** Hero peel finished: show links, Enquire, hamburger. */
-  const [heroExpanded, setHeroExpanded] = useState(false);
+  const [heroExpanded, setHeroExpanded] = useState(skipHeroIntro);
   /** Flying logo crossfaded out: show real nav logo. */
-  const [heroHandoffDone, setHeroHandoffDone] = useState(false);
-  const pathname = usePathname();
+  const [heroHandoffDone, setHeroHandoffDone] = useState(skipHeroIntro);
 
   const isHome = pathname === '/';
-  const transparentMode = isHome && !scrolled;
+  const menuLinks = isHome ? links : [{ href: '/', label: 'Home' as const }, ...links];
+  const transparentMode = isHome ? !scrolled : !pastHero;
   const headerHidden = isHome && pastHero;
   const homeChromeHidden = isHome && !heroExpanded;
 
   useEffect(() => {
-    if (!isHome) {
+    if (!isHome || skipHeroIntro) {
       setHeroExpanded(true);
       setHeroHandoffDone(true);
       return;
@@ -70,7 +88,7 @@ export function Navigation() {
       window.removeEventListener(HERO_HANDOFF_EVENT, onHandoff);
       window.clearTimeout(fallback);
     };
-  }, [isHome]);
+  }, [isHome, skipHeroIntro]);
 
   useEffect(() => {
     const update = () => {
@@ -79,7 +97,9 @@ export function Navigation() {
       if (pathname === '/') {
         setPastHero(y >= window.innerHeight);
       } else {
-        setPastHero(false);
+        const heroEl = document.querySelector('[data-page-hero]');
+        const heroHeight = heroEl?.getBoundingClientRect().height ?? 0;
+        setPastHero(heroHeight > 0 && y >= heroHeight - 1);
       }
     };
     update();
@@ -101,6 +121,7 @@ export function Navigation() {
         aria-hidden={headerHidden || homeChromeHidden}
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-luxe',
+          !isHome && 'nav-logo-compact',
           headerHidden && 'pointer-events-none -translate-y-full opacity-0',
           !headerHidden &&
             (transparentMode
@@ -108,24 +129,55 @@ export function Navigation() {
               : 'bg-linen-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.05)]'),
         )}
       >
-        <div className={NAV_HEADER_ROW_CLASS}>
+        <div
+          aria-hidden
+          className={cn(
+            'pointer-events-none absolute inset-x-0 top-0 h-[clamp(6rem,12vw,10rem)] bg-gradient-to-b from-black/55 via-black/25 to-transparent transition-opacity duration-500 ease-luxe',
+            transparentMode && !headerHidden ? 'opacity-100' : 'opacity-0',
+          )}
+        />
+        <div className={cn(NAV_HEADER_ROW_CLASS, 'relative')}>
           <div
             className={cn(
               'z-20 hidden min-w-0 flex-1 items-center justify-start gap-[clamp(1rem,2.2vw,2rem)] md:flex',
               homeChromeClass(isHome, heroExpanded),
             )}
           >
-            {linksLeft.map((l) => (
-              <span
-                key={l.href}
+            {!isHome && (
+              <Link
+                href="/"
+                aria-current={pathname === '/' ? 'page' : undefined}
                 className={cn(
-                  'cursor-default select-none font-sans uppercase tracking-[0.2em] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
-                  transparentMode ? 'text-linen-white' : 'text-charcoal',
+                  navLinkClass,
+                  transparentMode
+                    ? 'text-linen-white hover:text-linen-white/80'
+                    : 'text-charcoal hover:text-harbour',
+                  pathname === '/' &&
+                    (transparentMode ? 'after:bg-linen-white' : 'after:bg-charcoal'),
                 )}
               >
-                {l.label}
-              </span>
-            ))}
+                Home
+              </Link>
+            )}
+            {linksLeft.map((l) => {
+              const active = pathname === l.href || pathname.startsWith(`${l.href}/`);
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    navLinkClass,
+                    transparentMode
+                      ? 'text-linen-white hover:text-linen-white/80'
+                      : 'text-charcoal hover:text-harbour',
+                    active && (transparentMode ? 'after:bg-linen-white' : 'after:bg-charcoal'),
+                  )}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
           </div>
 
           <div
@@ -136,14 +188,15 @@ export function Navigation() {
             }}
           >
             <Image
-              src="/images/logo4.png"
+              src={transparentMode ? '/logos/logo-white.png' : '/logos/logo-navy.png'}
               alt="The Boathouse Residences"
               fill
-              className={cn(
-                'object-contain object-center transition-[filter] duration-300',
-                transparentMode ? 'mix-blend-lighten' : 'invert',
-              )}
-              sizes="(max-width: 768px) 72vw, 448px"
+              className="object-contain object-center transition-opacity duration-300"
+              sizes={
+                isHome
+                  ? '(max-width: 768px) 72vw, 448px'
+                  : '(max-width: 768px) 58vw, 320px'
+              }
               priority
             />
           </div>
@@ -155,26 +208,37 @@ export function Navigation() {
             )}
           >
             <div className="hidden items-center gap-[clamp(1rem,2.2vw,2rem)] md:flex">
-              {linksRight.map((l) => (
-                <span
-                  key={l.href}
-                  className={cn(
-                    'cursor-default select-none font-sans uppercase tracking-[0.2em] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
-                    transparentMode ? 'text-linen-white' : 'text-charcoal',
-                  )}
-                >
-                  {l.label}
-                </span>
-              ))}
+              {linksRight.map((l) => {
+                const active = pathname === l.href || pathname.startsWith(`${l.href}/`);
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={cn(
+                      navLinkClass,
+                      transparentMode
+                        ? 'text-linen-white hover:text-linen-white/80'
+                        : 'text-charcoal hover:text-harbour',
+                      active && (transparentMode ? 'after:bg-linen-white' : 'after:bg-charcoal'),
+                    )}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
             </div>
-            <span
+            <Link
+              href="/enquire"
               className={cn(
-                'hidden cursor-default select-none items-center rounded-none border bg-transparent font-sans uppercase tracking-[0.2em] md:inline-flex px-[clamp(1rem,2vw,1.65rem)] py-[clamp(0.45rem,0.9vw,0.7rem)] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
-                transparentMode ? 'border-white text-linen-white' : 'border-charcoal text-charcoal',
+                'hidden items-center rounded-none border bg-transparent font-sans uppercase tracking-[0.2em] transition-colors md:inline-flex px-[clamp(1rem,2vw,1.65rem)] py-[clamp(0.45rem,0.9vw,0.7rem)] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
+                transparentMode
+                  ? 'border-white text-linen-white hover:bg-linen-white hover:text-charcoal'
+                  : 'border-charcoal text-charcoal hover:bg-charcoal hover:text-linen-white',
               )}
             >
               Enquire
-            </span>
+            </Link>
             <button
               aria-label="Open menu"
               type="button"
@@ -190,7 +254,12 @@ export function Navigation() {
         </div>
       </header>
 
-      <MobileMenu open={open} onClose={() => setOpen(false)} links={links} />
+      <MobileMenu
+        open={open}
+        onClose={() => setOpen(false)}
+        links={menuLinks}
+        compactLogo={!isHome}
+      />
     </>
   );
 }

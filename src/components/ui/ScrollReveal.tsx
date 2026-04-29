@@ -14,6 +14,7 @@ export function ScrollReveal({
   direction = 'up',
   duration = 0.8,
   fadeOnly = false,
+  amount = 0.2,
   className,
 }: {
   children: ReactNode;
@@ -22,6 +23,8 @@ export function ScrollReveal({
   duration?: number;
   /** Opacity-only fade (no slide offset) */
   fadeOnly?: boolean;
+  /** Fraction of element that must be visible before animating in. */
+  amount?: number;
   className?: string;
 }) {
   const variants: Variants = {
@@ -38,7 +41,7 @@ export function ScrollReveal({
       variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount }}
       className={className}
     >
       {children}

@@ -5,17 +5,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        sand: '#E8DFD3',
-        driftwood: '#C4B5A3',
-        harbour: '#4A6670',
-        'deep-navy': '#1E2D3D',
-        'linen-white': '#F5F1EC',
-        rope: '#A69178',
-        'sea-foam': '#B8C9C3',
-        salt: '#FAFAF8',
-        charcoal: '#2C2C2C',
-        cta: '#8B7355',
-        'cta-hover': '#6E5A42',
+        // Brand pack alignment: Harbour Slate (primary), Driftwood (accent),
+        // Shell / Dune Linen (neutrals), Tide, Ink. Tokens keep existing roles.
+        sand: '#DCD6CB',
+        driftwood: '#B0A393',
+        harbour: '#35434B',
+        'deep-navy': '#1A2228',
+        'linen-white': '#EFEBE4',
+        rope: '#9D8C7C',
+        'sea-foam': '#A9B6BC',
+        salt: '#F6F4EE',
+        charcoal: '#26292F',
+        cta: '#7E6B58',
+        'cta-hover': '#5F4F3F',
         available: '#6B8F71',
         'under-offer': '#C4A35A',
         sold: '#8B4D4D',
@@ -24,6 +26,7 @@ const config: Config = {
         display: ['var(--font-display)', 'Georgia', 'serif'],
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         vision: ['var(--font-vision-display)', 'Georgia', 'serif'],
+        gilroy: ['var(--font-gilroy)', 'system-ui', 'sans-serif'],
       },
       transitionTimingFunction: {
         luxe: 'cubic-bezier(0.25, 0.1, 0.25, 1)',

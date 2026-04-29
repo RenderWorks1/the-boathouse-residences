@@ -126,7 +126,7 @@ export function EnquiryForm({
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="inline-flex w-full items-center justify-center rounded-full bg-cta font-sans uppercase tracking-[0.25em] text-white transition-colors hover:bg-cta-hover disabled:opacity-60 md:w-auto px-[clamp(1.75rem,3.5vw,2.75rem)] py-[clamp(0.85rem,1.5vw,1.1rem)] text-[clamp(0.625rem,0.28vw+0.52rem,0.75rem)]"
+                className="inline-flex w-full items-center justify-center rounded-full bg-harbour font-sans uppercase tracking-[0.25em] text-white transition-colors hover:bg-deep-navy disabled:opacity-60 md:w-auto px-[clamp(1.75rem,3.5vw,2.75rem)] py-[clamp(0.85rem,1.5vw,1.1rem)] text-[clamp(0.625rem,0.28vw+0.52rem,0.75rem)]"
               >
                 {status === 'loading' ? 'Submitting…' : 'Submit'}
               </button>
@@ -135,14 +135,6 @@ export function EnquiryForm({
         </ScrollReveal>
       )}
 
-      <div className="mt-[clamp(2.5rem,5vw,4rem)] text-center font-sans font-light leading-loose text-charcoal/70 text-[clamp(0.8125rem,0.35vw+0.72rem,0.9375rem)]">
-        <p className="font-display uppercase tracking-[0.3em] text-harbour text-[clamp(0.65rem,0.22vw+0.55rem,0.8rem)]">
-          Sales Suite Open Daily
-        </p>
-        <p className="mt-3 text-sm">123 Boathouse Way, Waterfront City</p>
-        <p className="text-sm">1300 BOATHOUSE</p>
-        <p className="text-sm">info@boathouseresidences.com</p>
-      </div>
     </>
   );
 

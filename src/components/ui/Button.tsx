@@ -11,7 +11,7 @@ type Base = {
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-deep-navy text-linen-white shadow-sm hover:bg-harbour hover:text-linen-white',
+    'bg-harbour text-linen-white shadow-sm hover:bg-deep-navy hover:text-linen-white',
   outline: 'border border-linen-white/70 text-linen-white hover:bg-linen-white hover:text-charcoal',
   ghost: 'text-harbour hover:text-deep-navy',
 };
