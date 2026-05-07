@@ -95,7 +95,7 @@ export function MobileMenu({
                   onClick={onClose}
                   className="inline-flex items-center rounded-none border border-white bg-transparent font-sans uppercase tracking-[0.2em] text-linen-white transition-colors hover:bg-linen-white hover:text-charcoal px-[clamp(1.35rem,3vw,2.25rem)] py-[clamp(0.65rem,1.5vw,0.9rem)] text-[clamp(0.75rem,0.35vw+0.65rem,0.875rem)]"
                 >
-                  Enquire
+                  Enquire Now
                 </Link>
               </motion.div>
             </div>

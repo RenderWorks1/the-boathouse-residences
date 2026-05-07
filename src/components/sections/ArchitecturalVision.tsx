@@ -1,5 +1,14 @@
-import { StaggerReveal, StaggerItem } from '@/components/ui/ScrollReveal';
-import { LinkButton } from '@/components/ui/Button';
+'use client';
+
+import { useEffect, useRef } from 'react';
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+} from 'framer-motion';
 import { VisionParallaxImage } from '@/components/ui/VisionParallaxImage';
 
 export function ArchitecturalVision({
@@ -9,43 +18,58 @@ export function ArchitecturalVision({
 }: {
   heading: string;
   body: string;
-  /** Still from the nested sequence (~3s), under /public. */
   imageSrc?: string;
 }) {
+  /** Watching the paragraph itself rather than the (much taller) section,
+   *  so the trigger reliably fires when the text is on-screen. */
+  const ref = useRef<HTMLParagraphElement>(null);
+  const reduceMotion = useReducedMotion();
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  /** Boundary travels from -10% (band sits entirely above the text — nothing
+   *  visible) to 110% (band entirely below — fully visible). 10% soft
+   *  trailing edge for a gentle per-line fade. */
+  const reveal = useMotionValue(reduceMotion ? 110 : -10);
+  const mask = useMotionTemplate`linear-gradient(to bottom, black 0%, black ${reveal}%, transparent calc(${reveal}% + 10%))`;
+
+  useEffect(() => {
+    if (reduceMotion) {
+      reveal.set(110);
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(reveal, 110, {
+      duration: 4.5,
+      delay: 0.6,
+      ease: [0.25, 0.1, 0.25, 1],
+    });
+    return () => controls.stop();
+  }, [inView, reduceMotion, reveal]);
+
   return (
-    <section className="bg-salt">
-      <div className="section-px section-py w-full">
-        <div className="mx-auto flex w-full max-w-full flex-col items-center gap-section">
-          <div className="relative aspect-video w-[90%] max-w-full min-w-0 overflow-hidden rounded-sm bg-driftwood/15">
+    <section className="bg-salt" aria-label={heading}>
+      <div className="section-px pt-[clamp(2.5rem,5vw+1rem,7rem)] pb-[clamp(2.5rem,5vw+1rem,7rem)] w-full">
+        <div className="mx-auto flex w-full max-w-[88rem] flex-col gap-[clamp(5rem,10vw,9rem)]">
+          <div className="relative mx-auto aspect-video w-full max-w-full overflow-hidden rounded-sm bg-driftwood/15">
             <VisionParallaxImage
               src={imageSrc}
               alt={`${heading} — design detail`}
               className="absolute inset-0 h-full w-full"
             />
           </div>
-          <StaggerReveal className="mx-auto flex w-full max-w-none min-w-0 flex-col items-center gap-[clamp(1.75rem,3.5vw+0.35rem,2.75rem)] py-10 text-center sm:max-w-md md:max-w-lg md:py-14">
-            <StaggerItem>
-              <h2 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-                {heading}
-              </h2>
-            </StaggerItem>
-            <StaggerItem>
-              <p className="w-full font-sans text-[clamp(1.125rem,0.52vw+0.95rem,1.375rem)] font-light leading-[1.65] text-charcoal">
-                {body}
-              </p>
-            </StaggerItem>
-            <StaggerItem className="w-full pt-6 md:pt-8">
-              <div className="flex w-full justify-center">
-                <LinkButton
-                  href="/vision"
-                  variant="ghost"
-                  className="font-vision normal-case tracking-tight text-charcoal hover:text-charcoal/85 hover:bg-charcoal/[0.06] border border-charcoal/25 rounded-sm px-[clamp(1.25rem,2vw+0.5rem,1.85rem)] py-[clamp(0.55rem,0.9vw+0.35rem,0.75rem)] text-[clamp(0.875rem,0.5vw+0.75rem,1rem)] font-normal shadow-none transition-colors hover:border-charcoal/40"
-                >
-                  Explore Vision
-                </LinkButton>
-              </div>
-            </StaggerItem>
-          </StaggerReveal>
+          <motion.p
+            ref={ref}
+            style={{
+              WebkitMaskImage: mask,
+              maskImage: mask,
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskSize: '100% 100%',
+              maskSize: '100% 100%',
+            }}
+            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.65rem,3.4vw+0.85rem,4.25rem)]"
+          >
+            {body}
+          </motion.p>
         </div>
       </div>
     </section>

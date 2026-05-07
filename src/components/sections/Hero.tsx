@@ -38,11 +38,18 @@ type HeroProps = {
 const EASE = [0.22, 1, 0.36, 1] as const;
 const EASE_LAND = [0.33, 0, 0.05, 1] as const;
 
-const INTRO_BG = '#1a1917';
+const INTRO_BG = '#C7C3BD';
 
 /** Mask clips away all media — logo reads on solid intro bg only. */
 const CLIP_HIDDEN = 'inset(50% 50% 50% 50%)';
-const CLIP_CLOSED = 'inset(12% 38% 12% 38%)';
+/** Bottom anchor for the growth — keeps the bottom edge fixed while the
+ *  top edge moves upward, so the box appears to grow only upwards. Tuned
+ *  so the line sits just below the centred logo. */
+const CLIP_BOTTOM = 32;
+/** Horizontal line just below the logo. Zero height (top + bottom = 100%). */
+const CLIP_LINE = `inset(${100 - CLIP_BOTTOM}% 38% ${CLIP_BOTTOM}% 38%)`;
+/** Box grown only upward — top has shrunk, bottom stays anchored. */
+const CLIP_CLOSED = `inset(22% 38% ${CLIP_BOTTOM}% 38%)`;
 const CLIP_OPEN = 'inset(0% 0% 0% 0%)';
 
 /**
@@ -50,14 +57,14 @@ const CLIP_OPEN = 'inset(0% 0% 0% 0%)';
  * Move + zoom run on one transform in Framer — avoids vw/calc vs. var() width
  * interpolation that makes travel and resize feel out of sync.
  */
-const INTRO_LOGO_SCALE = 1.66;
+const INTRO_LOGO_SCALE = 2.6;
 
 /** Logo on dark bg only — no video portal yet (~1–2s). */
 const LOGO_ONLY_HOLD_MS = 2000;
 /** Portal grows from fully hidden → small square. */
-const MASK_SQUARE_IN_S = 0.65;
+const MASK_SQUARE_IN_S = 1.4;
 /** Full-bleed expansion after the square is visible. */
-const REVEAL_CLIP_S = 1.35;
+const REVEAL_CLIP_S = 2.4;
 /** When the rollup to full bleed starts (after hold + square-in). */
 const REVEAL_START_MS = LOGO_ONLY_HOLD_MS + MASK_SQUARE_IN_S * 1000;
 const FINAL_STAGE_MS = REVEAL_START_MS + REVEAL_CLIP_S * 1000;
@@ -71,8 +78,15 @@ export function Hero({
 }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
-  /** Captured at first render — stable across re-renders even after the flag flips to true. */
-  const skipIntroRef = useRef(hasHeroIntroPlayed());
+  /** Captured at first render — stable across re-renders even after the flag flips to true.
+   *  Skip the intro if (a) it has already played in this session, or (b) the page
+   *  is loading with the user already scrolled past the hero (e.g. after a hard
+   *  refresh further down the page) — otherwise the fixed flying logo would
+   *  briefly cover the section the user is actually looking at. */
+  const skipIntroRef = useRef(
+    hasHeroIntroPlayed() ||
+      (typeof window !== 'undefined' && window.scrollY > window.innerHeight * 0.4),
+  );
   const skipIntro = skipIntroRef.current;
   const [stage, setStage] = useState<Stage>(() =>
     skipIntroRef.current ? 'final' : 'logoOnly',
@@ -140,18 +154,26 @@ export function Hero({
   }, [reducedMotion, skipIntro, logoReady]);
 
   useEffect(() => {
-    if (stage !== 'final') return;
-    dispatchHeroExpanded();
-    if (reducedMotion || skipIntro) {
-      dispatchHeroHandoff();
-      markHeroIntroPlayed();
+    if (skipIntro || reducedMotion) {
+      if (stage === 'final') {
+        dispatchHeroExpanded();
+        dispatchHeroHandoff();
+        markHeroIntroPlayed();
+      }
       return;
     }
-    const t = window.setTimeout(() => {
-      dispatchHeroHandoff();
+    if (stage === 'reveal') {
+      // Logo travel runs in parallel with the reveal mask expansion.
+      // Hand off to the nav logo as the crossfade window begins.
+      const t = window.setTimeout(() => {
+        dispatchHeroHandoff();
+      }, logoHandoffDelayMs());
+      return () => window.clearTimeout(t);
+    }
+    if (stage === 'final') {
+      dispatchHeroExpanded();
       markHeroIntroPlayed();
-    }, logoHandoffDelayMs());
-    return () => window.clearTimeout(t);
+    }
   }, [stage, reducedMotion, skipIntro]);
 
   useEffect(() => {
@@ -165,16 +187,21 @@ export function Hero({
   }, [stage]);
 
   const maskVariants: Variants = {
+    // Mask collapsed to a zero-height horizontal line at vertical centre.
+    // Stationary — the line stays in place, then grows.
     logoOnly: {
-      clipPath: CLIP_HIDDEN,
+      clipPath: CLIP_LINE,
       opacity: 1,
       transition: { duration: 0 },
     },
+    // Vertical growth: top + bottom insets shrink so the horizontal line
+    // expands upward and downward into the centred square.
     intro: {
       clipPath: CLIP_CLOSED,
       opacity: 1,
       transition: { duration: MASK_SQUARE_IN_S, ease: EASE },
     },
+    // Even expansion from the square out to full bleed.
     reveal: {
       clipPath: CLIP_OPEN,
       opacity: 1,
@@ -210,6 +237,18 @@ export function Hero({
     filter: 'blur(0px)',
   };
 
+  const logoTravelTarget = {
+    top: 'var(--nav-logo-slot-top)',
+    left: '50%',
+    x: '-50%',
+    y: 0,
+    width: 'var(--nav-logo-width)',
+    height: 'var(--nav-logo-height)',
+    scale: 1,
+    opacity: 0,
+    filter: 'blur(0px)',
+  };
+
   const logoVariants: Variants = {
     logoOnly: {
       ...logoCentre,
@@ -224,27 +263,11 @@ export function Hero({
     intro: {
       ...logoCentre,
     },
+    // Logo travels to the header slot in parallel with the mask reveal
+    // expanding to full bleed. Crossfade to the nav logo near the end of
+    // the travel.
     reveal: {
-      top: '50%',
-      left: '50%',
-      x: '-50%',
-      y: '-50%',
-      width: 'var(--nav-logo-width)',
-      height: 'var(--nav-logo-height)',
-      scale: INTRO_LOGO_SCALE,
-      opacity: 1,
-      filter: 'blur(0px)',
-    },
-    final: {
-      top: 'var(--nav-logo-slot-top)',
-      left: '50%',
-      x: '-50%',
-      y: 0,
-      width: 'var(--nav-logo-width)',
-      height: 'var(--nav-logo-height)',
-      scale: 1,
-      opacity: 0,
-      filter: 'blur(0px)',
+      ...logoTravelTarget,
       transition: {
         ...logoTravelTransition,
         opacity: {
@@ -253,6 +276,10 @@ export function Hero({
           ease: [...LOGO_CROSSFADE_EASE],
         },
       },
+    },
+    final: {
+      ...logoTravelTarget,
+      transition: { duration: 0 },
     },
   };
 
@@ -264,7 +291,7 @@ export function Hero({
     >
       <motion.div
         className="pointer-events-none absolute inset-0"
-        initial={skipIntro ? false : { clipPath: CLIP_HIDDEN, opacity: 1 }}
+        initial={skipIntro ? false : { clipPath: CLIP_LINE, opacity: 1 }}
         variants={maskVariants}
         animate={stage}
         style={{ willChange: 'clip-path' }}
@@ -295,7 +322,6 @@ export function Hero({
           <source src={videoUrl} type="video/mp4" />
         </video>
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-deep-navy/25 via-transparent to-deep-navy/40" />
       </motion.div>
 
       <motion.div

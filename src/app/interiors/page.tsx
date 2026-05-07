@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/shared/PageHero';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
-import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { ScrollReveal, ScrollLinkedSlide } from '@/components/ui/ScrollReveal';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
 
 export const metadata: Metadata = {
@@ -30,37 +30,41 @@ const schemes = [
 export default function InteriorsPage() {
   return (
     <>
-      <PageHero image="/images/studio_int_v2.jpg" eyebrow="Interiors" title="A Refined Interior Palette" />
+      <PageHero
+        image="/images/studio_int_v2.jpg"
+        videoUrl="/interiorvideo.mp4"
+        title="A Refined Interior Palette"
+      />
 
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none">
           <div className="mx-auto flex max-w-[88rem] flex-col gap-[clamp(2.75rem,6vw,4.5rem)]">
-            <ScrollReveal direction="left" amount={0.7} className="self-start max-w-[72rem]">
+            <ScrollLinkedSlide from="left" distance={220} range={['start end', 'end center']} className="self-start max-w-[72rem]">
               <h2 className="text-left font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                 A Refined Interior Palette
               </h2>
-            </ScrollReveal>
-            <ScrollReveal direction="right" amount={0.7} className="self-end max-w-[72rem]">
+            </ScrollLinkedSlide>
+            <ScrollLinkedSlide from="right" distance={220} range={['start end', 'end center']} className="self-end max-w-[72rem]">
               <p className="text-balance text-right font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
                 Interiors are defined by simplicity and precision, with a palette of natural, muted tones
                 that blend seamlessly with the surrounding landscape and reflect the tranquillity of the
                 marina setting. Each space is carefully composed to feel balanced, creating a quiet sense of
                 retreat within the home.
               </p>
-            </ScrollReveal>
-            <ScrollReveal direction="left" amount={0.7} className="self-start max-w-[72rem]">
+            </ScrollLinkedSlide>
+            <ScrollLinkedSlide from="left" distance={220} range={['start end', 'end center']} className="self-start max-w-[72rem]">
               <p className="text-balance text-left font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
                 Living spaces open seamlessly to private decks, framing water and sky as part of the
                 everyday. Kitchens are defined by clean detailing and refined finishes, while bedrooms offer
                 a sense of privacy and calm.
               </p>
-            </ScrollReveal>
-            <ScrollReveal direction="right" amount={0.7} className="self-end max-w-[72rem]">
+            </ScrollLinkedSlide>
+            <ScrollLinkedSlide from="right" distance={220} range={['start end', 'end center']} className="self-end max-w-[72rem]">
               <p className="text-balance text-right font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
                 A curated material palette, selected for its quality and longevity, introduces depth and
                 texture while maintaining a restrained and elevated interior environment.
               </p>
-            </ScrollReveal>
+            </ScrollLinkedSlide>
           </div>
         </div>
       </section>
@@ -114,28 +118,26 @@ export default function InteriorsPage() {
                 </div>
               </div>
             </section>
-
-            {i === 0 && (
-              <section className="bg-salt">
-                <div className="section-py w-full max-w-none">
-                  <ImageCarousel
-                    slides={[
-                      { src: '/images/studio_int_v1.jpg', alt: 'Studio interior render' },
-                      { src: '/images/studio_int_v3.jpg', alt: 'Studio living detail' },
-                      { src: '/images/studio_int_v4.jpg', alt: 'Studio outlook' },
-                      { src: '/images/studio_int_v5.jpg', alt: 'Studio kitchen' },
-                      { src: '/images/2bedroom_v3_.jpg', alt: 'Two-bedroom living' },
-                      { src: '/images/2bedroom_v7.jpg', alt: 'Two-bedroom interior' },
-                      { src: '/images/2bedroom_v9.jpg', alt: 'Two-bedroom outlook' },
-                      { src: '/images/2bedroom_v10_.jpg', alt: 'Two-bedroom detail' },
-                    ]}
-                  />
-                </div>
-              </section>
-            )}
           </Fragment>
         );
       })}
+
+      <section className="bg-salt">
+        <div className="section-py w-full max-w-none">
+          <ImageCarousel
+            slides={[
+              { src: '/images/studio_int_v1.jpg', alt: 'Studio interior render' },
+              { src: '/images/studio_int_v3.jpg', alt: 'Studio living detail' },
+              { src: '/images/studio_int_v4.jpg', alt: 'Studio outlook' },
+              { src: '/images/studio_int_v5.jpg', alt: 'Studio kitchen' },
+              { src: '/images/2bedroom_v3_.jpg', alt: 'Two-bedroom living' },
+              { src: '/images/2bedroom_v7.jpg', alt: 'Two-bedroom interior' },
+              { src: '/images/2bedroom_v9.jpg', alt: 'Two-bedroom outlook' },
+              { src: '/images/2bedroom_v10_.jpg', alt: 'Two-bedroom detail' },
+            ]}
+          />
+        </div>
+      </section>
 
       <section className="bg-salt">
         <div className="section-px section-py-tight w-full max-w-none text-center">
@@ -145,6 +147,34 @@ export default function InteriorsPage() {
               understated backdrop to life by the water.
             </p>
           </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="bg-salt">
+        <div className="section-px pb-[var(--section-pad-y)] w-full max-w-none">
+          <div className="mx-auto grid w-full max-w-[78rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-3">
+            {[
+              { src: '/images/finish1.jpeg', alt: 'Material finish — sample one' },
+              { src: '/images/finish2.jpeg', alt: 'Material finish — sample two' },
+              { src: '/images/finish3.jpeg', alt: 'Material finish — sample three' },
+            ].map((f, i) => (
+              <ScrollReveal
+                key={f.src}
+                direction={i === 0 ? 'left' : i === 2 ? 'right' : 'up'}
+                delay={i * 0.08}
+              >
+                <div className="group relative aspect-[4/5] w-full overflow-hidden">
+                  <Image
+                    src={f.src}
+                    alt={f.alt}
+                    fill
+                    sizes="(min-width:768px) 30vw, 90vw"
+                    className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
+                  />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
     </>

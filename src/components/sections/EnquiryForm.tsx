@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { cn } from '@/lib/utils';
 
@@ -15,6 +16,26 @@ const sources = [
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+type TurnstileOptions = {
+  sitekey: string;
+  callback: (token: string) => void;
+  'expired-callback'?: () => void;
+  'error-callback'?: () => void;
+  theme?: 'light' | 'dark' | 'auto';
+};
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, opts: TurnstileOptions) => string;
+      reset: (widgetId?: string) => void;
+    };
+    onloadTurnstileCallback?: () => void;
+  }
+}
+
 export function EnquiryForm({
   variant = 'section',
   residenceId,
@@ -24,15 +45,51 @@ export function EnquiryForm({
 }) {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string>('');
+  const [emailMismatch, setEmailMismatch] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState('');
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+    function renderWidget() {
+      if (!window.turnstile || !turnstileRef.current || widgetIdRef.current) return;
+      widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY!,
+        callback: (token) => setCaptchaToken(token),
+        'expired-callback': () => setCaptchaToken(''),
+        'error-callback': () => setCaptchaToken(''),
+        theme: 'light',
+      });
+    }
+    if (window.turnstile) renderWidget();
+    else window.onloadTurnstileCallback = renderWidget;
+  }, []);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus('loading');
     setError('');
+    setEmailMismatch(false);
 
     const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd.entries());
-    if (residenceId) (payload as Record<string, unknown>).residenceId = residenceId;
+    const email = String(fd.get('email') || '').trim();
+    const confirmEmail = String(fd.get('confirmEmail') || '').trim();
+    if (email.toLowerCase() !== confirmEmail.toLowerCase()) {
+      setEmailMismatch(true);
+      return;
+    }
+
+    if (TURNSTILE_SITE_KEY && !captchaToken) {
+      setStatus('error');
+      setError('Please complete the verification.');
+      return;
+    }
+
+    setStatus('loading');
+    fd.delete('confirmEmail');
+    const payload: Record<string, unknown> = Object.fromEntries(fd.entries());
+    if (residenceId) payload.residenceId = residenceId;
+    if (captchaToken) payload.turnstileToken = captchaToken;
 
     try {
       const res = await fetch('/api/enquiry', {
@@ -48,6 +105,10 @@ export function EnquiryForm({
     } catch (err) {
       setStatus('error');
       setError(err instanceof Error ? err.message : 'Something went wrong');
+      if (window.turnstile && widgetIdRef.current) {
+        window.turnstile.reset(widgetIdRef.current);
+        setCaptchaToken('');
+      }
     }
   }
 
@@ -57,15 +118,16 @@ export function EnquiryForm({
 
   const body = (
     <>
-      <ScrollReveal className="mb-[clamp(2rem,4vw,3rem)] flex flex-col items-center gap-section-sm text-center">
-        <h2 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-          Enquire Now
-        </h2>
-        <p className="type-body mt-2 font-sans text-charcoal">
-          Leave your details and our sales team will be in touch with availability,
-          price guides and private viewing times.
-        </p>
-      </ScrollReveal>
+      {variant === 'section' && (
+        <ScrollReveal className="mb-[clamp(2rem,4vw,3rem)] flex flex-col items-center gap-section-sm text-center">
+          <h2 className="w-full font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.65rem,3.4vw+0.85rem,4.25rem)]">
+            Enquire Now
+          </h2>
+          <p className="type-body mt-2 font-sans text-charcoal">
+            Our sales team will be in touch to welcome you to your new address on the water…
+          </p>
+        </ScrollReveal>
+      )}
 
       {status === 'success' ? (
         <ScrollReveal>
@@ -90,13 +152,26 @@ export function EnquiryForm({
                 className={inputClass}
               />
               <input
+                name="confirmEmail"
+                type="email"
+                required
+                placeholder="Confirm Email Address *"
+                className={inputClass}
+              />
+              <input
                 name="phone"
                 type="tel"
                 required
                 placeholder="Phone Number *"
-                className={inputClass}
+                className={cn(inputClass, 'md:col-span-2')}
               />
             </div>
+
+            {emailMismatch && (
+              <p className="mt-3 font-sans text-sm text-sold">
+                Email addresses do not match.
+              </p>
+            )}
 
             <div className="mt-8">
               <label className="block font-sans uppercase tracking-[0.25em] text-rope text-[clamp(0.625rem,0.2vw+0.52rem,0.7rem)]">
@@ -118,6 +193,13 @@ export function EnquiryForm({
               </select>
             </div>
 
+            {TURNSTILE_SITE_KEY && (
+              <div
+                ref={turnstileRef}
+                className="mt-[clamp(1.75rem,3vw,2.25rem)] flex min-h-[65px] justify-center"
+              />
+            )}
+
             {status === 'error' && (
               <p className="mt-6 font-sans text-sm text-sold">{error}</p>
             )}
@@ -134,7 +216,6 @@ export function EnquiryForm({
           </form>
         </ScrollReveal>
       )}
-
     </>
   );
 
@@ -143,10 +224,20 @@ export function EnquiryForm({
       id="enquire"
       className={cn('bg-salt', variant === 'section' ? 'section-py' : 'section-py-tight')}
     >
+      {TURNSTILE_SITE_KEY && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
+          strategy="afterInteractive"
+          async
+          defer
+        />
+      )}
       <div
         className={cn(
-          'w-full px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]',
-          variant === 'section' ? 'mx-auto max-w-3xl' : 'max-w-none',
+          'w-full',
+          variant === 'section'
+            ? 'mx-auto max-w-3xl px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]'
+            : 'mx-auto max-w-5xl px-[calc(var(--section-pad-x)+clamp(1.5rem,6vw,5rem))]',
         )}
       >
         {body}

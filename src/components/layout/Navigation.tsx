@@ -19,14 +19,14 @@ import {
 import { MobileMenu } from './MobileMenu';
 
 const linksLeft = [
-  { href: '/residences', label: 'Residences' },
-  { href: '/interiors', label: 'Interiors' },
+  { href: '/residences', label: 'The Residences' },
   { href: '/vision', label: 'Vision' },
+  { href: '/lifestyle', label: 'Lifestyle & Location' },
 ];
 
 const linksRight = [
-  { href: '/masterplan', label: 'Masterplan' },
-  { href: '/lifestyle', label: 'Lifestyle' },
+  { href: '/interiors', label: 'Interior Design' },
+  { href: '/faq', label: 'FAQs' },
 ];
 
 const links = [...linksLeft, ...linksRight];
@@ -98,8 +98,14 @@ export function Navigation() {
         setPastHero(y >= window.innerHeight);
       } else {
         const heroEl = document.querySelector('[data-page-hero]');
-        const heroHeight = heroEl?.getBoundingClientRect().height ?? 0;
-        setPastHero(heroHeight > 0 && y >= heroHeight - 1);
+        if (!heroEl) {
+          // Page has no hero (e.g. /enquire) — treat as already-past-hero so
+          // the header shows its solid state with no top scrim.
+          setPastHero(true);
+        } else {
+          const heroHeight = heroEl.getBoundingClientRect().height;
+          setPastHero(heroHeight > 0 && y >= heroHeight - 1);
+        }
       }
     };
     update();
@@ -133,7 +139,9 @@ export function Navigation() {
           aria-hidden
           className={cn(
             'pointer-events-none absolute inset-x-0 top-0 h-[clamp(6rem,12vw,10rem)] bg-gradient-to-b from-black/55 via-black/25 to-transparent transition-opacity duration-500 ease-luxe',
-            transparentMode && !headerHidden ? 'opacity-100' : 'opacity-0',
+            transparentMode && !headerHidden && !homeChromeHidden
+              ? 'opacity-100'
+              : 'opacity-0',
           )}
         />
         <div className={cn(NAV_HEADER_ROW_CLASS, 'relative')}>
@@ -237,7 +245,7 @@ export function Navigation() {
                   : 'border-charcoal text-charcoal hover:bg-charcoal hover:text-linen-white',
               )}
             >
-              Enquire
+              Enquire Now
             </Link>
             <button
               aria-label="Open menu"

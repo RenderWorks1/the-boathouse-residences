@@ -1,21 +1,80 @@
-import { StaggerReveal, StaggerItem } from '@/components/ui/ScrollReveal';
+'use client';
 
-export function LifestyleIntro({ heading, body }: { heading: string; body: string }) {
+import { useEffect, useRef } from 'react';
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+} from 'framer-motion';
+
+export function LifestyleIntro({
+  body,
+  align = 'center',
+  size = 'lg',
+}: {
+  body: string;
+  align?: 'left' | 'center' | 'right';
+  size?: 'lg' | 'md';
+}) {
+  const alignClass =
+    align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center';
+  const sizeClass =
+    size === 'md'
+      ? 'text-[clamp(1.65rem,3.4vw+0.85rem,4.25rem)]'
+      : 'text-[clamp(2rem,4.5vw+1rem,5.5rem)]';
+  const ref = useRef<HTMLParagraphElement>(null);
+  const reduceMotion = useReducedMotion();
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  /** Boundary travels from -10% (band entirely above the text — nothing
+   *  visible) to 110% (band entirely below — fully visible). Matches the
+   *  ArchitecturalVision section. */
+  const reveal = useMotionValue(reduceMotion ? 110 : -10);
+  const mask = useMotionTemplate`linear-gradient(to bottom, black 0%, black ${reveal}%, transparent calc(${reveal}% + 10%))`;
+
+  useEffect(() => {
+    if (reduceMotion) {
+      reveal.set(110);
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(reveal, 110, {
+      duration: 4.5,
+      delay: 0.6,
+      ease: [0.25, 0.1, 0.25, 1],
+    });
+    return () => controls.stop();
+  }, [inView, reduceMotion, reveal]);
+
   return (
     <section className="bg-salt">
-      <div className="section-px w-full pb-[var(--section-pad-y)] pt-[clamp(5.5rem,12vw+2rem,11rem)] text-center">
-        <StaggerReveal className="flex w-full flex-col items-center gap-section">
-          <StaggerItem>
-            <h2 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-              {heading}
-            </h2>
-          </StaggerItem>
-          <StaggerItem>
-            <p className="font-sans font-light leading-[1.65] text-charcoal px-0 md:px-[clamp(2.5rem,8vw,16rem)] text-[clamp(1.0625rem,0.55vw+0.92rem,1.375rem)]">
-              {body}
-            </p>
-          </StaggerItem>
-        </StaggerReveal>
+      <div
+        className={`section-px w-full py-[clamp(4rem,9vw+1.5rem,9rem)] ${alignClass} ${
+          align === 'left'
+            ? 'pr-[clamp(2rem,8vw,8rem)]'
+            : align === 'right'
+              ? 'pl-[clamp(2rem,8vw,8rem)]'
+              : ''
+        }`}
+      >
+        <div className="mx-auto w-full max-w-[88rem]">
+          <motion.p
+            ref={ref}
+            style={{
+              WebkitMaskImage: mask,
+              maskImage: mask,
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskSize: '100% 100%',
+              maskSize: '100% 100%',
+            }}
+            className={`font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] ${sizeClass}`}
+          >
+            {body}
+          </motion.p>
+        </div>
       </div>
     </section>
   );

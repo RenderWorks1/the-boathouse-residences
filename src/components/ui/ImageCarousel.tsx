@@ -6,9 +6,17 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-type Slide = { src: string; alt: string };
+type Slide = { src: string; alt: string; label?: string };
 
-export function ImageCarousel({ slides }: { slides: Slide[] }) {
+type Variant = 'portrait' | 'landscape';
+
+export function ImageCarousel({
+  slides,
+  variant = 'portrait',
+}: {
+  slides: Slide[];
+  variant?: Variant;
+}) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const reduceMotion = useReducedMotion();
@@ -86,15 +94,39 @@ export function ImageCarousel({ slides }: { slides: Slide[] }) {
           <motion.div
             key={i}
             variants={itemVariants}
-            className="relative aspect-[4/5] w-[min(70vw,28rem)] flex-none snap-center overflow-hidden rounded-sm md:aspect-[3/4] md:w-[min(22vw,20rem)]"
+            className={cn(
+              'flex-none snap-center',
+              variant === 'landscape'
+                ? 'flex w-[min(88vw,56rem)] flex-col gap-[clamp(0.85rem,2vw,1.4rem)] md:w-[min(60vw,52rem)]'
+                : 'relative aspect-[4/5] w-[min(85vw,38rem)] overflow-hidden rounded-sm md:aspect-[3/4] md:w-[min(34vw,30rem)]',
+            )}
           >
-            <Image
-              src={s.src}
-              alt={s.alt}
-              fill
-              sizes="(min-width:768px) 25vw, 70vw"
-              className="object-cover transition-transform duration-700 hover:scale-105"
-            />
+            {variant === 'landscape' ? (
+              <>
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-[#E4E0DC]">
+                  <Image
+                    src={s.src}
+                    alt={s.alt}
+                    fill
+                    sizes="(min-width:768px) 60vw, 88vw"
+                    className="object-contain"
+                  />
+                </div>
+                {s.label ? (
+                  <span className="block text-center font-sans uppercase tracking-[0.32em] text-harbour text-[clamp(0.75rem,0.28vw+0.65rem,0.9rem)]">
+                    {s.label}
+                  </span>
+                ) : null}
+              </>
+            ) : (
+              <Image
+                src={s.src}
+                alt={s.alt}
+                fill
+                sizes="(min-width:768px) 25vw, 70vw"
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            )}
           </motion.div>
         ))}
       </motion.div>
