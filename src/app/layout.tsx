@@ -43,6 +43,14 @@ const gilroy = localFont({
   preload: false,
 });
 
+/** Atteron — display serif used for marketing-style titles. */
+const atteron = localFont({
+  src: [{ path: '../../public/atteron/Atteron.woff2', weight: '400', style: 'normal' }],
+  variable: '--font-atteron',
+  display: 'swap',
+  preload: false,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://theboathouseresidences.com'),
   title: {
@@ -69,7 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${visionDisplay.variable} ${gilroy.variable}`}
+      className={`${display.variable} ${sans.variable} ${visionDisplay.variable} ${gilroy.variable} ${atteron.variable}`}
     >
       <head>
         {/* Preload the hero/nav logo at HTML-parse time so it's ready before

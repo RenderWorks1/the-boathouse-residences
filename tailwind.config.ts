@@ -27,6 +27,7 @@ const config: Config = {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         vision: ['var(--font-vision-display)', 'Georgia', 'serif'],
         gilroy: ['var(--font-gilroy)', 'system-ui', 'sans-serif'],
+        atteron: ['var(--font-atteron)', 'Georgia', 'serif'],
       },
       transitionTimingFunction: {
         luxe: 'cubic-bezier(0.25, 0.1, 0.25, 1)',

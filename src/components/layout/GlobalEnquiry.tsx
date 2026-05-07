@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 
-const SKIP = new Set(['/', '/enquire']);
+const SKIP = new Set(['/', '/enquire', '/interiors', '/lifestyle', '/faq']);
 
 export function GlobalEnquiry() {
   const pathname = usePathname() ?? '/';

@@ -8,10 +8,32 @@ type Payload = {
   phone?: string;
   source?: string;
   residenceId?: string;
+  turnstileToken?: string;
 };
 
 function isEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY;
+
+async function verifyTurnstile(token: string | undefined, ip: string | null) {
+  if (!TURNSTILE_SECRET) return { ok: true } as const;
+  if (!token) return { ok: false, reason: 'missing-token' } as const;
+  try {
+    const params = new URLSearchParams();
+    params.set('secret', TURNSTILE_SECRET);
+    params.set('response', token);
+    if (ip) params.set('remoteip', ip);
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: params,
+    });
+    const data = (await res.json()) as { success: boolean };
+    return data.success ? ({ ok: true } as const) : ({ ok: false, reason: 'failed' } as const);
+  } catch {
+    return { ok: false, reason: 'verify-error' } as const;
+  }
 }
 
 export async function POST(req: Request) {
@@ -22,7 +44,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { firstName, lastName, email, phone, source, residenceId } = body;
+  const { firstName, lastName, email, phone, source, residenceId, turnstileToken } = body;
+
+  const ip =
+    req.headers.get('cf-connecting-ip') ||
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    null;
+  const captcha = await verifyTurnstile(turnstileToken, ip);
+  if (!captcha.ok) {
+    return NextResponse.json(
+      { error: 'Verification failed. Please try again.' },
+      { status: 400 },
+    );
+  }
 
   if (!email || !isEmail(email)) {
     return NextResponse.json({ error: 'A valid email is required.' }, { status: 400 });
