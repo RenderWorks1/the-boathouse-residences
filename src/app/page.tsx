@@ -52,14 +52,19 @@ export default function HomePage() {
       <Script id="ld-org" type="application/ld+json" strategy="afterInteractive">
         {JSON.stringify(jsonLd)}
       </Script>
-      <Hero image={heroImage} videoUrl="/boathouses-hero-vid.mp4" />
+      <Hero image={heroImage} videoUrl="/herovideo.mp4" />
       <LifestyleIntro body={fallback.lifestyleBodyA} align="left" size="md" />
+      <FlagStatement
+        imageSrc="/images/backoflaunch.jpg"
+        imageAlt="Back of launch"
+        body={fallback.lifestyleBodyB}
+        imageSide="right"
+      />
       <FullBleedImage
         src={fullBleedLifestyleImage}
         alt="Waterfront lifestyle"
         videoUrl="/harbourside-living.mp4"
       />
-      <LifestyleIntro body={fallback.lifestyleBodyB} size="md" align="right" />
       <ArchitecturalVision heading={fallback.visionHeading} body={fallback.visionBody} />
       <FlagStatement
         imageSrc="/rope.jpg"
@@ -75,10 +80,10 @@ export default function HomePage() {
       <RippleSpacerSection />
       <CoastalLiving slides={coastalLivingImages} />
       <ParallaxSection
-        image="/images/nested-sequence-43-frame.jpg"
-        alt="Boathouse Residences — harbourside detail"
+        image="/birdseye.jpg"
+        alt="Boathouse Residences — birdseye view"
         height="lg"
-        overlayOpacity={0}
+        overlayOpacity={0.4}
         strength={0.28}
       />
       <ResidencesTriptych

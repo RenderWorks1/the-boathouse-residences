@@ -14,7 +14,7 @@ import { VisionParallaxImage } from '@/components/ui/VisionParallaxImage';
 export function ArchitecturalVision({
   heading,
   body,
-  imageSrc = '/images/architectural-vision-frame.jpg',
+  imageSrc = '/images/ropesonboatlandscape4k.jpeg',
 }: {
   heading: string;
   body: string;
@@ -49,13 +49,26 @@ export function ArchitecturalVision({
     <section className="bg-salt" aria-label={heading}>
       <div className="section-px pt-[clamp(2.5rem,5vw+1rem,7rem)] pb-[clamp(2.5rem,5vw+1rem,7rem)] w-full">
         <div className="mx-auto flex w-full max-w-[88rem] flex-col gap-[clamp(5rem,10vw,9rem)]">
-          <div className="relative mx-auto aspect-video w-full max-w-full overflow-hidden rounded-sm bg-driftwood/15">
+          <motion.div
+            className="relative mx-auto aspect-video w-full max-w-full overflow-hidden rounded-sm"
+            style={{ transformOrigin: '50% 100%' }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.86 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.22 }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+          >
             <VisionParallaxImage
               src={imageSrc}
               alt={`${heading} — design detail`}
               className="absolute inset-0 h-full w-full"
+              animate={false}
             />
-          </div>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
+            />
+          </motion.div>
           <motion.p
             ref={ref}
             style={{
