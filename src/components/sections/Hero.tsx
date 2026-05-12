@@ -47,17 +47,17 @@ const CLIP_HIDDEN = 'inset(50% 50% 50% 50%)';
  *  so the line sits just below the centred logo. */
 const CLIP_BOTTOM = 32;
 /** Horizontal line just below the logo. Zero height (top + bottom = 100%). */
-const CLIP_LINE = `inset(${100 - CLIP_BOTTOM}% 38% ${CLIP_BOTTOM}% 38%)`;
+const CLIP_LINE = `inset(${100 - CLIP_BOTTOM}% 43% ${CLIP_BOTTOM}% 43%)`;
 /** Box grown only upward — top has shrunk, bottom stays anchored. */
-const CLIP_CLOSED = `inset(22% 38% ${CLIP_BOTTOM}% 38%)`;
+const CLIP_CLOSED = `inset(22% 43% ${CLIP_BOTTOM}% 43%)`;
 const CLIP_OPEN = 'inset(0% 0% 0% 0%)';
 
-/**
- * Scale-up from the real header box (width/height = CSS vars the whole time).
- * Move + zoom run on one transform in Framer — avoids vw/calc vs. var() width
- * interpolation that makes travel and resize feel out of sync.
- */
-const INTRO_LOGO_SCALE = 2.6;
+/** Intro logo dimensions — 60% of viewport width on every screen.
+ *  Height follows the logo's natural aspect (~3.534:1) but uses a slightly
+ *  generous 18vw box; the inner <Image> is object-contain so it'll fit
+ *  correctly within. */
+const INTRO_LOGO_WIDTH = '50vw';
+const INTRO_LOGO_HEIGHT = '15vw';
 
 /** Logo on dark bg only — no video portal yet (~1–2s). */
 const LOGO_ONLY_HOLD_MS = 2000;
@@ -230,9 +230,9 @@ export function Hero({
     left: '50%',
     x: '-50%',
     y: '-50%',
-    width: 'var(--nav-logo-width)',
-    height: 'var(--nav-logo-height)',
-    scale: INTRO_LOGO_SCALE,
+    width: INTRO_LOGO_WIDTH,
+    height: INTRO_LOGO_HEIGHT,
+    scale: 1,
     opacity: 1,
     filter: 'blur(0px)',
   };
@@ -335,9 +335,9 @@ export function Hero({
                 left: '50%',
                 x: '-50%',
                 y: '-50%',
-                width: 'var(--nav-logo-width)',
-                height: 'var(--nav-logo-height)',
-                scale: INTRO_LOGO_SCALE,
+                width: INTRO_LOGO_WIDTH,
+                height: INTRO_LOGO_HEIGHT,
+                scale: 1,
                 opacity: 0,
                 filter: 'blur(10px)',
               }

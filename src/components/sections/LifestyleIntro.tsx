@@ -51,15 +51,19 @@ export function LifestyleIntro({
   return (
     <section className="bg-salt">
       <div
-        className={`section-px w-full py-[clamp(4rem,9vw+1.5rem,9rem)] ${alignClass} ${
+        className={`w-full py-[clamp(4rem,9vw+1.5rem,9rem)] ${alignClass} ${
           align === 'left'
-            ? 'pr-[clamp(2rem,8vw,8rem)]'
+            ? 'pl-[clamp(1.5rem,3vw+0.5rem,3.5rem)] pr-[clamp(2rem,8vw,8rem)]'
             : align === 'right'
-              ? 'pl-[clamp(2rem,8vw,8rem)]'
-              : ''
+              ? 'pr-[clamp(1.5rem,3vw+0.5rem,3.5rem)] pl-[clamp(2rem,8vw,8rem)]'
+              : 'section-px'
         }`}
       >
-        <div className="mx-auto w-full max-w-[88rem]">
+        <div
+          className={
+            align === 'center' ? 'mx-auto w-full max-w-[88rem]' : 'w-full'
+          }
+        >
           <motion.p
             ref={ref}
             style={{
