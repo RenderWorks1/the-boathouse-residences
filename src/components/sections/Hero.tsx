@@ -325,7 +325,7 @@ export function Hero({
       </motion.div>
 
       <motion.div
-        className="pointer-events-none fixed z-[60] overflow-hidden"
+        className="pointer-events-none absolute z-[60] overflow-hidden"
         style={{ transformOrigin: '50% 50%' }}
         initial={
           skipIntro
