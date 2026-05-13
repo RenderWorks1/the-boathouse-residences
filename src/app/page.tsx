@@ -12,7 +12,6 @@ import { ResidencesTriptych } from '@/components/sections/ResidencesTriptych';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import {
   heroImage,
-  fullBleedLifestyleImage,
   coastalLivingImages,
 } from '@/lib/placeholder-images';
 
@@ -61,7 +60,7 @@ export default function HomePage() {
         imageSide="right"
       />
       <FullBleedImage
-        src={fullBleedLifestyleImage}
+        src="/images/harbourside-living-poster.jpg"
         alt="Waterfront lifestyle"
         videoUrl="/harbourside-living.mp4"
       />

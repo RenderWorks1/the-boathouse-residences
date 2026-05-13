@@ -53,7 +53,11 @@ const residenceEyebrowClass =
 export default function ResidencesPage() {
   return (
     <>
-      <PageHero image="/images/sectionheros/BVP09104.jpg" title="A Collection by the Water" />
+      <PageHero
+        image="/hero-videos/residences-poster.jpg"
+        title="A Collection by the Water"
+        videoUrl="/hero-videos/residences.mp4"
+      />
 
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none">

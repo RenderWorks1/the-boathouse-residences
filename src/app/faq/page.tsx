@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function FaqPage() {
   return (
-    <section className="pt-[clamp(7rem,14vw+2rem,10rem)]">
+    <section className="bg-salt pt-[clamp(3rem,6vw+0.5rem,5rem)]">
       <Faq />
     </section>
   );

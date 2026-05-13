@@ -19,6 +19,9 @@ export function ImageCarousel({
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+  const [reachableCount, setReachableCount] = useState(slides.length);
   const reduceMotion = useReducedMotion();
 
   const { containerVariants, itemVariants } = useMemo(() => {
@@ -50,14 +53,35 @@ export function ImageCarousel({
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    const onScroll = () => {
+    const update = () => {
       const children = Array.from(el.children) as HTMLElement[];
-      const center = el.scrollLeft + el.clientWidth / 2;
+      if (children.length === 0) return;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      const padLeft = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
+      const isAtStart = el.scrollLeft <= 1;
+      const isAtEnd = el.scrollLeft >= maxScroll - 1;
+      setAtStart(isAtStart);
+      setAtEnd(isAtEnd);
+      // A slide is a reachable "page" when its snap-start position fits within
+      // the scroll range (i.e. offsetLeft - padLeft <= maxScroll). Slides
+      // beyond that are visible as the trailing tail of the last reachable
+      // page and don't get their own dot.
+      let lastReachable = 0;
+      children.forEach((c, i) => {
+        if (c.offsetLeft - padLeft <= maxScroll + 1) lastReachable = i;
+      });
+      const reachable = lastReachable + 1;
+      setReachableCount(reachable);
+      if (isAtEnd) {
+        setActive(reachable - 1);
+        return;
+      }
+      const ref = el.scrollLeft + padLeft;
       let nearest = 0;
       let best = Infinity;
       children.forEach((c, i) => {
-        const mid = c.offsetLeft + c.offsetWidth / 2;
-        const d = Math.abs(center - mid);
+        if (i >= reachable) return;
+        const d = Math.abs(c.offsetLeft - ref);
         if (d < best) {
           best = d;
           nearest = i;
@@ -65,20 +89,46 @@ export function ImageCarousel({
       });
       setActive(nearest);
     };
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => el.removeEventListener('scroll', onScroll);
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      el.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, []);
+
+  const stepSize = () => {
+    const el = scrollerRef.current;
+    if (!el) return 0;
+    const first = el.children[0] as HTMLElement | undefined;
+    if (!first) return 0;
+    const gap = parseFloat(getComputedStyle(el).columnGap) || 16;
+    return first.offsetWidth + gap;
+  };
 
   const goTo = (i: number) => {
     const el = scrollerRef.current;
     if (!el) return;
     const clamped = Math.max(0, Math.min(slides.length - 1, i));
     const child = el.children[clamped] as HTMLElement | undefined;
-    if (child) el.scrollTo({ left: child.offsetLeft - 16, behavior: 'smooth' });
+    if (!child) return;
+    const padLeft = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const target = child.offsetLeft - padLeft;
+    el.scrollTo({ left: Math.max(0, Math.min(maxScroll, target)), behavior: 'smooth' });
   };
 
-  const prev = () => goTo(active - 1);
-  const next = () => goTo(active + 1);
+  const prev = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: -stepSize(), behavior: 'smooth' });
+  };
+  const next = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: stepSize(), behavior: 'smooth' });
+  };
 
   return (
     <div className="relative">
@@ -88,17 +138,17 @@ export function ImageCarousel({
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="no-scrollbar flex snap-x snap-mandatory gap-[clamp(0.65rem,2vw,1.1rem)] overflow-x-auto pb-[clamp(0.75rem,2vw,1.1rem)] px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))] [scroll-padding-inline:calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]"
+        className="no-scrollbar flex snap-x snap-mandatory gap-[clamp(1.5rem,3.5vw,2.5rem)] overflow-x-auto pb-[clamp(0.75rem,2vw,1.1rem)] px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))] [scroll-padding-inline:calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]"
       >
         {slides.map((s, i) => (
           <motion.div
             key={i}
             variants={itemVariants}
             className={cn(
-              'flex-none snap-center',
+              'flex-none snap-start',
               variant === 'landscape'
                 ? 'flex w-[min(88vw,56rem)] flex-col gap-[clamp(0.85rem,2vw,1.4rem)] md:w-[min(60vw,52rem)]'
-                : 'relative aspect-[4/5] w-[min(85vw,38rem)] overflow-hidden rounded-sm md:aspect-[3/4] md:w-[min(34vw,30rem)]',
+                : 'relative aspect-[4/5] w-[min(78vw,32rem)] overflow-hidden rounded-sm md:w-[min(28vw,26rem)]',
             )}
           >
             {variant === 'landscape' ? (
@@ -142,14 +192,14 @@ export function ImageCarousel({
           type="button"
           aria-label="Previous slide"
           onClick={prev}
-          disabled={active === 0}
+          disabled={atStart}
           className="inline-flex h-[clamp(2.25rem,4vw,2.75rem)] w-[clamp(2.25rem,4vw,2.75rem)] items-center justify-center rounded-full border border-harbour/30 text-harbour transition-colors duration-300 hover:bg-harbour hover:text-linen-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-harbour"
         >
           <ChevronLeft className="h-[clamp(1rem,2vw,1.25rem)] w-[clamp(1rem,2vw,1.25rem)]" strokeWidth={1.5} />
         </button>
 
         <div className="flex items-center gap-[clamp(0.35rem,1vw,0.5rem)]">
-          {slides.map((_, i) => (
+          {Array.from({ length: reachableCount }).map((_, i) => (
             <button
               key={i}
               aria-label={`Go to slide ${i + 1}`}
@@ -166,7 +216,7 @@ export function ImageCarousel({
           type="button"
           aria-label="Next slide"
           onClick={next}
-          disabled={active === slides.length - 1}
+          disabled={atEnd}
           className="inline-flex h-[clamp(2.25rem,4vw,2.75rem)] w-[clamp(2.25rem,4vw,2.75rem)] items-center justify-center rounded-full border border-harbour/30 text-harbour transition-colors duration-300 hover:bg-harbour hover:text-linen-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-harbour"
         >
           <ChevronRight className="h-[clamp(1rem,2vw,1.25rem)] w-[clamp(1rem,2vw,1.25rem)]" strokeWidth={1.5} />

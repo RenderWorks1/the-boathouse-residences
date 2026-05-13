@@ -19,10 +19,14 @@ const visionSectionBodyClass =
 export default function VisionPage() {
   return (
     <>
-      <PageHero image="/images/sectionheros/DJI_20260319080713_0341_D.jpg" title="A Clear Vision" />
+      <PageHero
+        image="/hero-videos/vision-poster.jpg"
+        title="A Clear Vision"
+        videoUrl="/hero-videos/vision.mp4"
+      />
 
       <section className="bg-salt">
-        <div className="section-px section-py w-full max-w-none">
+        <div className="section-px section-py mx-auto w-full max-w-[88rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
             <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               A Clear Vision
@@ -38,15 +42,20 @@ export default function VisionPage() {
       </section>
 
       <section className="bg-linen-white">
-        <div className="section-px section-py grid w-full max-w-none items-center gap-section md:grid-cols-2">
+        <div className="section-px section-py mx-auto grid w-full max-w-[88rem] items-center gap-section md:grid-cols-2">
           <ScrollReveal direction="left">
-            <div className="group relative h-[min(75vh,75dvh)] w-full min-h-0 overflow-hidden">
+            <div className="group relative h-[min(55vh,55dvh)] w-full min-h-0 overflow-hidden">
               <Image
-                src="/images/2bedroom_v3_.jpg"
+                src="/images/simon-and-paula.webp"
                 alt="Simon and Paula — a shared vision"
                 fill
                 sizes="(min-width:768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
               />
             </div>
           </ScrollReveal>
@@ -74,15 +83,20 @@ export default function VisionPage() {
       />
 
       <section className="bg-sand">
-        <div className="section-px section-py grid w-full max-w-none items-center gap-section md:grid-cols-2 md:[&>*:first-child]:order-2">
+        <div className="section-px section-py mx-auto grid w-full max-w-[88rem] items-center gap-section md:grid-cols-2 md:[&>*:first-child]:order-2">
           <ScrollReveal direction="right">
-            <div className="group relative h-[min(75vh,75dvh)] w-full min-h-0 overflow-hidden">
+            <div className="group relative mx-auto h-[min(55vh,55dvh)] w-full min-h-0 max-w-[34rem] overflow-hidden">
               <Image
-                src="/images/2bedroom_v10_.jpg"
+                src="/images/marinashaped.jpg"
                 alt="Design philosophy shaped by the marina"
                 fill
                 sizes="(min-width:768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
               />
             </div>
           </ScrollReveal>

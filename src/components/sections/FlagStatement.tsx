@@ -36,7 +36,7 @@ export function FlagStatement({
   const ref = useRef<HTMLParagraphElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
   const reveal = useMotionValue(reduceMotion ? 110 : -10);
   const mask = useMotionTemplate`linear-gradient(to bottom, black 0%, black ${reveal}%, transparent calc(${reveal}% + 10%))`;
 
@@ -62,7 +62,7 @@ export function FlagStatement({
     if (!inView) return;
     const controls = animate(reveal, 110, {
       duration: 4.5,
-      delay: 0.6,
+      delay: 0.15,
       ease: [0.25, 0.1, 0.25, 1],
     });
     return () => controls.stop();

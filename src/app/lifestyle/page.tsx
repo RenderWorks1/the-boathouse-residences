@@ -21,19 +21,19 @@ const sections = [
   {
     heading: 'The Village',
     body: 'A growing village centre offers a curated selection of cafés, eateries and local amenity, contributing to a community that feels established, convenient and easy to navigate.',
-    image: '/images/studio_int_v4.jpg',
+    image: '/images/thevillage.jpeg',
     layout: 'right' as const,
   },
   {
     heading: 'Connected',
     body: 'Ferry services and well-considered transport links provide direct access to the city, allowing residents to remain connected while enjoying a more relaxed waterfront lifestyle.',
-    image: '/images/2bedroom_v9.jpg',
+    image: '/images/connected2.jpeg',
     layout: 'left' as const,
   },
   {
     heading: 'Open Landscape',
     body: 'Parks, coastal walkways and green spaces are thoughtfully integrated throughout the area, supporting an active and outdoor-oriented way of living.',
-    image: '/images/2bedroom_v8.jpg',
+    image: '/images/openlandscape.jpeg',
     layout: 'right' as const,
   },
 ];
@@ -41,7 +41,11 @@ const sections = [
 export default function LifestylePage() {
   return (
     <>
-      <PageHero image="/images/sectionheros/BVP09149.jpg" title="Life at the Marina" />
+      <PageHero
+        image="/hero-videos/lifestyle-poster.jpg"
+        title="Life at the Marina"
+        videoUrl="/hero-videos/lifestyle.mp4"
+      />
 
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none text-center">
@@ -100,7 +104,15 @@ export default function LifestylePage() {
                   }`}
                 >
                   <ScrollReveal direction={left ? 'left' : 'right'}>
-                    <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
+                    <div
+                      className={`group relative w-full overflow-hidden ${
+                        s.heading === 'The Village' ||
+                        s.heading === 'Connected' ||
+                        s.heading === 'Open Landscape'
+                          ? 'h-[min(55vh,55dvh)]'
+                          : 'h-[min(75vh,75dvh)]'
+                      }`}
+                    >
                       <Image
                         src={s.image}
                         alt={s.heading}
@@ -108,6 +120,15 @@ export default function LifestylePage() {
                         sizes="(min-width:768px) 50vw, 100vw"
                         className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                       />
+                      {(s.heading === 'The Village' ||
+                        s.heading === 'Connected' ||
+                        s.heading === 'Open Landscape') && (
+                        <div
+                          aria-hidden
+                          className="pointer-events-none absolute inset-0"
+                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
+                        />
+                      )}
                     </div>
                   </ScrollReveal>
                   <ScrollReveal direction={left ? 'right' : 'left'}>
