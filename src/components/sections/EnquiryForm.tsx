@@ -120,7 +120,7 @@ export function EnquiryForm({
     <>
       {variant === 'section' && (
         <ScrollReveal className="mb-[clamp(2rem,4vw,3rem)] flex flex-col items-center gap-section-sm text-center">
-          <h2 className="w-full font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.65rem,3.4vw+0.85rem,4.25rem)]">
+          <h2 className="w-full font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.35rem,2.4vw+0.7rem,3rem)]">
             Enquire Now
           </h2>
           <p className="type-body mt-2 font-sans text-charcoal">
