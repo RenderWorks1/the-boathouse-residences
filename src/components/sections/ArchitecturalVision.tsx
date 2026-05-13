@@ -24,7 +24,7 @@ export function ArchitecturalVision({
    *  so the trigger reliably fires when the text is on-screen. */
   const ref = useRef<HTMLParagraphElement>(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const inView = useInView(ref, { once: true, amount: 0.1 });
   /** Boundary travels from -10% (band sits entirely above the text — nothing
    *  visible) to 110% (band entirely below — fully visible). 10% soft
    *  trailing edge for a gentle per-line fade. */
@@ -39,7 +39,7 @@ export function ArchitecturalVision({
     if (!inView) return;
     const controls = animate(reveal, 110, {
       duration: 4.5,
-      delay: 0.6,
+      delay: 0.15,
       ease: [0.25, 0.1, 0.25, 1],
     });
     return () => controls.stop();

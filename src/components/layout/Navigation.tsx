@@ -21,7 +21,7 @@ import { MobileMenu } from './MobileMenu';
 const linksLeft = [
   { href: '/residences', label: 'The Residences' },
   { href: '/vision', label: 'Vision' },
-  { href: '/lifestyle', label: 'Lifestyle & Location' },
+  { href: '/lifestyle', label: 'Lifestyle & Location' },
 ];
 
 const linksRight = [
@@ -151,22 +151,6 @@ export function Navigation() {
               homeChromeClass(isHome, heroExpanded),
             )}
           >
-            {!isHome && (
-              <Link
-                href="/"
-                aria-current={pathname === '/' ? 'page' : undefined}
-                className={cn(
-                  navLinkClass,
-                  transparentMode
-                    ? 'text-linen-white hover:text-linen-white/80'
-                    : 'text-charcoal hover:text-harbour',
-                  pathname === '/' &&
-                    (transparentMode ? 'after:bg-linen-white' : 'after:bg-charcoal'),
-                )}
-              >
-                Home
-              </Link>
-            )}
             {linksLeft.map((l) => {
               const active = pathname === l.href || pathname.startsWith(`${l.href}/`);
               return (
@@ -195,18 +179,24 @@ export function Navigation() {
               transition: logoOpacityTransitionCss(),
             }}
           >
-            <Image
-              src={transparentMode ? '/logos/logo-white.png' : '/logos/logo-navy.png'}
-              alt="The Boathouse Residences"
-              fill
-              className="object-contain object-center transition-opacity duration-300"
-              sizes={
-                isHome
-                  ? '(max-width: 768px) 72vw, 448px'
-                  : '(max-width: 768px) 58vw, 320px'
-              }
-              priority
-            />
+            <Link
+              href="/"
+              aria-label="The Boathouse Residences — home"
+              className="block h-full w-full"
+            >
+              <Image
+                src={transparentMode ? '/logos/logo-white.png' : '/logos/logo-navy.png'}
+                alt="The Boathouse Residences"
+                fill
+                className="object-contain object-center transition-opacity duration-300"
+                sizes={
+                  isHome
+                    ? '(max-width: 768px) 72vw, 448px'
+                    : '(max-width: 768px) 58vw, 320px'
+                }
+                priority
+              />
+            </Link>
           </div>
 
           <div
@@ -239,7 +229,7 @@ export function Navigation() {
             <Link
               href="/enquire"
               className={cn(
-                'hidden items-center rounded-none border bg-transparent font-sans uppercase tracking-[0.2em] transition-colors md:inline-flex px-[clamp(1rem,2vw,1.65rem)] py-[clamp(0.45rem,0.9vw,0.7rem)] text-[clamp(0.65rem,0.28vw+0.52rem,0.78rem)]',
+                'hidden items-center rounded-none border bg-transparent font-sans uppercase tracking-[0.2em] transition-colors md:inline-flex px-[clamp(0.85rem,1.6vw,1.35rem)] py-[clamp(0.35rem,0.7vw,0.6rem)] text-[clamp(0.55rem,0.22vw+0.46rem,0.68rem)]',
                 transparentMode
                   ? 'border-white text-linen-white hover:bg-linen-white hover:text-charcoal'
                   : 'border-charcoal text-charcoal hover:bg-charcoal hover:text-linen-white',

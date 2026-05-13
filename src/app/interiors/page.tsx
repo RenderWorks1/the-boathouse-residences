@@ -92,25 +92,25 @@ export default function InteriorsPage() {
                     Name to be confirmed
                   </p>
                 </ScrollReveal>
-                <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[68rem] grid-cols-1 gap-[clamp(2.5rem,6vw,5rem)] px-[clamp(1rem,4vw,3rem)] md:grid-cols-2">
+                <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[52rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-2">
                   <ScrollReveal direction="left">
-                    <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
+                    <div className="group relative aspect-[4/5] w-full overflow-hidden">
                       <Image
                         src={s.images[0]}
                         alt={`${s.heading} — view one`}
                         fill
-                        sizes="(min-width:768px) 34vw, 90vw"
+                        sizes="(min-width:768px) 40vw, 90vw"
                         className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                       />
                     </div>
                   </ScrollReveal>
                   <ScrollReveal direction="right">
-                    <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
+                    <div className="group relative aspect-[4/5] w-full overflow-hidden">
                       <Image
                         src={s.images[1]}
                         alt={`${s.heading} — view two`}
                         fill
-                        sizes="(min-width:768px) 34vw, 90vw"
+                        sizes="(min-width:768px) 40vw, 90vw"
                         className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                       />
                     </div>
