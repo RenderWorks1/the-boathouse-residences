@@ -60,7 +60,7 @@ export default function ResidencesPage() {
       />
 
       <section className="bg-salt">
-        <div className="section-px section-py w-full max-w-none">
+        <div className="section-px section-py mx-auto w-full max-w-[80rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
             <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               A Collection by the Water
@@ -90,7 +90,7 @@ export default function ResidencesPage() {
             )}
             <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
               {isElevated ? (
-                <div className="section-px section-py w-full max-w-none">
+                <div className="section-px section-py mx-auto w-full max-w-[80rem]">
                   <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)] text-center">
                     <span className={residenceEyebrowClass}>{r.eyebrow}</span>
                     <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
@@ -128,11 +128,11 @@ export default function ResidencesPage() {
               ) : r.slideFrom ? (
                 <ScrollLinkedSlide from={r.slideFrom} distance={260}>
                   <div
-                    className={`section-px section-py grid w-full max-w-none items-center gap-section md:grid-cols-2 ${
+                    className={`section-px section-py mx-auto grid w-full max-w-[80rem] items-center gap-section md:grid-cols-2 ${
                       left ? '' : 'md:[&>*:first-child]:order-2'
                     }`}
                   >
-                    <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
+                    <div className="group relative h-[min(60vh,60dvh)] w-full overflow-hidden">
                       <Image
                         src={r.image}
                         alt={r.heading}
@@ -154,7 +154,7 @@ export default function ResidencesPage() {
                 </ScrollLinkedSlide>
               ) : (
                 <div
-                  className={`section-px section-py grid w-full max-w-none items-center gap-section md:grid-cols-2 ${
+                  className={`section-px section-py mx-auto grid w-full max-w-[80rem] items-center gap-section md:grid-cols-2 ${
                     left ? '' : 'md:[&>*:first-child]:order-2'
                   }`}
                 >
@@ -219,7 +219,7 @@ export default function ResidencesPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px section-py-tight w-full max-w-none text-center">
+        <div className="section-px section-py-tight mx-auto w-full max-w-[80rem] text-center">
           <ScrollReveal className="mx-auto flex max-w-[68rem] flex-col items-center gap-section-sm">
             <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.6] text-charcoal">
               Across every residence, materials are refined, proportions are balanced, and natural light
