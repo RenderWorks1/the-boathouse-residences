@@ -24,7 +24,7 @@ export function ArchitecturalVision({
    *  so the trigger reliably fires when the text is on-screen. */
   const ref = useRef<HTMLParagraphElement>(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
   /** Boundary travels from -10% (band sits entirely above the text — nothing
    *  visible) to 110% (band entirely below — fully visible). 10% soft
    *  trailing edge for a gentle per-line fade. */
@@ -38,8 +38,8 @@ export function ArchitecturalVision({
     }
     if (!inView) return;
     const controls = animate(reveal, 110, {
-      duration: 4.5,
-      delay: 0.15,
+      duration: 1.4,
+      delay: 0.35,
       ease: [0.25, 0.1, 0.25, 1],
     });
     return () => controls.stop();
@@ -47,8 +47,8 @@ export function ArchitecturalVision({
 
   return (
     <section className="bg-salt" aria-label={heading}>
-      <div className="section-px pt-[clamp(2.5rem,5vw+1rem,7rem)] pb-[clamp(2.5rem,5vw+1rem,7rem)] w-full">
-        <div className="mx-auto flex w-full max-w-[88rem] flex-col gap-[clamp(5rem,10vw,9rem)]">
+      <div className="section-px pt-[clamp(2rem,4vw+0.75rem,4.5rem)] pb-[clamp(2rem,4vw+0.75rem,4.5rem)] w-full">
+        <div className="mx-auto flex w-full max-w-[80rem] flex-col gap-[clamp(5rem,10vw,9rem)]">
           <motion.div
             className="relative mx-auto aspect-video w-full max-w-full overflow-hidden rounded-sm"
             style={{ transformOrigin: '50% 100%' }}
@@ -79,7 +79,7 @@ export function ArchitecturalVision({
               WebkitMaskSize: '100% 100%',
               maskSize: '100% 100%',
             }}
-            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.65rem,3.4vw+0.85rem,4.25rem)]"
+            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.4rem,2.85vw+0.7rem,3.5rem)]"
           >
             {body}
           </motion.p>

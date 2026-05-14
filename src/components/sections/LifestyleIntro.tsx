@@ -23,11 +23,11 @@ export function LifestyleIntro({
     align === 'left' ? 'text-left' : align === 'right' ? 'text-right' : 'text-center';
   const sizeClass =
     size === 'md'
-      ? 'text-[clamp(1.65rem,3.4vw+0.85rem,4.25rem)]'
-      : 'text-[clamp(2rem,4.5vw+1rem,5.5rem)]';
+      ? 'text-[clamp(1.4rem,2.85vw+0.7rem,3.5rem)]'
+      : 'text-[clamp(1.65rem,3.7vw+0.85rem,4.5rem)]';
   const ref = useRef<HTMLParagraphElement>(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
   /** Boundary travels from -10% (band entirely above the text — nothing
    *  visible) to 110% (band entirely below — fully visible). Matches the
    *  ArchitecturalVision section. */
@@ -41,8 +41,8 @@ export function LifestyleIntro({
     }
     if (!inView) return;
     const controls = animate(reveal, 110, {
-      duration: 4.5,
-      delay: 0.15,
+      duration: 1.4,
+      delay: 0.35,
       ease: [0.25, 0.1, 0.25, 1],
     });
     return () => controls.stop();
@@ -50,8 +50,8 @@ export function LifestyleIntro({
 
   return (
     <section className="bg-salt">
-      <div className={`section-px w-full py-[clamp(4rem,9vw+1.5rem,9rem)] ${alignClass}`}>
-        <div className="mx-auto w-full max-w-[88rem]">
+      <div className={`section-px w-full py-[clamp(2.25rem,5vw+1rem,5.5rem)] ${alignClass}`}>
+        <div className="mx-auto w-full max-w-[80rem]">
           <motion.p
             ref={ref}
             style={{

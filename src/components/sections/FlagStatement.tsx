@@ -36,7 +36,7 @@ export function FlagStatement({
   const ref = useRef<HTMLParagraphElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
-  const inView = useInView(ref, { once: true, amount: 0.1 });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
   const reveal = useMotionValue(reduceMotion ? 110 : -10);
   const mask = useMotionTemplate`linear-gradient(to bottom, black 0%, black ${reveal}%, transparent calc(${reveal}% + 10%))`;
 
@@ -61,8 +61,8 @@ export function FlagStatement({
     }
     if (!inView) return;
     const controls = animate(reveal, 110, {
-      duration: 4.5,
-      delay: 0.15,
+      duration: 1.4,
+      delay: 0.35,
       ease: [0.25, 0.1, 0.25, 1],
     });
     return () => controls.stop();
@@ -70,19 +70,19 @@ export function FlagStatement({
 
   return (
     <section className="bg-salt">
-      <div className="section-px py-[clamp(4rem,9vw+1.5rem,9rem)] w-full">
+      <div className="section-px py-[clamp(2.25rem,5vw+1rem,5.5rem)] w-full">
         <div
-          className={`mx-auto grid w-full max-w-[88rem] grid-cols-1 items-center gap-[clamp(2rem,4vw,4rem)] ${
+          className={`mx-auto grid w-full max-w-[80rem] grid-cols-1 items-center gap-[clamp(2rem,4vw,4rem)] ${
             imageSide === 'right'
-              ? 'md:grid-cols-[1fr_28rem] md:justify-end'
-              : 'md:grid-cols-[28rem_1fr] md:justify-start'
+              ? 'md:grid-cols-[1fr_23rem] md:justify-end'
+              : 'md:grid-cols-[23rem_1fr] md:justify-start'
           }`}
         >
           <motion.div
             ref={imageRef}
             initial={{ opacity: 0 }}
             style={{ opacity: imageOpacity }}
-            className={`relative h-[min(90vh,90dvh)] w-full overflow-hidden rounded-sm md:w-[28rem] ${
+            className={`relative h-[min(72vh,72dvh)] w-full overflow-hidden rounded-sm md:w-[23rem] ${
               imageSide === 'right' ? 'md:order-2' : ''
             }`}
           >
@@ -90,7 +90,7 @@ export function FlagStatement({
               src={imageSrc}
               alt={imageAlt}
               fill
-              sizes="(min-width:768px) 28rem, 100vw"
+              sizes="(min-width:768px) 23rem, 100vw"
               className="object-cover"
             />
             <div
@@ -109,7 +109,7 @@ export function FlagStatement({
               WebkitMaskSize: '100% 100%',
               maskSize: '100% 100%',
             }}
-            className={`font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[clamp(1.7rem,3vw+0.8rem,3.6rem)] ${
+            className={`font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[clamp(1.45rem,2.5vw+0.65rem,3rem)] ${
               imageSide === 'right' ? 'md:order-1' : ''
             }`}
           >
