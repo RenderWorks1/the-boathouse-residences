@@ -13,9 +13,12 @@ type Variant = 'portrait' | 'landscape';
 export function ImageCarousel({
   slides,
   variant = 'portrait',
+  portraitItemClassName,
 }: {
   slides: Slide[];
   variant?: Variant;
+  /** Override the sizing/aspect classes for portrait items (e.g. to match another section). */
+  portraitItemClassName?: string;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -138,7 +141,7 @@ export function ImageCarousel({
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
-        className="no-scrollbar flex snap-x snap-mandatory gap-[clamp(1.5rem,3.5vw,2.5rem)] overflow-x-auto pb-[clamp(0.75rem,2vw,1.1rem)] px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))] [scroll-padding-inline:calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]"
+        className="no-scrollbar flex snap-x snap-mandatory gap-[clamp(0.65rem,2vw,1.1rem)] overflow-x-auto pb-[clamp(0.75rem,2vw,1.1rem)] px-[calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))] [scroll-padding-inline:calc(var(--section-pad-x)+clamp(0.75rem,3vw,2rem))]"
       >
         {slides.map((s, i) => (
           <motion.div
@@ -148,7 +151,8 @@ export function ImageCarousel({
               'flex-none snap-start',
               variant === 'landscape'
                 ? 'flex w-[min(88vw,56rem)] flex-col gap-[clamp(0.85rem,2vw,1.4rem)] md:w-[min(60vw,52rem)]'
-                : 'relative aspect-[4/5] w-[min(78vw,32rem)] overflow-hidden rounded-sm md:w-[min(28vw,26rem)]',
+                : portraitItemClassName ??
+                  'relative aspect-[4/5] w-[min(85vw,38rem)] overflow-hidden rounded-sm md:aspect-[3/4] md:w-[min(34vw,30rem)]',
             )}
           >
             {variant === 'landscape' ? (

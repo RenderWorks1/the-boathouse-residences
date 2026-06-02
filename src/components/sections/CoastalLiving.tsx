@@ -7,8 +7,11 @@ export function CoastalLiving({
 }) {
   return (
     <section className="bg-linen-white">
-      <div className="section-py w-full">
-        <ImageCarousel slides={slides} />
+      <div className="pt-[5.5rem] pb-[var(--section-pad-y)] w-full md:pt-[var(--section-pad-y)]">
+        <ImageCarousel
+          slides={slides}
+          portraitItemClassName="relative aspect-[3/4] w-[84vw] overflow-hidden rounded-sm md:w-[min(26vw,29.3rem)]"
+        />
       </div>
     </section>
   );

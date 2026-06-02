@@ -5,11 +5,11 @@ import { FullBleedImage } from '@/components/sections/FullBleedImage';
 import { ArchitecturalVision } from '@/components/sections/ArchitecturalVision';
 import { FlagStatement } from '@/components/sections/FlagStatement';
 import { FullBleedVideo } from '@/components/sections/FullBleedVideo';
-import { RippleSpacerSection } from '@/components/sections/RippleSpacerSection';
 import { CoastalLiving } from '@/components/sections/CoastalLiving';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
 import { ResidencesTriptych } from '@/components/sections/ResidencesTriptych';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
+import { LinkButton } from '@/components/ui/Button';
 import {
   heroImage,
   coastalLivingImages,
@@ -70,13 +70,19 @@ export default function HomePage() {
         imageAlt="Marina rope detail"
         body={fallback.flagBody}
       />
+      <section className="bg-salt">
+        <div className="section-px flex w-full justify-center pb-[clamp(2.25rem,5vw+1rem,5.5rem)]">
+          <LinkButton href="/residences" variant="outline" className="border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white">
+            View the Residences
+          </LinkButton>
+        </div>
+      </section>
       <FullBleedVideo
-        src="/boatvid.mp4"
-        poster="/images/boatvid-poster.jpg"
-        alt="Boathouse Residences in motion"
-        tint="rgba(28, 24, 20, 0.6)"
+        src="/hero-videos/vision.mp4"
+        poster="/hero-videos/vision-poster.jpg"
+        alt="A clear vision"
+        tint="rgba(0, 0, 0, 0.35)"
       />
-      <RippleSpacerSection />
       <CoastalLiving slides={coastalLivingImages} />
       <ParallaxSection
         image="/birdseye.jpg"
@@ -89,20 +95,20 @@ export default function HomePage() {
         eyebrow=""
         items={[
           {
-            primary: '/images/2bedroom_v1_.jpg',
-            secondary: '/images/2bedroom_v5.jpg',
+            primary: '/images/final-renders/2bedroom/living_portrait.jpg',
+            secondary: '/images/final-renders/2bedroom/living_portrait2.jpg',
             alt: 'Marina view residence',
             href: '/residences/residence-01',
           },
           {
-            primary: '/images/studio_int_v1.jpg',
-            secondary: '/images/studio_int_v4.jpg',
+            primary: '/images/final-renders/studio/kitchen_portrait.jpg',
+            secondary: '/images/final-renders/studio/interiordining_portrait.jpg',
             alt: 'Studio interior',
             href: '/residences/residence-07',
           },
           {
-            primary: '/images/2bedroom_v7.jpg',
-            secondary: '/images/2bedroom_v10_.jpg',
+            primary: '/images/final-renders/2bedroom/bedroom_portrait.jpg',
+            secondary: '/images/final-renders/2bedroom/bedroom_portrait2.jpg',
             alt: 'Harbour corner residence',
             href: '/residences/residence-04',
           },

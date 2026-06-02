@@ -15,7 +15,7 @@ const sections = [
   {
     heading: 'Waterfront Living',
     body: 'The marina provides an ever-present connection to the outdoors, with walking paths, open space and uninterrupted views creating opportunities to slow down and engage with the surroundings.',
-    image: '/images/2bedroom_v2.jpg',
+    image: '/images/final-renders/2bedroom/exteriorday_portrait.jpg',
     layout: 'left' as const,
   },
   {
@@ -151,7 +151,7 @@ export default function LifestylePage() {
       <section className="bg-salt">
         <div className="section-px section-py-tight w-full max-w-none text-center">
           <ScrollReveal className="mx-auto flex max-w-[68rem] flex-col items-center gap-section-sm">
-            <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.6] text-charcoal">
+            <p className="text-balance font-sans text-[clamp(0.95rem,0.4vw+0.82rem,1.2rem)] font-light leading-[1.6] text-charcoal">
               Life at the marina moves at a considered pace, shaped by the presence of the water and the
               ease of the surrounding environment.
             </p>

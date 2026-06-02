@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/shared/PageHero';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
-import { ScrollReveal, ScrollLinkedSlide } from '@/components/ui/ScrollReveal';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
 
 export const metadata: Metadata = {
@@ -17,13 +17,13 @@ const schemes = [
     eyebrow: 'Light Scheme',
     heading: 'Light Scheme',
     body: 'Warm and natural tones invoke a calm interior, a place of retreat set back from the Marina. Maintaining a visually refined palette these gentle oak, warm white and caramel tones create a peaceful flow throughout the home. An interior that mirrors the feeling and the inner-calm of nature.',
-    images: ['/images/studio_int_v3.jpg', '/images/studio_int_v5.jpg'] as const,
+    images: ['/images/final-renders/studio/interiorlounge_portrait.jpg', '/images/final-renders/studio/interiordining_portrait.jpg'] as const,
   },
   {
     eyebrow: 'Dark Scheme',
     heading: 'Dark Scheme',
     body: 'A deeper, more grounded palette creates a calm and enveloping interior, offering a sense of retreat connected to the Marina. Maintaining a refined and cohesive palette, layered neutrals, rich timber finishes and warm textural elements bring depth and quiet sophistication throughout the home. An interior that reflects the stillness and depth of the water — composed, balanced and enduring.',
-    images: ['/images/2bedroom_v3_.jpg', '/images/2bedroom_v7.jpg'] as const,
+    images: ['/images/final-renders/2bedroom/dining_portrait.jpg', '/images/final-renders/2bedroom/exteriornight_portrait.jpg'] as const,
   },
 ];
 
@@ -31,7 +31,7 @@ export default function InteriorsPage() {
   return (
     <>
       <PageHero
-        image="/images/studio_int_v2.jpg"
+        image="/images/final-renders/studio/bedroom_landscape.jpg"
         videoUrl="/interiorvideo.mp4"
         title="A Refined Interior Palette"
       />
@@ -39,32 +39,32 @@ export default function InteriorsPage() {
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none">
           <div className="mx-auto flex max-w-[88rem] flex-col gap-[clamp(2.75rem,6vw,4.5rem)]">
-            <ScrollLinkedSlide from="left" distance={220} range={['start end', 'end center']} className="self-start max-w-[72rem]">
+            <ScrollReveal fadeOnly className="self-start max-w-[72rem]">
               <h2 className="text-left font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                 A Refined Interior Palette
               </h2>
-            </ScrollLinkedSlide>
-            <ScrollLinkedSlide from="right" distance={220} range={['start end', 'end center']} className="self-end max-w-[72rem]">
+            </ScrollReveal>
+            <ScrollReveal fadeOnly className="self-end max-w-[72rem]">
               <p className="text-balance text-right font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
                 Interiors are defined by simplicity and precision, with a palette of natural, muted tones
                 that blend seamlessly with the surrounding landscape and reflect the tranquillity of the
                 marina setting. Each space is carefully composed to feel balanced, creating a quiet sense of
                 retreat within the home.
               </p>
-            </ScrollLinkedSlide>
-            <ScrollLinkedSlide from="left" distance={220} range={['start end', 'end center']} className="self-start max-w-[72rem]">
+            </ScrollReveal>
+            <ScrollReveal fadeOnly className="self-start max-w-[72rem]">
               <p className="text-balance text-left font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
                 Living spaces open seamlessly to private decks, framing water and sky as part of the
                 everyday. Kitchens are defined by clean detailing and refined finishes, while bedrooms offer
                 a sense of privacy and calm.
               </p>
-            </ScrollLinkedSlide>
-            <ScrollLinkedSlide from="right" distance={220} range={['start end', 'end center']} className="self-end max-w-[72rem]">
+            </ScrollReveal>
+            <ScrollReveal fadeOnly className="self-end max-w-[72rem]">
               <p className="text-balance text-right font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
                 A curated material palette, selected for its quality and longevity, introduces depth and
                 texture while maintaining a restrained and elevated interior environment.
               </p>
-            </ScrollLinkedSlide>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -125,15 +125,16 @@ export default function InteriorsPage() {
       <section className="bg-salt">
         <div className="section-py w-full max-w-none">
           <ImageCarousel
+            portraitItemClassName="relative aspect-[4/5] w-[90vw] overflow-hidden rounded-sm md:w-[min(28.4vw,24.3rem)]"
             slides={[
-              { src: '/images/studio_int_v1.jpg', alt: 'Studio interior render' },
-              { src: '/images/studio_int_v3.jpg', alt: 'Studio living detail' },
-              { src: '/images/studio_int_v4.jpg', alt: 'Studio outlook' },
-              { src: '/images/studio_int_v5.jpg', alt: 'Studio kitchen' },
-              { src: '/images/2bedroom_v3_.jpg', alt: 'Two-bedroom living' },
-              { src: '/images/2bedroom_v7.jpg', alt: 'Two-bedroom interior' },
-              { src: '/images/2bedroom_v9.jpg', alt: 'Two-bedroom outlook' },
-              { src: '/images/2bedroom_v10_.jpg', alt: 'Two-bedroom detail' },
+              { src: '/images/final-renders/studio/interiorlounge_portrait.jpg', alt: 'Studio lounge' },
+              { src: '/images/final-renders/studio/kitchen_portrait.jpg', alt: 'Studio kitchen' },
+              { src: '/images/final-renders/studio/bathroom_portrait.jpg', alt: 'Studio bathroom' },
+              { src: '/images/final-renders/studio/bedroom_portrait.jpg', alt: 'Studio bedroom' },
+              { src: '/images/final-renders/2bedroom/living_portrait.jpg', alt: 'Two-bedroom living' },
+              { src: '/images/final-renders/2bedroom/dining_portrait.jpg', alt: 'Two-bedroom dining' },
+              { src: '/images/final-renders/2bedroom/bedroom_portrait.jpg', alt: 'Two-bedroom bedroom' },
+              { src: '/images/final-renders/2bedroom/exteriordeck_portrait.jpg', alt: 'Two-bedroom deck' },
             ]}
           />
         </div>

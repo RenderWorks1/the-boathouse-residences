@@ -4,6 +4,7 @@ import { PageHero } from '@/components/shared/PageHero';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
 import { ScrollReveal, ScrollLinkedSlide } from '@/components/ui/ScrollReveal';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
+import { LinkButton } from '@/components/ui/Button';
 import { Fragment } from 'react';
 
 export const metadata: Metadata = {
@@ -21,20 +22,24 @@ const residenceTypes: Array<{
   image: string;
   layout: 'left' | 'right';
   slideFrom?: SlideDirection;
+  ctaHref?: string;
+  ctaLabel?: string;
 }> = [
   {
     eyebrow: 'Studio',
     heading: 'Intelligent Living',
     body: 'The studio residences are thoughtfully designed to maximise space, light and functionality. Open-plan layouts create a seamless relationship between living, kitchen and outdoor areas, while carefully resolved detailing introduces a sense of quiet refinement. The result is a home that feels efficient in scale, yet generous in experience.',
-    image: '/images/studio_int_v1.jpg',
+    image: '/images/final-renders/studio/interiorlounge_portrait.jpg',
     layout: 'left',
     slideFrom: 'left',
+    ctaHref: '/residences/studio',
+    ctaLabel: 'View Studio',
   },
   {
     eyebrow: 'One Bedroom',
     heading: 'Balanced by Design',
     body: 'One bedroom residences offer a natural balance of openness and retreat. Living areas extend effortlessly to private decks, drawing in natural light and the presence of the marina, while bedrooms are positioned to provide privacy and a sense of calm. Each home supports a relaxed, considered way of living by the water.',
-    image: '/images/studio_int_v4.jpg',
+    image: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg',
     layout: 'right',
     slideFrom: 'right',
   },
@@ -42,8 +47,10 @@ const residenceTypes: Array<{
     eyebrow: 'Two Bedroom',
     heading: 'Elevated in Scale',
     body: 'Two bedroom residences offer an increased sense of scale, with well-proportioned living areas that extend naturally toward the marina. Layouts are carefully arranged to balance openness with privacy, creating homes that feel calm, flexible and exclusively connected to their waterfront setting.',
-    image: '/images/2bedroom_v7.jpg',
+    image: '/images/final-renders/2bedroom/living_portrait.jpg',
     layout: 'left',
+    ctaHref: '/residences/two-bedroom',
+    ctaLabel: 'View Two Bedroom',
   },
 ];
 
@@ -99,26 +106,35 @@ export default function ResidencesPage() {
                     <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
                       {r.body}
                     </p>
+                    {r.ctaHref && (
+                      <LinkButton
+                        href={r.ctaHref}
+                        variant="outline"
+                        className="border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
+                      >
+                        {r.ctaLabel}
+                      </LinkButton>
+                    )}
                   </ScrollReveal>
-                  <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[68rem] grid-cols-1 gap-[clamp(2.5rem,6vw,5rem)] px-[clamp(1rem,4vw,3rem)] md:grid-cols-2">
+                  <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[68rem] grid-cols-1 gap-[clamp(0.75rem,2vw,1.5rem)] px-[clamp(1rem,4vw,3rem)] md:grid-cols-2">
                     <ScrollLinkedSlide from="bottom" distance={220}>
-                      <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
+                      <div className="group relative mx-auto aspect-[4/5] w-full overflow-hidden md:ml-auto md:mr-0 md:w-[min(28.4vw,24.3rem)]">
                         <Image
                           src={r.image}
                           alt={`${r.heading} — interior`}
                           fill
-                          sizes="(min-width:768px) 34vw, 90vw"
+                          sizes="(min-width:768px) 28vw, 90vw"
                           className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                         />
                       </div>
                     </ScrollLinkedSlide>
                     <ScrollLinkedSlide from="bottom" distance={220}>
-                      <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
+                      <div className="group relative mx-auto aspect-[4/5] w-full overflow-hidden md:ml-0 md:mr-auto md:w-[min(28.4vw,24.3rem)]">
                         <Image
-                          src="/images/2bedroom_v9.jpg"
+                          src="/images/final-renders/2bedroom/bedroom_portrait.jpg"
                           alt={`${r.heading} — outlook`}
                           fill
-                          sizes="(min-width:768px) 34vw, 90vw"
+                          sizes="(min-width:768px) 28vw, 90vw"
                           className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                         />
                       </div>
@@ -149,6 +165,15 @@ export default function ResidencesPage() {
                       <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
                         {r.body}
                       </p>
+                      {r.ctaHref && (
+                        <LinkButton
+                          href={r.ctaHref}
+                          variant="outline"
+                          className="self-start border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
+                        >
+                          {r.ctaLabel}
+                        </LinkButton>
+                      )}
                     </div>
                   </div>
                 </ScrollLinkedSlide>
@@ -178,6 +203,15 @@ export default function ResidencesPage() {
                       <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
                         {r.body}
                       </p>
+                      {r.ctaHref && (
+                        <LinkButton
+                          href={r.ctaHref}
+                          variant="outline"
+                          className="self-start border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
+                        >
+                          {r.ctaLabel}
+                        </LinkButton>
+                      )}
                     </div>
                   </ScrollReveal>
                 </div>
@@ -221,7 +255,7 @@ export default function ResidencesPage() {
       <section className="bg-salt">
         <div className="section-px section-py-tight mx-auto w-full max-w-[80rem] text-center">
           <ScrollReveal className="mx-auto flex max-w-[68rem] flex-col items-center gap-section-sm">
-            <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.6] text-charcoal">
+            <p className="text-balance font-sans text-[clamp(0.95rem,0.4vw+0.82rem,1.2rem)] font-light leading-[1.6] text-charcoal">
               Across every residence, materials are refined, proportions are balanced, and natural light
               is central to the design, shaping homes that feel calm, enduring and uniquely connected to
               the marina.
