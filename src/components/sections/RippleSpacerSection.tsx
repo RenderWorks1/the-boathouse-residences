@@ -42,7 +42,7 @@ export function RippleSpacerSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[clamp(24rem,60vh,48rem)] w-full overflow-hidden bg-salt"
+      className="relative min-h-[16rem] w-full overflow-hidden bg-salt md:min-h-[clamp(24rem,60vh,48rem)]"
     >
       {/* Animated water-ripple background — two layers of fractal-noise
           turbulence tinted with feColorMatrix to brand colours, each cycling
@@ -138,14 +138,14 @@ export function RippleSpacerSection() {
         }
       />
 
-      <div className="relative z-10 min-h-[clamp(24rem,60vh,48rem)] w-full">
+      <div className="relative z-10 min-h-[16rem] w-full md:min-h-[clamp(24rem,60vh,48rem)]">
         <motion.div
           className="absolute left-0 top-0 w-[44%] min-w-[16rem] max-w-[44%] section-px pt-[clamp(1.5rem,4vw,3rem)] text-left will-change-transform"
           style={{ y: yLeftParallax }}
           {...fade(0)}
         >
           <motion.p
-            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[clamp(1.85rem,3vw+0.85rem,4.25rem)]"
+            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[1.25rem] md:text-[clamp(1.85rem,3vw+0.85rem,4.25rem)]"
             animate={
               reduceMotion
                 ? undefined
@@ -173,7 +173,7 @@ export function RippleSpacerSection() {
           {...fade(0.35)}
         >
           <motion.p
-            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[clamp(1.85rem,3vw+0.85rem,4.25rem)]"
+            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[1.25rem] md:text-[clamp(1.85rem,3vw+0.85rem,4.25rem)]"
             animate={
               reduceMotion
                 ? undefined

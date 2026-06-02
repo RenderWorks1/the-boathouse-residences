@@ -82,7 +82,7 @@ export function FlagStatement({
             ref={imageRef}
             initial={{ opacity: 0 }}
             style={{ opacity: imageOpacity }}
-            className={`relative h-[min(72vh,72dvh)] w-full overflow-hidden rounded-sm md:w-[23rem] ${
+            className={`relative h-[min(46vh,46dvh)] w-full overflow-hidden rounded-sm md:h-[min(72vh,72dvh)] md:w-[23rem] ${
               imageSide === 'right' ? 'md:order-2' : ''
             }`}
           >

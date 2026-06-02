@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function MasterplanPage() {
   return (
     <>
-      <PageHero image="/images/2bedroom_v4.jpg" title="The Marina Precinct" />
+      <PageHero image="/images/final-renders/studio/exteriordark_landscape.jpg" title="The Marina Precinct" />
 
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none">

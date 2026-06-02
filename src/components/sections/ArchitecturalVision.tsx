@@ -48,7 +48,7 @@ export function ArchitecturalVision({
   return (
     <section className="bg-salt" aria-label={heading}>
       <div className="section-px pt-[clamp(2rem,4vw+0.75rem,4.5rem)] pb-[clamp(2rem,4vw+0.75rem,4.5rem)] w-full">
-        <div className="mx-auto flex w-full max-w-[80rem] flex-col gap-[clamp(5rem,10vw,9rem)]">
+        <div className="mx-auto flex w-full max-w-[80rem] flex-col gap-[clamp(2rem,8vw,9rem)]">
           <motion.div
             className="relative mx-auto aspect-video w-full max-w-full overflow-hidden rounded-sm"
             style={{ transformOrigin: '50% 100%' }}
