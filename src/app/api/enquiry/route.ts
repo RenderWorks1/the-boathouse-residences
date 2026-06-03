@@ -90,7 +90,7 @@ export async function POST(req: Request) {
     console.info('[enquiry] Sanity not configured — enquiry received:', doc);
   }
 
-  // TODO(notify): Wire Resend / SendGrid here to email sales@boathouseresidences.com.
+  // TODO(notify): Wire Resend / SendGrid here to email info@boathouseresidences.co.nz.
   // Example interface:
   //   await sendEmail({ to: '…', subject: 'New enquiry', body: renderEnquiry(doc) });
 

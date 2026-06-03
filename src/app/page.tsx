@@ -38,11 +38,14 @@ const jsonLd = {
   description: 'Luxury waterfront residences with private marina access.',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '123 Boathouse Way',
-    addressLocality: 'Waterfront City',
+    streetAddress: '18 Clearwater Cove',
+    addressLocality: 'West Harbour',
+    addressRegion: 'Auckland',
+    postalCode: '0618',
+    addressCountry: 'NZ',
   },
-  telephone: '1300 BOATHOUSE',
-  email: 'info@boathouseresidences.com',
+  telephone: '+64 21 027 20203',
+  email: 'info@boathouseresidences.co.nz',
 };
 
 export default function HomePage() {
