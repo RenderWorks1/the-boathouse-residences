@@ -35,23 +35,23 @@ export default function EnquirePage() {
               </span>
               <a
                 className="flex items-center justify-center gap-3 transition-colors hover:text-harbour"
-                href="tel:+64210272 0203"
+                href="tel:+642102720203"
               >
                 <Phone
                   className="h-[clamp(1rem,2.2vw,1.2rem)] w-[clamp(1rem,2.2vw,1.2rem)] shrink-0 text-harbour"
                   strokeWidth={1.25}
                 />
-                <span>021 027 20203</span>
+                <span>+64 21 027 20203</span>
               </a>
               <a
                 className="flex items-center justify-center gap-3 transition-colors hover:text-harbour"
-                href="mailto:info@boathouseresidences.com"
+                href="mailto:info@boathouseresidences.co.nz"
               >
                 <Mail
                   className="h-[clamp(1rem,2.2vw,1.2rem)] w-[clamp(1rem,2.2vw,1.2rem)] shrink-0 text-harbour"
                   strokeWidth={1.25}
                 />
-                <span>info@boathouseresidences.com</span>
+                <span>info@boathouseresidences.co.nz</span>
               </a>
             </div>
           </ScrollReveal>
@@ -64,10 +64,10 @@ export default function EnquirePage() {
         <div className="section-px w-full max-w-none">
           <div className="aspect-[21/9] w-full overflow-hidden bg-driftwood/30">
             <iframe
-              title="Hobsonville Marina map"
+              title="Boathouse Residences — 18 Clearwater Cove, West Harbour, Auckland"
               loading="lazy"
               className="h-full w-full border-0"
-              src="https://www.google.com/maps?q=Hobsonville+Marina+Auckland&output=embed"
+              src="https://www.google.com/maps?q=18+Clearwater+Cove,+West+Harbour,+Auckland+0618&output=embed"
             />
           </div>
         </div>
