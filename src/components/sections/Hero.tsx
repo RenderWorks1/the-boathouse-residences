@@ -16,7 +16,7 @@ import { useEffect, useRef, useState } from 'react';
 import {
   dispatchHeroExpanded,
   dispatchHeroHandoff,
-  hasHeroIntroPlayed,
+  shouldSkipHeroIntro,
   markHeroIntroPlayed,
 } from '@/lib/hero-handoff';
 import {
@@ -84,7 +84,7 @@ export function Hero({
    *  refresh further down the page) — otherwise the fixed flying logo would
    *  briefly cover the section the user is actually looking at. */
   const skipIntroRef = useRef(
-    hasHeroIntroPlayed() ||
+    shouldSkipHeroIntro() ||
       (typeof window !== 'undefined' && window.scrollY > window.innerHeight * 0.4),
   );
   const skipIntro = skipIntroRef.current;
