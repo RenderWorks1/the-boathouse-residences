@@ -9,7 +9,8 @@ import { cn } from '@/lib/utils';
 import {
   HERO_EXPANDED_EVENT,
   HERO_HANDOFF_EVENT,
-  hasHeroIntroPlayed,
+  shouldSkipHeroIntro,
+  markAppMounted,
 } from '@/lib/hero-handoff';
 import {
   logoOpacityTransitionCss,
@@ -49,10 +50,18 @@ export function Navigation() {
    * client-side navigations back to `/` (after the intro has already played).
    */
   const skipHeroIntroRef = useRef(false);
-  if (!skipHeroIntroRef.current && hasHeroIntroPlayed()) {
+  if (!skipHeroIntroRef.current && shouldSkipHeroIntro()) {
     skipHeroIntroRef.current = true;
   }
   const skipHeroIntro = skipHeroIntroRef.current;
+
+  // Mark the app shell as mounted once, after the first page is shown. This
+  // stays false during the initial document load (so a direct home load still
+  // plays the intro) and is true for all later client-side navigations — so
+  // returning home via the nav logo skips the intro.
+  useEffect(() => {
+    markAppMounted();
+  }, []);
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
   const [open, setOpen] = useState(false);
