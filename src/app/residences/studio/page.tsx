@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { BentoGallery, type BentoImage } from '@/components/ui/BentoGallery';
 
@@ -41,7 +40,9 @@ export default function StudioShowcasePage() {
           Back to Residences
         </Link>
         <ScrollReveal className="mb-[clamp(2.5rem,6vw,4.5rem)] flex flex-col items-center gap-[clamp(0.5rem,1.5vw,0.9rem)] text-center">
-          <SectionHeading as="h1">Studio</SectionHeading>
+          <h1 className="font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+            Studio
+          </h1>
         </ScrollReveal>
         <BentoGallery images={studioRenders} />
       </div>
