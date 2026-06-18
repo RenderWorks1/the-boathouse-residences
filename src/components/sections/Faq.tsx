@@ -112,6 +112,10 @@ const groups: Group[] = [
         q: 'What about insurance?',
         a: 'Owners are responsible for arranging appropriate insurance for their residence. Specific requirements may apply given the marina environment.',
       },
+      {
+        q: 'How are The Boathouse Residences cared for in a waterfront environment?',
+        a: 'Reflecting their marina setting, The Boathouse Residences will benefit from a biannual external maintenance programme inspired by a vessel’s regular “haul-out” process. This includes specialised cleaning and treatments to remove algae, salt, and environmental build-up, preserving the residences’ appearance and integrity over time.',
+      },
     ],
   },
   {
