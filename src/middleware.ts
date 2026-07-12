@@ -9,11 +9,16 @@ import type { NextRequest } from 'next/server';
  * This lets the hoarding QR code (boathouseresidences.co.nz/enquire) and every
  * other link resolve to a holding page until the real site is signed off.
  *
- * The gate is ON by default. To take the finished site live, either:
+ * The gate is ON for the real production deployment only. Preview deployments
+ * (e.g. a client review link) and local dev always show the full site, so a
+ * preview URL can be shared for sign-off without taking the live site public.
+ *
+ * To take the finished production site live, either:
  *   1. set the env var COMING_SOON=off in Vercel and redeploy, or
  *   2. delete this file (src/middleware.ts) and public/coming-soon.html.
  */
-const GATE_ENABLED = process.env.COMING_SOON !== 'off';
+const GATE_ENABLED =
+  process.env.COMING_SOON !== 'off' && process.env.VERCEL_ENV === 'production';
 
 // Paths that must keep working even while the gate is up.
 const ALLOWLIST = [
