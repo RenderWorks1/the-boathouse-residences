@@ -112,7 +112,7 @@ export default function HomePage() {
         paragraphs={[
           'The waterfront is more than a view; it shapes the way each day unfolds.',
           'Mornings begin with still water and soft light, afternoons drift between the marina and the village, and evenings settle as the harbour reflects the last colours of the day.',
-          'Set within Hobsonville Point Marina, Boathouse Residences offers a unique opportunity to live surrounded by open water, coastal landscapes and a vibrant village community — a place where connection, convenience and calm exist naturally together.',
+          'Set within Hobsonville Point Marina, Boathouse Residences offers a unique opportunity to live surrounded by open water, coastal landscapes and a vibrant village community, a place where connection, convenience and calm exist naturally together.',
         ]}
       />
 
@@ -122,7 +122,7 @@ export default function HomePage() {
         heading="Architecture That Belongs."
         body={[
           'Every element has been carefully resolved to sit naturally within its marina setting.',
-          'Refined architectural forms, enduring materials and generous proportions create a collection that feels quietly confident — contemporary in expression yet timeless in character.',
+          'Refined architectural forms, enduring materials and generous proportions create a collection that feels quietly confident contemporary in expression yet timeless in character.',
           'Designed with a considered approach to indoor-outdoor living, each residence embraces natural light, open views and a seamless connection to the water beyond.',
         ]}
       />
@@ -204,7 +204,7 @@ export default function HomePage() {
             <h2 className={headingClass}>Your Place on the Water.</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={bodyClass}>
-                Discover Boathouse Residences, a unique collection of waterfront homes where thoughtful
+                Discover Boathouse Residences a unique collection of waterfront homes where thoughtful
                 design, natural surroundings and a life connected to the marina come together.
               </p>
               <p className={bodyClass}>
