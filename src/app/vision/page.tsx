@@ -29,14 +29,19 @@ export default function VisionPage() {
         <div className="section-px section-py mx-auto w-full max-w-[88rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
             <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-              A Clear Vision
+              A Clear Vision.
             </h2>
-            <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal max-w-[60rem]">
-              Boathouse Residences is guided by a disciplined design vision, with architecture that
-              responds directly to its marina setting. Through careful attention to form, proportion and
-              materiality, the result is a collection of homes that feel composed, enduring and naturally
-              aligned with the marina.
-            </p>
+            <div className="flex max-w-[60rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              <p className={visionSectionBodyClass}>
+                Boathouse Residences was born from a desire to create something truly considered — a collection of waterfront residences shaped by architecture, craftsmanship and a deep connection to place.
+              </p>
+              <p className={visionSectionBodyClass}>
+                Guided by a disciplined design philosophy, every element has been carefully resolved, from form and proportion to materiality and experience.
+              </p>
+              <p className={visionSectionBodyClass}>
+                The result is a collection that feels timeless yet contemporary; refined yet effortless; intrinsically connected to its marina setting.
+              </p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -62,14 +67,19 @@ export default function VisionPage() {
           <ScrollReveal direction="right">
             <div className="flex flex-col md:px-[clamp(0.5rem,2vw,1.5rem)]">
               <h2 className={visionSectionTitleClass}>
-                A Shared Vision
+                A Shared Vision.
               </h2>
-              <p className={visionSectionBodyClass}>
-                Simon and Paula bring a considered and disciplined approach to the development, with a
-                focus on creating homes that prioritise longevity, functionality and design integrity.
-                Their vision centres on delivering residences that feel resolved and balanced, with an
-                emphasis on quality, restraint and lasting value.
-              </p>
+              <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+                <p className={visionSectionBodyClass}>
+                  Simon and Paula Herbert bring a shared passion for thoughtful design, enduring quality and creating places that stand apart.
+                </p>
+                <p className={visionSectionBodyClass}>
+                  Their approach is grounded in restraint, attention to detail and a belief that exceptional spaces are created through considered decisions.
+                </p>
+                <p className={visionSectionBodyClass}>
+                  Together, they have shaped Boathouse Residences around a clear philosophy: to create residences that feel beautifully resolved, purposeful and designed to endure.
+                </p>
+              </div>
             </div>
           </ScrollReveal>
         </div>
@@ -103,20 +113,40 @@ export default function VisionPage() {
           <ScrollReveal direction="left">
             <div className="flex flex-col md:px-[clamp(0.5rem,2vw,1.5rem)]">
               <h2 className={visionSectionTitleClass}>
-                Shaped by the Marina
+                Shaped by the Marina.
               </h2>
               <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
                 <p className={visionSectionBodyClass}>
-                  The design of Boathouse Residences is informed by its position alongside Hobsonville
-                  Marina, with a strong emphasis on light, outlook and spatial flow. Materials reflect the
-                  surrounding coastal environment, while architectural forms are carefully composed to sit
-                  comfortably within their context.
+                  The design of Boathouse Residences begins with its extraordinary waterfront setting.
                 </p>
                 <p className={visionSectionBodyClass}>
-                  The result is a collection of homes that feel calm, resolved and intrinsically connected
-                  to place.
+                  The changing light across the harbour, the movement of the marina and the natural textures of the coastline have informed every aspect of the design.
+                </p>
+                <p className={visionSectionBodyClass}>
+                  Carefully selected materials, considered architectural forms and a focus on natural connection allow each residence to sit harmoniously within its surroundings.
+                </p>
+                <p className={visionSectionBodyClass}>
+                  The result is a collection that feels calm, authentic and deeply connected to place.
                 </p>
               </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="bg-linen-white">
+        <div className="section-px section-py mx-auto w-full max-w-[88rem]">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] text-center">
+            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+              Designed for Now. Created to Endure.
+            </h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              <p className={visionSectionBodyClass}>
+                Boathouse Residences represents a considered approach to waterfront living where architecture, interiors and environment come together in balance.
+              </p>
+              <p className={visionSectionBodyClass}>
+                A place shaped by vision, defined by design and created to be experienced for generations.
+              </p>
             </div>
           </ScrollReveal>
         </div>
