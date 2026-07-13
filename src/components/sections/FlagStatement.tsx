@@ -21,19 +21,23 @@ import {
 export function FlagStatement({
   imageSrc,
   imageAlt,
+  heading,
   body,
   tint = 'rgba(0, 0, 0, 0.4)',
   imageSide = 'left',
 }: {
   imageSrc: string;
   imageAlt: string;
-  body: string;
+  /** Optional heading rendered above the body copy (serif display). */
+  heading?: string;
+  body: string | string[];
   /** Overlay colour painted over the image. Default = subtle dark wash. */
   tint?: string;
   /** Which column the image renders in. Default 'left'. */
   imageSide?: 'left' | 'right';
 }) {
-  const ref = useRef<HTMLParagraphElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const paragraphs = Array.isArray(body) ? body : [body];
   const imageRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const inView = useInView(ref, { once: true, amount: 0.3 });
@@ -99,7 +103,7 @@ export function FlagStatement({
               style={{ backgroundColor: tint }}
             />
           </motion.div>
-          <motion.p
+          <motion.div
             ref={ref}
             style={{
               WebkitMaskImage: mask,
@@ -109,12 +113,24 @@ export function FlagStatement({
               WebkitMaskSize: '100% 100%',
               maskSize: '100% 100%',
             }}
-            className={`font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] text-[clamp(1.45rem,2.5vw+0.65rem,3rem)] ${
-              imageSide === 'right' ? 'md:order-1' : ''
-            }`}
+            className={imageSide === 'right' ? 'md:order-1' : ''}
           >
-            {body}
-          </motion.p>
+            {heading && (
+              <h2 className="mb-[clamp(1.1rem,2.5vw,1.85rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.75rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+                {heading}
+              </h2>
+            )}
+            <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              {paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal/85"
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -17,12 +17,13 @@ export function ArchitecturalVision({
   imageSrc = '/images/ropesonboatlandscape4k.jpeg',
 }: {
   heading: string;
-  body: string;
+  body: string | string[];
   imageSrc?: string;
 }) {
-  /** Watching the paragraph itself rather than the (much taller) section,
+  /** Watching the copy itself rather than the (much taller) section,
    *  so the trigger reliably fires when the text is on-screen. */
-  const ref = useRef<HTMLParagraphElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const paragraphs = Array.isArray(body) ? body : [body];
   const reduceMotion = useReducedMotion();
   const inView = useInView(ref, { once: true, amount: 0.3 });
   /** Boundary travels from -10% (band sits entirely above the text — nothing
@@ -69,7 +70,7 @@ export function ArchitecturalVision({
               style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
             />
           </motion.div>
-          <motion.p
+          <motion.div
             ref={ref}
             style={{
               WebkitMaskImage: mask,
@@ -79,10 +80,22 @@ export function ArchitecturalVision({
               WebkitMaskSize: '100% 100%',
               maskSize: '100% 100%',
             }}
-            className="font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.4rem,2.85vw+0.7rem,3.5rem)]"
+            className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.1rem,2.5vw,1.85rem)] text-center"
           >
-            {body}
-          </motion.p>
+            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.75rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+              {heading}
+            </h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              {paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal/85"
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

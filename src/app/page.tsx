@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import Script from 'next/script';
 import { Hero } from '@/components/sections/Hero';
 import { FullBleedImage } from '@/components/sections/FullBleedImage';
+import { ArchitecturalVision } from '@/components/sections/ArchitecturalVision';
+import { FlagStatement } from '@/components/sections/FlagStatement';
 import { FullBleedVideo } from '@/components/sections/FullBleedVideo';
 import { CoastalLiving } from '@/components/sections/CoastalLiving';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
@@ -19,21 +21,19 @@ const headingClass =
 const bodyClass =
   'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal/85';
 
-/** Centred heading + body block, matching the content sections on the
- *  Vision and Setting pages. */
+/** Centred heading + body block for the text-only sections, matching the
+ *  content sections on the Vision and Setting pages. */
 function CopyBlock({
-  bg,
   heading,
   paragraphs,
   children,
 }: {
-  bg: string;
   heading: string;
   paragraphs: string[];
   children?: ReactNode;
 }) {
   return (
-    <section className={bg}>
+    <section className="bg-salt">
       <div className="section-px section-py w-full max-w-none text-center">
         <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.5rem,3.5vw,2.5rem)]">
           <h2 className={headingClass}>{heading}</h2>
@@ -80,7 +80,6 @@ export default function HomePage() {
 
       {/* 01 — Hero statement */}
       <CopyBlock
-        bg="bg-salt"
         heading="Where Water Becomes Home."
         paragraphs={[
           'A curated collection of waterfront residences, thoughtfully created for those who value considered design, enduring quality and a deeper connection to their surroundings.',
@@ -88,13 +87,13 @@ export default function HomePage() {
         ]}
       />
 
-      <FullBleedImage src="/images/backoflaunch.jpg" alt="Back of launch on the water" />
-
-      {/* 02 — The Experience */}
-      <CopyBlock
-        bg="bg-linen-white"
+      {/* 02 — The Experience (backoflaunch image, right) */}
+      <FlagStatement
+        imageSrc="/images/backoflaunch.jpg"
+        imageAlt="Back of launch on the water"
+        imageSide="right"
         heading="A Different Pace of Living."
-        paragraphs={[
+        body={[
           'There is something inherently calming about life on the water.',
           'The changing light, the gentle movement of the marina and the quiet arrival home across the boardwalk become part of an everyday ritual.',
           'At Boathouse Residences, every detail has been designed to celebrate this connection, creating homes that feel timeless, effortless and deeply considered.',
@@ -109,7 +108,6 @@ export default function HomePage() {
 
       {/* 03 — The Location */}
       <CopyBlock
-        bg="bg-salt"
         heading="Life, Framed by the Harbour."
         paragraphs={[
           'The waterfront is more than a view; it shapes the way each day unfolds.',
@@ -118,45 +116,31 @@ export default function HomePage() {
         ]}
       />
 
-      <FullBleedImage
-        src="/images/ropesonboatlandscape4k.jpeg"
-        alt="Marina rope detail"
-      />
-
-      {/* 04 — The Architecture */}
-      <CopyBlock
-        bg="bg-linen-white"
+      {/* 04 — The Architecture (ropes image, aspect-video) */}
+      <ArchitecturalVision
+        imageSrc="/images/ropesonboatlandscape4k.jpeg"
         heading="Architecture That Belongs."
-        paragraphs={[
+        body={[
           'Every element has been carefully resolved to sit naturally within its marina setting.',
           'Refined architectural forms, enduring materials and generous proportions create a collection that feels quietly confident — contemporary in expression yet timeless in character.',
           'Designed with a considered approach to indoor-outdoor living, each residence embraces natural light, open views and a seamless connection to the water beyond.',
         ]}
       />
 
-      <FullBleedImage src="/rope.jpg" alt="Marina rope detail" />
-
-      {/* 05 — The Interiors */}
-      <CopyBlock
-        bg="bg-salt"
+      {/* 05 — The Interiors (rope image, left) */}
+      <FlagStatement
+        imageSrc="/rope.jpg"
+        imageAlt="Marina rope detail"
         heading="Designed with Intention"
-        paragraphs={[
+        body={[
           'The interiors of Boathouse Residences have been thoughtfully designed around a philosophy of restraint, balance and timeless design.',
           'Designed by Paula Herbert Studio, each residence reflects a considered approach to materiality, texture and form, where natural finishes, refined detailing and a timeless palette create spaces that feel both effortless and enduring.',
           'Every element has been carefully resolved to complement the waterfront setting, creating interiors that invite calm, connection and a sense of belonging.',
         ]}
       />
 
-      <FullBleedVideo
-        src="/hero-videos/vision.mp4"
-        poster="/hero-videos/vision-poster.jpg"
-        alt="A clear vision"
-        tint="rgba(0, 0, 0, 0.35)"
-      />
-
       {/* 06 — The Residence Collection */}
       <CopyBlock
-        bg="bg-linen-white"
         heading="A Collection by the Water."
         paragraphs={[
           'Designed as a limited collection of Studio, One Bedroom and Two Bedroom residences, each home has been thoughtfully crafted to offer a unique perspective on waterfront living.',
@@ -171,6 +155,13 @@ export default function HomePage() {
           View the Residences
         </LinkButton>
       </CopyBlock>
+
+      <FullBleedVideo
+        src="/hero-videos/vision.mp4"
+        poster="/hero-videos/vision-poster.jpg"
+        alt="A clear vision"
+        tint="rgba(0, 0, 0, 0.35)"
+      />
 
       <CoastalLiving slides={coastalLivingImages} />
 
