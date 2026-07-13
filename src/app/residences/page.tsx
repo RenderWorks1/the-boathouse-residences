@@ -61,9 +61,9 @@ export default function ResidencesPage() {
   return (
     <>
       <PageHero
-        image="/hero-videos/residences-poster.jpg"
+        image="/hero-videos/BHRtrimmed-poster.jpg"
         title="A Collection by the Water"
-        videoUrl="/hero-videos/residences.mp4"
+        videoUrl="/hero-videos/BHRtrimmed.mp4"
       />
 
       <section className="bg-salt">
