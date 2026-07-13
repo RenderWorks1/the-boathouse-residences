@@ -31,8 +31,8 @@ export default function InteriorsPage() {
   return (
     <>
       <PageHero
-        image="/images/final-renders/studio/bedroom_landscape.jpg"
-        videoUrl="/interiorvideo.mp4"
+        image="/hero-videos/InteriorDesign-poster.jpg"
+        videoUrl="/hero-videos/InteriorDesign.mp4"
         title="A Refined Interior Palette"
       />
 
