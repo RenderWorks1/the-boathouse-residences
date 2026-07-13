@@ -39,9 +39,11 @@ declare global {
 export function EnquiryForm({
   variant = 'section',
   residenceId,
+  hideIntro = false,
 }: {
   variant?: 'section' | 'page';
   residenceId?: string;
+  hideIntro?: boolean;
 }) {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string>('');
@@ -118,7 +120,7 @@ export function EnquiryForm({
 
   const body = (
     <>
-      {variant === 'section' && (
+      {variant === 'section' && !hideIntro && (
         <ScrollReveal className="mb-[clamp(2rem,4vw,3rem)] flex flex-col items-center gap-section-sm text-center">
           <h2 className="w-full font-sans font-light tracking-tight text-charcoal/45 leading-[1.15] pb-[0.18em] text-[clamp(1.35rem,2.4vw+0.7rem,3rem)]">
             Enquire Now
