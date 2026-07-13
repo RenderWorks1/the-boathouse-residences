@@ -16,7 +16,6 @@ const studioRenders: BentoImage[] = [
   { src: '/images/final-renders/studio/interiorlounge_portrait.jpg', alt: 'Studio lounge' },
   { src: '/images/final-renders/studio/interiordining_portrait.jpg', alt: 'Studio dining' },
   { src: '/images/final-renders/studio/interiorempty_portrait.jpg', alt: 'Studio living space' },
-  { src: '/images/final-renders/studio/exteriorlight_landscape.jpg', alt: 'Studio exterior in daylight' },
   { src: '/images/final-renders/studio/kitchen_portrait.jpg', alt: 'Studio kitchen detail' },
   { src: '/images/final-renders/studio/bedroom_portrait.jpg', alt: 'Studio bedroom' },
   { src: '/images/final-renders/studio/bathroom_portrait.jpg', alt: 'Studio bathroom' },
@@ -25,7 +24,6 @@ const studioRenders: BentoImage[] = [
   { src: '/images/final-renders/studio/exteriordeck_portrait.jpg', alt: 'Studio deck' },
   { src: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg', alt: 'Studio deck by day' },
   { src: '/images/final-renders/studio/bedroom_landscape.jpg', alt: 'Studio bedroom outlook' },
-  { src: '/images/final-renders/studio/exterior_studio_int_v7_.jpg', alt: 'Studio interior view' },
 ];
 
 export default function StudioShowcasePage() {
