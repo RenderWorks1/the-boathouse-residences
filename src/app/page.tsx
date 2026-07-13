@@ -129,8 +129,8 @@ export default function HomePage() {
 
       {/* 05 — The Interiors (rope image, left) */}
       <FlagStatement
-        imageSrc="/rope.jpg"
-        imageAlt="Marina rope detail"
+        imageSrc="/images/lifestyle2.jpg"
+        imageAlt="Waterfront lifestyle"
         heading="Designed with Intention"
         body={[
           'The interiors of Boathouse Residences have been thoughtfully designed around a philosophy of restraint, balance and timeless design.',
