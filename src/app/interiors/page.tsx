@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/shared/PageHero';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
+import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
 
@@ -12,18 +13,53 @@ export const metadata: Metadata = {
     'A refined interior palette of natural, muted tones — calm, balanced and connected to the marina.',
 };
 
+const headingClass =
+  'w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
+const bodyClass =
+  'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal';
+const eyebrowClass =
+  'font-sans uppercase tracking-[0.3em] text-rope text-[clamp(0.65rem,0.22vw+0.55rem,0.78rem)]';
+
+const paletteBody = [
+  'The interiors are defined by a sense of balance, restraint and quiet sophistication.',
+  'A carefully curated palette of natural tones and refined materials has been selected to complement the coastal surroundings, creating spaces that feel warm, considered and timeless.',
+  'Soft textures, subtle tonal variation and beautifully resolved detailing bring depth and character throughout each residence, allowing the changing light, water and landscape beyond to remain the defining elements.',
+  'Living spaces extend seamlessly to private decks, framing the marina as an ever-changing part of the home. Kitchens are designed with clean lines and refined finishes, while bedrooms offer a sense of calm, privacy and retreat.',
+  'A commitment to quality, longevity and thoughtful design ensures each interior feels enduring rather than defined by passing trends.',
+];
+
+const materialityBody = [
+  'Every material has been selected with intention chosen not only for its beauty, but for its ability to age gracefully and endure over time.',
+  'Natural textures, refined finishes and carefully considered details create interiors that feel authentic, tactile and beautifully resolved.',
+  'The result is a timeless foundation for living, where architecture, interiors and the surrounding waterfront setting exist in harmony.',
+];
+
 const schemes = [
   {
-    eyebrow: 'Light Scheme',
-    heading: 'Light Scheme',
-    body: 'Warm and natural tones invoke a calm interior, a place of retreat set back from the Marina. Maintaining a visually refined palette these gentle oak, warm white and caramel tones create a peaceful flow throughout the home. An interior that mirrors the feeling and the inner-calm of nature.',
-    images: ['/images/final-renders/studio/interiorlounge_portrait.jpg', '/images/final-renders/studio/interiordining_portrait.jpg'] as const,
+    eyebrow: 'The Light Palette (Sand)',
+    heading: 'Softness in Simplicity.',
+    body: [
+      'Inspired by the natural warmth of the coastline, the Light Palette creates a calm and inviting interior environment.',
+      'Gentle oak tones, warm whites and subtle caramel hues establish a sense of continuity throughout the residence, creating spaces that feel light, balanced and effortlessly connected.',
+      'Designed as a retreat from the outside world, this palette reflects the quiet beauty of the marina, a place of warmth, ease and natural tranquillity.',
+    ],
+    images: [
+      '/images/final-renders/studio/interiorlounge_portrait.jpg',
+      '/images/final-renders/studio/interiordining_portrait.jpg',
+    ] as const,
   },
   {
-    eyebrow: 'Dark Scheme',
-    heading: 'Dark Scheme',
-    body: 'A deeper, more grounded palette creates a calm and enveloping interior, offering a sense of retreat connected to the Marina. Maintaining a refined and cohesive palette, layered neutrals, rich timber finishes and warm textural elements bring depth and quiet sophistication throughout the home. An interior that reflects the stillness and depth of the water — composed, balanced and enduring.',
-    images: ['/images/final-renders/2bedroom/dining_portrait.jpg', '/images/final-renders/2bedroom/exteriornight_portrait.jpg'] as const,
+    eyebrow: 'The Dark Palette (Tide)',
+    heading: 'Depth and Stillness.',
+    body: [
+      'A more grounded interpretation of waterfront living, the Dark Palette draws inspiration from the depth and stillness of the harbour.',
+      'Layered neutrals, rich timber finishes and tactile textures create interiors with a sense of warmth, sophistication and quiet confidence.',
+      'Balanced and enduring, this palette offers a deeper expression of the Boathouse Residences design philosophy, refined, composed and connected to the natural environment.',
+    ],
+    images: [
+      '/images/final-renders/2bedroom/dining_portrait.jpg',
+      '/images/final-renders/2bedroom/exteriornight_portrait.jpg',
+    ] as const,
   },
 ];
 
@@ -41,28 +77,28 @@ export default function InteriorsPage() {
           <div className="mx-auto flex max-w-[88rem] flex-col gap-[clamp(2.75rem,6vw,4.5rem)]">
             <ScrollReveal fadeOnly className="self-start max-w-[72rem]">
               <h2 className="text-left font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-                A Refined Interior Palette
+                Designed Around the Surrounds.
               </h2>
             </ScrollReveal>
             <ScrollReveal fadeOnly className="self-end max-w-[72rem]">
               <p className="text-balance text-right font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
-                Interiors are defined by simplicity and precision, with a palette of natural, muted tones
-                that blend seamlessly with the surrounding landscape and reflect the tranquillity of the
-                marina setting. Each space is carefully composed to feel balanced, creating a quiet sense of
-                retreat within the home.
+                The interiors of Boathouse Residences have been thoughtfully curated by Paula Herbert
+                Studio, guided by a philosophy of timeless design, natural materiality and understated
+                refinement.
               </p>
             </ScrollReveal>
             <ScrollReveal fadeOnly className="self-start max-w-[72rem]">
               <p className="text-balance text-left font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
-                Living spaces open seamlessly to private decks, framing water and sky as part of the
-                everyday. Kitchens are defined by clean detailing and refined finishes, while bedrooms offer
-                a sense of privacy and calm.
+                Inspired by the surrounding marina environment, each residence reflects a considered
+                balance between warmth, texture and simplicity, creating spaces that feel calm, enduring
+                and deeply connected to their waterfront setting.
               </p>
             </ScrollReveal>
             <ScrollReveal fadeOnly className="self-end max-w-[72rem]">
               <p className="text-balance text-right font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal">
-                A curated material palette, selected for its quality and longevity, introduces depth and
-                texture while maintaining a restrained and elevated interior environment.
+                Every detail has been carefully resolved. From the tactile quality of natural finishes to
+                the relationship between light, space and outlook, the interiors provide a refined
+                backdrop for life by the water.
               </p>
             </ScrollReveal>
           </div>
@@ -76,21 +112,37 @@ export default function InteriorsPage() {
         overlayOpacity={0.15}
       />
 
+      <section className="bg-salt">
+        <div className="section-px section-py w-full max-w-none text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
+            <p className={eyebrowClass}>A Refined Interior Palette</p>
+            <h2 className={headingClass}>Thoughtful Simplicity.</h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              {paletteBody.map((p, i) => (
+                <p key={i} className={bodyClass}>
+                  {p}
+                </p>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {schemes.map((s, i) => {
         return (
           <Fragment key={s.eyebrow}>
             <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
               <div className="section-px section-py w-full max-w-none">
-                <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)] text-center">
-                  <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-                    {s.heading}
-                  </h2>
-                  <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-                    {s.body}
-                  </p>
-                  <p className="font-sans uppercase tracking-[0.3em] text-rope text-[clamp(0.65rem,0.22vw+0.55rem,0.78rem)]">
-                    Name to be confirmed
-                  </p>
+                <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.25rem,3vw,2rem)] text-center">
+                  <p className={eyebrowClass}>{s.eyebrow}</p>
+                  <h2 className={headingClass}>{s.heading}</h2>
+                  <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+                    {s.body.map((p, j) => (
+                      <p key={j} className={bodyClass}>
+                        {p}
+                      </p>
+                    ))}
+                  </div>
                 </ScrollReveal>
                 <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[52rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-2">
                   <ScrollReveal direction="left">
@@ -141,19 +193,18 @@ export default function InteriorsPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px section-py-tight w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[68rem] flex-col items-center gap-section-sm">
-            <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.6] text-charcoal">
-              Every element is carefully considered, resulting in interiors that provide a timeless and
-              understated backdrop to life by the water.
-            </p>
+        <div className="section-px section-py w-full max-w-none">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] text-center">
+            <h2 className={headingClass}>Crafted Through Detail.</h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              {materialityBody.map((p, i) => (
+                <p key={i} className={bodyClass}>
+                  {p}
+                </p>
+              ))}
+            </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      <section className="bg-salt">
-        <div className="section-px pb-[var(--section-pad-y)] w-full max-w-none">
-          <div className="mx-auto grid w-full max-w-[78rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-3">
+          <div className="mx-auto mt-[clamp(3rem,6vw,5rem)] grid w-full max-w-[78rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-3">
             {[
               { src: '/images/finish1.jpeg', alt: 'Material finish — sample one' },
               { src: '/images/finish2.jpeg', alt: 'Material finish — sample two' },
@@ -178,6 +229,36 @@ export default function InteriorsPage() {
           </div>
         </div>
       </section>
+
+      <section className="bg-linen-white">
+        <div className="section-px section-py w-full max-w-none text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(0.85rem,2vw,1.35rem)]">
+            <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.5] text-charcoal">
+              Every element within Boathouse Residences has been thoughtfully considered, creating
+              interiors that are refined yet effortless a timeless expression of life beside the water.
+            </p>
+            <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.5] text-charcoal">
+              Spaces designed not to compete with their surroundings, but to celebrate them.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="bg-salt">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
+            <h2 className={headingClass}>Enquire Now</h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              <p className={bodyClass}>
+                Discover Boathouse Residences where considered architecture, refined interiors and
+                waterfront living come together in perfect balance.
+              </p>
+              <p className={bodyClass}>Our sales team will welcome you to arrange a private viewing.</p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+      <EnquiryForm hideIntro />
     </>
   );
 }
