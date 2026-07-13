@@ -11,30 +11,61 @@ export const metadata: Metadata = {
     'Life at Hobsonville Marina — waterfront living, the village, connected transport and open landscape.',
 };
 
+const headingClass =
+  'w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
+const bodyClass =
+  'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal';
+
+const intro = {
+  heading: 'Life Shaped by the Water.',
+  body: [
+    'There is a different rhythm to life at Hobsonville Point Marina.',
+    'Defined by open water, changing light and a strong connection to the surrounding landscape, Boathouse Residences offers a setting where everyday moments unfold at a more considered pace.',
+    'Here, the marina is more than a backdrop. It shapes the way you arrive home, spend your time and experience each day.',
+  ],
+};
+
 const sections = [
   {
-    heading: 'Waterfront Living',
-    body: 'The marina provides an ever-present connection to the outdoors, with walking paths, open space and uninterrupted views creating opportunities to slow down and engage with the surroundings.',
-    image: '/images/final-renders/2bedroom/exteriorday_portrait.jpg',
-    layout: 'left' as const,
+    heading: 'A Rare Waterfront Position.',
+    body: [
+      'Set along the edge of Hobsonville Point Marina, Boathouse Residences enjoys a unique relationship with the water.',
+      'The movement of boats, the changing tides and uninterrupted harbour outlooks create an ever-evolving sense of place, a connection to nature that becomes part of daily life.',
+      'Few Auckland addresses offer this combination of waterfront living, open space and community.',
+    ],
+    image: '/images/sectionheros/BVP09128.jpg',
+    variant: 'feature' as const,
   },
   {
-    heading: 'The Village',
-    body: 'A growing village centre offers a curated selection of cafés, eateries and local amenity, contributing to a community that feels established, convenient and easy to navigate.',
+    heading: 'A Coastal Community.',
+    body: [
+      'Hobsonville Point has become one of Auckland’s most distinctive waterfront communities, thoughtfully shaped around connection, design and place.',
+      'A village atmosphere, local cafés, restaurants, shared spaces and waterfront destinations create a neighbourhood that feels established, welcoming and effortlessly connected.',
+      'A place where life extends beyond the walls of your residence.',
+    ],
     image: '/images/thevillage.jpeg',
     layout: 'right' as const,
+    variant: 'split' as const,
   },
   {
-    heading: 'Connected',
-    body: 'Ferry services and well-considered transport links provide direct access to the city, allowing residents to remain connected while enjoying a more relaxed waterfront lifestyle.',
+    heading: 'Waterfront Calm. City Convenience.',
+    body: [
+      'While the marina offers a sense of retreat, Boathouse Residences remains connected to everything Auckland has to offer.',
+      'With ferry services, established transport links and easy access to the city, airport and surrounding destinations, residents can enjoy the best of both worlds, a peaceful waterfront setting with effortless connectivity.',
+    ],
     image: '/images/connected2.jpeg',
     layout: 'left' as const,
+    variant: 'split' as const,
   },
   {
-    heading: 'Open Landscape',
-    body: 'Parks, coastal walkways and green spaces are thoughtfully integrated throughout the area, supporting an active and outdoor-oriented way of living.',
+    heading: 'Space to Breathe.',
+    body: [
+      'Beyond the marina, coastal walkways, parks and open landscapes provide a natural extension of home.',
+      'Whether walking beside the water, exploring the coastline or simply enjoying the changing seasons, the surrounding environment encourages a more considered way of living.',
+    ],
     image: '/images/openlandscape.jpeg',
     layout: 'right' as const,
+    variant: 'split' as const,
   },
 ];
 
@@ -50,14 +81,14 @@ export default function LifestylePage() {
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none text-center">
           <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)]">
-            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-              Life at the Marina
-            </h2>
-            <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-              Life at Hobsonville Marina is defined by a balance of natural beauty, community and
-              connection. The presence of the water shapes the rhythm of daily life, offering a sense of
-              calm that extends beyond the home.
-            </p>
+            <h2 className={headingClass}>{intro.heading}</h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              {intro.body.map((p, i) => (
+                <p key={i} className={bodyClass}>
+                  {p}
+                </p>
+              ))}
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -71,24 +102,25 @@ export default function LifestylePage() {
 
       {sections.map((s, i) => {
         const left = s.layout === 'left';
-        const isWaterfront = s.heading === 'Waterfront Living';
         return (
           <Fragment key={s.heading}>
             <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
-              {isWaterfront ? (
+              {s.variant === 'feature' ? (
                 <div className="section-px section-py w-full max-w-none">
                   <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)] text-center">
-                    <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-                      {s.heading}
-                    </h2>
-                    <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-                      {s.body}
-                    </p>
+                    <h2 className={headingClass}>{s.heading}</h2>
+                    <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+                      {s.body.map((p, j) => (
+                        <p key={j} className={bodyClass}>
+                          {p}
+                        </p>
+                      ))}
+                    </div>
                   </ScrollReveal>
                   <ScrollReveal className="mt-[clamp(3rem,6vw,5rem)]">
                     <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
                       <Image
-                        src="/images/sectionheros/BVP09128.jpg"
+                        src={s.image}
                         alt={`${s.heading} — marina outlook`}
                         fill
                         sizes="100vw"
@@ -104,15 +136,7 @@ export default function LifestylePage() {
                   }`}
                 >
                   <ScrollReveal direction={left ? 'left' : 'right'}>
-                    <div
-                      className={`group relative w-full overflow-hidden ${
-                        s.heading === 'The Village' ||
-                        s.heading === 'Connected' ||
-                        s.heading === 'Open Landscape'
-                          ? 'h-[min(55vh,55dvh)]'
-                          : 'h-[min(75vh,75dvh)]'
-                      }`}
-                    >
+                    <div className="group relative h-[min(55vh,55dvh)] w-full overflow-hidden">
                       <Image
                         src={s.image}
                         alt={s.heading}
@@ -120,25 +144,23 @@ export default function LifestylePage() {
                         sizes="(min-width:768px) 50vw, 100vw"
                         className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                       />
-                      {(s.heading === 'The Village' ||
-                        s.heading === 'Connected' ||
-                        s.heading === 'Open Landscape') && (
-                        <div
-                          aria-hidden
-                          className="pointer-events-none absolute inset-0"
-                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
-                        />
-                      )}
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0"
+                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
+                      />
                     </div>
                   </ScrollReveal>
                   <ScrollReveal direction={left ? 'right' : 'left'}>
                     <div className="flex flex-col gap-[clamp(1.75rem,4vw,3rem)] md:px-[clamp(0.5rem,2vw,1.5rem)]">
-                      <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-                        {s.heading}
-                      </h2>
-                      <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-                        {s.body}
-                      </p>
+                      <h2 className={headingClass}>{s.heading}</h2>
+                      <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+                        {s.body.map((p, j) => (
+                          <p key={j} className={bodyClass}>
+                            {p}
+                          </p>
+                        ))}
+                      </div>
                     </div>
                   </ScrollReveal>
                 </div>
@@ -149,12 +171,16 @@ export default function LifestylePage() {
       })}
 
       <section className="bg-salt">
-        <div className="section-px section-py-tight w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[68rem] flex-col items-center gap-section-sm">
-            <p className="text-balance font-sans text-[clamp(0.95rem,0.4vw+0.82rem,1.2rem)] font-light leading-[1.6] text-charcoal">
-              Life at the marina moves at a considered pace, shaped by the presence of the water and the
-              ease of the surrounding environment.
-            </p>
+        <div className="section-px section-py w-full max-w-none text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
+            <h2 className={headingClass}>Enquire Now</h2>
+            <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+              <p className={bodyClass}>
+                Discover Boathouse Residences — an address shaped by thoughtful design, a remarkable
+                waterfront setting and a connection to the water that will endure.
+              </p>
+              <p className={bodyClass}>Our sales team will welcome you to arrange a private viewing.</p>
+            </div>
           </ScrollReveal>
         </div>
       </section>
