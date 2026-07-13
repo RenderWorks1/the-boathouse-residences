@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { sanityWriteClient } from '@/lib/sanity/client';
 
 type Payload = {
   firstName?: string;
@@ -16,6 +15,73 @@ function isEmail(v: string) {
 }
 
 const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY;
+
+// HubSpot Forms — leads are forwarded to the client's HubSpot CRM.
+// Portal/form IDs are public (they ship in the embed snippet), so we default to
+// the values the client provided and allow env overrides. The submit endpoint
+// routes by portal, so the standard api.hsforms.com host works for all regions.
+const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || '443280869';
+const HUBSPOT_FORM_ID = process.env.HUBSPOT_FORM_ID || '3014cbd4-18fc-4568-badb-664fb87a4b96';
+// HubSpot rejects a submission if it contains a field name that isn't on the
+// form, so the "how did you hear about us?" mapping stays opt-in until the exact
+// internal property name is confirmed. Set it to e.g. `how_did_you_hear_about_us_`.
+const HUBSPOT_SOURCE_FIELD = process.env.HUBSPOT_SOURCE_FIELD || '';
+
+type EnquiryDoc = {
+  firstName?: string;
+  lastName?: string;
+  email: string;
+  phone: string;
+  source?: string;
+};
+
+/**
+ * Forward an enquiry to HubSpot's Forms submission API. Never throws — any
+ * failure (network, unknown field, form misconfig) is logged and returned as
+ * `false` so the caller decides how to respond. Returns whether HubSpot
+ * accepted the submission.
+ */
+async function submitToHubSpot(doc: EnquiryDoc, req: Request): Promise<boolean> {
+  const fields: Array<{ name: string; value: string }> = [];
+  if (doc.firstName) fields.push({ name: 'firstname', value: doc.firstName });
+  if (doc.lastName) fields.push({ name: 'lastname', value: doc.lastName });
+  fields.push({ name: 'email', value: doc.email });
+  fields.push({ name: 'phone', value: doc.phone });
+  if (HUBSPOT_SOURCE_FIELD && doc.source) {
+    fields.push({ name: HUBSPOT_SOURCE_FIELD, value: doc.source });
+  }
+
+  const pageUri = req.headers.get('referer') || undefined;
+  // HubSpot ties the submission to a tracked visitor if the hubspotutk cookie is present.
+  const hutk = req.headers
+    .get('cookie')
+    ?.match(/(?:^|;\s*)hubspotutk=([^;]+)/)?.[1];
+
+  const url = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields,
+        context: {
+          ...(hutk ? { hutk } : {}),
+          ...(pageUri ? { pageUri } : {}),
+          pageName: 'Boathouse Residences Enquiry',
+        },
+      }),
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      console.error(`[enquiry] HubSpot rejected submission (${res.status}):`, detail);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error('[enquiry] HubSpot forward failed:', err);
+    return false;
+  }
+}
 
 async function verifyTurnstile(token: string | undefined, ip: string | null) {
   if (!TURNSTILE_SECRET) return { ok: true } as const;
@@ -44,7 +110,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { firstName, lastName, email, phone, source, residenceId, turnstileToken } = body;
+  const { firstName, lastName, email, phone, source, turnstileToken } = body;
 
   const ip =
     req.headers.get('cf-connecting-ip') ||
@@ -65,33 +131,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'A phone number is required.' }, { status: 400 });
   }
 
-  const doc = {
-    _type: 'enquiry',
-    firstName: firstName?.toString().slice(0, 120),
-    lastName: lastName?.toString().slice(0, 120),
-    email: email.toLowerCase().slice(0, 200),
-    phone: phone.toString().slice(0, 40),
-    source: source?.toString().slice(0, 80),
-    submittedAt: new Date().toISOString(),
-    ...(residenceId
-      ? { residence: { _type: 'reference', _ref: residenceId.toString() } }
-      : {}),
-  };
+  // Forward the enquiry to the client's HubSpot CRM.
+  const hubspotOk = await submitToHubSpot(
+    {
+      firstName: firstName?.toString().slice(0, 120),
+      lastName: lastName?.toString().slice(0, 120),
+      email: email.toLowerCase().slice(0, 200),
+      phone: phone.toString().slice(0, 40),
+      source: source?.toString().slice(0, 80),
+    },
+    req,
+  );
 
-  // Persist to Sanity if configured; otherwise log server-side for now.
-  if (sanityWriteClient) {
-    try {
-      await sanityWriteClient.create(doc);
-    } catch (err) {
-      console.error('[enquiry] Sanity write failed:', err);
-      return NextResponse.json({ error: 'Could not save enquiry.' }, { status: 500 });
-    }
-  } else {
-    console.info('[enquiry] Sanity not configured — enquiry received:', doc);
+  if (!hubspotOk) {
+    return NextResponse.json({ error: 'Could not save enquiry.' }, { status: 500 });
   }
 
   // TODO(notify): Wire Resend / SendGrid here to email info@boathouseresidences.co.nz.
-  // Example interface:
   //   await sendEmail({ to: '…', subject: 'New enquiry', body: renderEnquiry(doc) });
 
   return NextResponse.json({ ok: true });

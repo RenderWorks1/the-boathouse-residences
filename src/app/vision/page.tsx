@@ -97,8 +97,8 @@ export default function VisionPage() {
           <ScrollReveal direction="right">
             <div className="group relative mx-auto h-[min(55vh,55dvh)] w-full min-h-0 max-w-[34rem] overflow-hidden">
               <Image
-                src="/images/marinashaped.jpg"
-                alt="Design philosophy shaped by the marina"
+                src="/images/hobsonville-10.jpg"
+                alt="Hobsonville Marina and moored boats from above"
                 fill
                 sizes="(min-width:768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"

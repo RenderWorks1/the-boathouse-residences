@@ -5,7 +5,6 @@ import { ParallaxSection } from '@/components/sections/ParallaxSection';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import { ScrollReveal, ScrollLinkedSlide } from '@/components/ui/ScrollReveal';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
-import { LinkButton } from '@/components/ui/Button';
 import { Fragment } from 'react';
 
 export const metadata: Metadata = {
@@ -15,17 +14,41 @@ export const metadata: Metadata = {
 };
 
 type SlideDirection = 'left' | 'right';
+type CarouselSlide = { src: string; alt: string };
+
+const studioRenders: CarouselSlide[] = [
+  { src: '/images/final-renders/studio/kitchen_landscape.jpg', alt: 'Studio kitchen' },
+  { src: '/images/final-renders/studio/interiorlounge_portrait.jpg', alt: 'Studio lounge' },
+  { src: '/images/final-renders/studio/interiordining_portrait.jpg', alt: 'Studio dining' },
+  { src: '/images/final-renders/studio/kitchen_portrait.jpg', alt: 'Studio kitchen detail' },
+  { src: '/images/final-renders/studio/bedroom_portrait.jpg', alt: 'Studio bedroom' },
+  { src: '/images/final-renders/studio/bathroom_portrait.jpg', alt: 'Studio bathroom' },
+  { src: '/images/final-renders/studio/exteriordeck_portrait.jpg', alt: 'Studio deck' },
+  { src: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg', alt: 'Studio deck by day' },
+  { src: '/images/final-renders/studio/bedroom_landscape.jpg', alt: 'Studio bedroom outlook' },
+];
+
+const twoBedroomRenders: CarouselSlide[] = [
+  { src: '/images/final-renders/2bedroom/living_portrait.jpg', alt: 'Two-bedroom living' },
+  { src: '/images/final-renders/2bedroom/bedroom_portrait.jpg', alt: 'Two-bedroom bedroom' },
+  { src: '/images/final-renders/2bedroom/dining_portrait.jpg', alt: 'Two-bedroom dining' },
+  { src: '/images/final-renders/2bedroom/bathroom_portrait.jpg', alt: 'Two-bedroom bathroom' },
+  { src: '/images/final-renders/2bedroom/living_portrait2.jpg', alt: 'Two-bedroom living detail' },
+  { src: '/images/final-renders/2bedroom/bedroom_portrait2.jpg', alt: 'Two-bedroom second bedroom' },
+  { src: '/images/final-renders/2bedroom/bedroom_portrait3.jpg', alt: 'Two-bedroom bedroom view' },
+  { src: '/images/final-renders/2bedroom/exteriorday_portrait2.jpg', alt: 'Two-bedroom exterior' },
+  { src: '/images/final-renders/2bedroom/exteriornight_portrait2.jpg', alt: 'Two-bedroom marina outlook at night' },
+];
 
 const residenceTypes: Array<{
   eyebrow: string;
   heading: string;
   body: string[];
-  image: string;
+  image?: string;
   layout: 'left' | 'right';
   slideFrom?: SlideDirection;
   elevated?: boolean;
-  ctaHref?: string;
-  ctaLabel?: string;
+  carousel?: CarouselSlide[];
 }> = [
   {
     eyebrow: 'Studio',
@@ -35,11 +58,8 @@ const residenceTypes: Array<{
       'Open-plan interiors create a seamless flow between living, kitchen and outdoor spaces, while carefully considered detailing and a refined material palette bring a sense of warmth and sophistication.',
       'Thoughtfully designed for modern waterfront living, each residence offers a beautifully balanced experience where simplicity meets functionality.',
     ],
-    image: '/images/final-renders/studio/interiorlounge_portrait.jpg',
     layout: 'left',
-    slideFrom: 'left',
-    ctaHref: '/residences/studio',
-    ctaLabel: 'View Studio Residences',
+    carousel: studioRenders,
   },
   {
     eyebrow: 'One Bedroom',
@@ -61,11 +81,9 @@ const residenceTypes: Array<{
       'Generous living areas extend naturally towards the marina, creating a seamless relationship between indoors and out, while considered layouts balance openness with privacy.',
       'Designed for those seeking greater flexibility and a deeper connection to the waterfront, these residences offer an elevated expression of life by the water.',
     ],
-    image: '/images/final-renders/2bedroom/living_portrait.jpg',
     layout: 'left',
     elevated: true,
-    ctaHref: '/residences/two-bedroom',
-    ctaLabel: 'View Two Bedroom Residences',
+    carousel: twoBedroomRenders,
   },
 ];
 
@@ -128,50 +146,21 @@ export default function ResidencesPage() {
               />
             )}
             <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
-              {isElevated ? (
-                <div className="section-px section-py mx-auto w-full max-w-[80rem]">
-                  <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)] text-center">
+              {r.carousel ? (
+                <div className="section-py w-full max-w-none">
+                  <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[44rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] px-[var(--section-pad-x)] text-center">
                     <span className={residenceEyebrowClass}>{r.eyebrow}</span>
                     <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                       {r.heading}
                     </h2>
                     <Paragraphs items={r.body} />
-                    {r.ctaHref && (
-                      <LinkButton
-                        href={r.ctaHref}
-                        variant="outline"
-                        className="border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
-                      >
-                        {r.ctaLabel}
-                      </LinkButton>
-                    )}
                   </ScrollReveal>
-                  <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[68rem] grid-cols-1 gap-[clamp(0.75rem,2vw,1.5rem)] px-[clamp(1rem,4vw,3rem)] md:grid-cols-2">
-                    <ScrollLinkedSlide from="bottom" distance={220}>
-                      <div className="group relative mx-auto aspect-[4/5] w-full overflow-hidden md:ml-auto md:mr-0 md:w-[min(28.4vw,24.3rem)]">
-                        <Image
-                          src={r.image}
-                          alt={`${r.heading} — interior`}
-                          fill
-                          sizes="(min-width:768px) 28vw, 90vw"
-                          className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
-                        />
-                      </div>
-                    </ScrollLinkedSlide>
-                    <ScrollLinkedSlide from="bottom" distance={220}>
-                      <div className="group relative mx-auto aspect-[4/5] w-full overflow-hidden md:ml-0 md:mr-auto md:w-[min(28.4vw,24.3rem)]">
-                        <Image
-                          src="/images/final-renders/2bedroom/bedroom_portrait.jpg"
-                          alt={`${r.heading} — outlook`}
-                          fill
-                          sizes="(min-width:768px) 28vw, 90vw"
-                          className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
-                        />
-                      </div>
-                    </ScrollLinkedSlide>
-                  </div>
+                  <ImageCarousel
+                    slides={r.carousel}
+                    portraitItemClassName="relative aspect-[4/5] w-[min(78vw,34rem)] overflow-hidden rounded-sm md:aspect-[3/4] md:w-[min(30vw,26rem)]"
+                  />
                 </div>
-              ) : r.slideFrom ? (
+              ) : r.slideFrom && r.image ? (
                 <ScrollLinkedSlide from={r.slideFrom} distance={260}>
                   <div
                     className={`section-px section-py mx-auto grid w-full max-w-[80rem] items-center gap-section md:grid-cols-2 ${
@@ -193,55 +182,10 @@ export default function ResidencesPage() {
                         {r.heading}
                       </h2>
                       <Paragraphs items={r.body} />
-                      {r.ctaHref && (
-                        <LinkButton
-                          href={r.ctaHref}
-                          variant="outline"
-                          className="self-start border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
-                        >
-                          {r.ctaLabel}
-                        </LinkButton>
-                      )}
                     </div>
                   </div>
                 </ScrollLinkedSlide>
-              ) : (
-                <div
-                  className={`section-px section-py mx-auto grid w-full max-w-[80rem] items-center gap-section md:grid-cols-2 ${
-                    left ? '' : 'md:[&>*:first-child]:order-2'
-                  }`}
-                >
-                  <ScrollReveal direction={left ? 'left' : 'right'}>
-                    <div className="group relative h-[min(75vh,75dvh)] w-full overflow-hidden">
-                      <Image
-                        src={r.image}
-                        alt={r.heading}
-                        fill
-                        sizes="(min-width:768px) 50vw, 100vw"
-                        className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
-                      />
-                    </div>
-                  </ScrollReveal>
-                  <ScrollReveal direction={left ? 'right' : 'left'}>
-                    <div className="flex flex-col gap-[clamp(1.75rem,4vw,3rem)] md:px-[clamp(0.5rem,2vw,1.5rem)]">
-                      <span className={residenceEyebrowClass}>{r.eyebrow}</span>
-                      <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-                        {r.heading}
-                      </h2>
-                      <Paragraphs items={r.body} />
-                      {r.ctaHref && (
-                        <LinkButton
-                          href={r.ctaHref}
-                          variant="outline"
-                          className="self-start border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
-                        >
-                          {r.ctaLabel}
-                        </LinkButton>
-                      )}
-                    </div>
-                  </ScrollReveal>
-                </div>
-              )}
+              ) : null}
             </section>
           </Fragment>
         );
@@ -267,17 +211,17 @@ export default function ResidencesPage() {
             variant="landscape"
             slides={[
               {
-                src: '/floorplan_placeholders/floorplan-new.jpg',
+                src: '/floorplans/studio-fp.jpg',
                 alt: 'Studio floor plan',
                 label: 'Studio',
               },
               {
-                src: '/floorplan_placeholders/floorplan-new.jpg',
+                src: '/floorplans/one-bed-fp.jpg',
                 alt: 'One bedroom floor plan',
                 label: 'One Bedroom',
               },
               {
-                src: '/floorplan_placeholders/floorplan-new.jpg',
+                src: '/floorplans/two-bed-fp.jpg',
                 alt: 'Two bedroom floor plan',
                 label: 'Two Bedroom',
               },
