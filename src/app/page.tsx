@@ -88,11 +88,7 @@ export default function HomePage() {
         ]}
       />
 
-      <FullBleedImage
-        src="/images/harbourside-living-poster.jpg"
-        alt="Waterfront lifestyle"
-        videoUrl="/harbourside-living.mp4"
-      />
+      <FullBleedImage src="/images/backoflaunch.jpg" alt="Back of launch on the water" />
 
       {/* 02 — The Experience */}
       <CopyBlock
@@ -105,12 +101,10 @@ export default function HomePage() {
         ]}
       />
 
-      <ParallaxSection
-        image="/birdseye.jpg"
-        alt="Boathouse Residences — birdseye view"
-        height="lg"
-        overlayOpacity={0.4}
-        strength={0.28}
+      <FullBleedImage
+        src="/images/harbourside-living-poster.jpg"
+        alt="Waterfront lifestyle"
+        videoUrl="/harbourside-living.mp4"
       />
 
       {/* 03 — The Location */}
@@ -124,11 +118,9 @@ export default function HomePage() {
         ]}
       />
 
-      <FullBleedVideo
-        src="/hero-videos/vision.mp4"
-        poster="/hero-videos/vision-poster.jpg"
-        alt="A clear vision"
-        tint="rgba(0, 0, 0, 0.35)"
+      <FullBleedImage
+        src="/images/ropesonboatlandscape4k.jpeg"
+        alt="Marina rope detail"
       />
 
       {/* 04 — The Architecture */}
@@ -142,7 +134,7 @@ export default function HomePage() {
         ]}
       />
 
-      <CoastalLiving slides={coastalLivingImages} />
+      <FullBleedImage src="/rope.jpg" alt="Marina rope detail" />
 
       {/* 05 — The Interiors */}
       <CopyBlock
@@ -153,6 +145,13 @@ export default function HomePage() {
           'Designed by Paula Herbert Studio, each residence reflects a considered approach to materiality, texture and form, where natural finishes, refined detailing and a timeless palette create spaces that feel both effortless and enduring.',
           'Every element has been carefully resolved to complement the waterfront setting, creating interiors that invite calm, connection and a sense of belonging.',
         ]}
+      />
+
+      <FullBleedVideo
+        src="/hero-videos/vision.mp4"
+        poster="/hero-videos/vision-poster.jpg"
+        alt="A clear vision"
+        tint="rgba(0, 0, 0, 0.35)"
       />
 
       {/* 06 — The Residence Collection */}
@@ -172,6 +171,16 @@ export default function HomePage() {
           View the Residences
         </LinkButton>
       </CopyBlock>
+
+      <CoastalLiving slides={coastalLivingImages} />
+
+      <ParallaxSection
+        image="/birdseye.jpg"
+        alt="Boathouse Residences — birdseye view"
+        height="lg"
+        overlayOpacity={0.4}
+        strength={0.28}
+      />
 
       <ResidencesTriptych
         eyebrow=""
