@@ -89,8 +89,8 @@ export default function HomePage() {
 
       {/* 02 — The Experience (backoflaunch image, right) */}
       <FlagStatement
-        imageSrc="/images/backoflaunch.jpg"
-        imageAlt="Back of launch on the water"
+        imageSrc="/images/deckshot.jpg"
+        imageAlt="Deck overlooking the marina"
         imageSide="right"
         heading="A Different Pace of Living."
         body={[
