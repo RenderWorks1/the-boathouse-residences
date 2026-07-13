@@ -17,15 +17,15 @@ const groups: Group[] = [
       },
       {
         q: 'Do I own the berth?',
-        a: 'The Boathouse Residence includes the right to occupy a designated marina berth. This is secured through a formal berth licence (or tenure arrangement), providing exclusive use of that position within the marina.',
+        a: 'The Boathouse Residence includes the right to occupy a designated marina berth. This is secured through a formal berth licence providing exclusive use of that position within the marina.',
       },
       {
         q: 'Is the berth included in the purchase?',
-        a: 'Yes. The purchase includes the residence together with the associated rights to occupy its designated berth within Hobsonville Marina.',
+        a: 'Yes. The purchase includes the residence together with the rights to occupy its designated berth within Hobsonville Marina.',
       },
       {
         q: 'Is the berth licence transferable?',
-        a: 'Yes, the berth licence is generally transferable upon the sale of the residence, subject to marina approval and standard documentation requirements.',
+        a: 'Yes. The berth licence is transferable upon the sale of the residence, subject to marina approval of the purchaser, payment of the transfer fee, and standard documentation requirements.',
       },
     ],
   },
@@ -37,8 +37,8 @@ const groups: Group[] = [
         a: 'A berth licence grants the right to occupy and use a specific marina berth for the purpose of mooring your Boathouse Residence. It is governed by Hobsonville Marina’s operational rules and management framework.',
       },
       {
-        q: 'Are there ongoing costs associated with the berth?',
-        a: 'Yes. Ongoing operational and maintenance costs (OPEX) apply and are payable in addition to the purchase price.',
+        q: 'Is there rent payable for the berth?',
+        a: 'No. There is no rent for the berth. Operational and maintenance costs (OPEX) and a live-aboard levy apply, similar to an apartment building body corporate.',
       },
       {
         q: 'What do OPEX costs typically cover?',
@@ -55,7 +55,7 @@ const groups: Group[] = [
     items: [
       {
         q: 'Are power and water connected?',
-        a: 'Yes. Each Boathouse Residence is connected to marina services, including power and water.',
+        a: 'Yes. Each Boathouse Residence is connected to marina services, including power, fresh water and waste water.',
       },
       {
         q: 'How are utilities charged?',
@@ -63,7 +63,11 @@ const groups: Group[] = [
       },
       {
         q: 'Are there any additional service connections?',
-        a: 'Further details regarding services such as wastewater, communications and other utilities will be provided within the information pack.',
+        a: 'Further details regarding services such as communications and other utilities will be provided within the information pack.',
+      },
+      {
+        q: 'How are The Boathouse Residences cared for in a waterfront environment?',
+        a: 'Reflecting their marina setting, The Boathouse Residences will benefit from a biannual external maintenance programme inspired by a vessel’s regular “haul-out” process. This includes specialised cleaning and treatments to remove algae, salt, and environmental build-up, preserving the residences’ appearance and integrity over time.',
       },
     ],
   },
@@ -72,7 +76,7 @@ const groups: Group[] = [
     items: [
       {
         q: 'Can I live in the Boathouse Residence full-time?',
-        a: 'Boathouse Residences are designed to support full-time living, subject to compliance with marina regulations and any applicable council requirements.',
+        a: 'Boathouse Residences are designed to support full-time living.',
       },
       {
         q: 'Are there rules for living within the marina?',
@@ -89,11 +93,11 @@ const groups: Group[] = [
     items: [
       {
         q: 'Can I rent out my Boathouse Residence?',
-        a: 'Rental is generally permitted, subject to marina rules and any applicable regulatory requirements. Further details will be outlined in the information pack.',
+        a: 'Long term renting is permitted, subject to marina rules and any applicable regulatory requirements. Further details will be outlined in the information pack.',
       },
       {
         q: 'Can I make changes to my residence?',
-        a: 'Any modifications must comply with marina guidelines and may require approval to ensure consistency, safety and design integrity across the precinct.',
+        a: 'Any external modifications must comply with marina guidelines and may require approval to ensure consistency, safety and design integrity across the precinct.',
       },
     ],
   },
@@ -102,7 +106,7 @@ const groups: Group[] = [
     items: [
       {
         q: 'Is there parking available?',
-        a: 'Parking provisions will be confirmed as part of the individual residence offering. Please refer to your specific residence details.',
+        a: 'There are 206 unallocated berth holder car parking spaces available for use by berth holders.',
       },
       {
         q: 'Are pets allowed?',
@@ -110,11 +114,7 @@ const groups: Group[] = [
       },
       {
         q: 'What about insurance?',
-        a: 'Owners are responsible for arranging appropriate insurance for their residence. Specific requirements may apply given the marina environment.',
-      },
-      {
-        q: 'How are The Boathouse Residences cared for in a waterfront environment?',
-        a: 'Reflecting their marina setting, The Boathouse Residences will benefit from a biannual external maintenance programme inspired by a vessel’s regular “haul-out” process. This includes specialised cleaning and treatments to remove algae, salt, and environmental build-up, preserving the residences’ appearance and integrity over time.',
+        a: 'Owners are responsible for arranging appropriate insurance for their residence.',
       },
     ],
   },
@@ -127,11 +127,11 @@ const groups: Group[] = [
       },
       {
         q: 'What deposit is required?',
-        a: 'A deposit of 50% of the purchase price is required to secure a Boathouse Residence. This reflects the limited nature of marina positions and the inclusion of berth occupation rights within the purchase.',
+        a: 'An initial deposit of $500 is required to secure your Boathouse Residence, with a further 50% of the purchase price payable within 14 days, at which time your berth licence will be issued to you.',
       },
       {
         q: 'When is the remaining balance payable?',
-        a: 'The balance of the purchase price is payable in accordance with the terms outlined in the sale and purchase agreement. Full details will be provided upon enquiry.',
+        a: 'The balance of the purchase price is payable in accordance with the terms outlined in the sale and purchase agreement, generally on the agreed settlement date.',
       },
       {
         q: 'Where can I get more detailed information?',
