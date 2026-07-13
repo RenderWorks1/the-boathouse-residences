@@ -19,7 +19,6 @@ const studioRenders: BentoImage[] = [
   { src: '/images/final-renders/studio/kitchen_portrait.jpg', alt: 'Studio kitchen detail' },
   { src: '/images/final-renders/studio/bedroom_portrait.jpg', alt: 'Studio bedroom' },
   { src: '/images/final-renders/studio/bathroom_portrait.jpg', alt: 'Studio bathroom' },
-  { src: '/images/final-renders/studio/exteriordark_landscape.jpg', alt: 'Studio exterior at dusk' },
   { src: '/images/final-renders/studio/interiorempty_portrait2.jpg', alt: 'Studio interior' },
   { src: '/images/final-renders/studio/exteriordeck_portrait.jpg', alt: 'Studio deck' },
   { src: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg', alt: 'Studio deck by day' },
