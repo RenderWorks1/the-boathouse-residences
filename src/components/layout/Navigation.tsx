@@ -21,8 +21,8 @@ import { MobileMenu } from './MobileMenu';
 
 const linksLeft = [
   { href: '/residences', label: 'The Residences' },
-  { href: '/vision', label: 'Vision' },
-  { href: '/lifestyle', label: 'Lifestyle & Location' },
+  { href: '/vision', label: 'The Vision' },
+  { href: '/lifestyle', label: 'The Setting' },
 ];
 
 const linksRight = [
