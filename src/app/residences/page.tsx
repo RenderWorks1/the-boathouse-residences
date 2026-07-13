@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/shared/PageHero';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
+import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import { ScrollReveal, ScrollLinkedSlide } from '@/components/ui/ScrollReveal';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
 import { LinkButton } from '@/components/ui/Button';
@@ -18,44 +19,72 @@ type SlideDirection = 'left' | 'right';
 const residenceTypes: Array<{
   eyebrow: string;
   heading: string;
-  body: string;
+  body: string[];
   image: string;
   layout: 'left' | 'right';
   slideFrom?: SlideDirection;
+  elevated?: boolean;
   ctaHref?: string;
   ctaLabel?: string;
 }> = [
   {
     eyebrow: 'Studio',
-    heading: 'Intelligent Living',
-    body: 'The studio residences are thoughtfully designed to maximise space, light and functionality. Open-plan layouts create a seamless relationship between living, kitchen and outdoor areas, while carefully resolved detailing introduces a sense of quiet refinement. The result is a home that feels efficient in scale, yet generous in experience.',
+    heading: 'Considered in Every Detail.',
+    body: [
+      'Designed with purpose and precision, the Studio Residences make the most of every element.',
+      'Open-plan interiors create a seamless flow between living, kitchen and outdoor spaces, while carefully considered detailing and a refined material palette bring a sense of warmth and sophistication.',
+      'Thoughtfully designed for modern waterfront living, each residence offers a beautifully balanced experience where simplicity meets functionality.',
+    ],
     image: '/images/final-renders/studio/interiorlounge_portrait.jpg',
     layout: 'left',
     slideFrom: 'left',
     ctaHref: '/residences/studio',
-    ctaLabel: 'View Studio',
+    ctaLabel: 'View Studio Residences',
   },
   {
     eyebrow: 'One Bedroom',
-    heading: 'Balanced by Design',
-    body: 'One bedroom residences offer a natural balance of openness and retreat. Living areas extend effortlessly to private decks, drawing in natural light and the presence of the marina, while bedrooms are positioned to provide privacy and a sense of calm. Each home supports a relaxed, considered way of living by the water.',
+    heading: 'Balanced by Design.',
+    body: [
+      'Offering a natural balance of openness and retreat, the One Bedroom Residences have been designed around the way people want to reside.',
+      'Living spaces extend effortlessly towards private outdoor areas, drawing in natural light and uninterrupted marina outlooks, while carefully positioned bedrooms provide a sense of privacy and calm.',
+      'Every element has been considered to create a residence that feels refined, relaxed and connected to the water beyond.',
+    ],
     image: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg',
     layout: 'right',
     slideFrom: 'right',
   },
   {
     eyebrow: 'Two Bedroom',
-    heading: 'Elevated in Scale',
-    body: 'Two bedroom residences offer an increased sense of scale, with well-proportioned living areas that extend naturally toward the marina. Layouts are carefully arranged to balance openness with privacy, creating homes that feel calm, flexible and exclusively connected to their waterfront setting.',
+    heading: 'Elevated in Scale.',
+    body: [
+      'The Two Bedroom Residences offer a heightened sense of space, proportion and connection.',
+      'Generous living areas extend naturally towards the marina, creating a seamless relationship between indoors and out, while considered layouts balance openness with privacy.',
+      'Designed for those seeking greater flexibility and a deeper connection to the waterfront, these residences offer an elevated expression of life by the water.',
+    ],
     image: '/images/final-renders/2bedroom/living_portrait.jpg',
     layout: 'left',
+    elevated: true,
     ctaHref: '/residences/two-bedroom',
-    ctaLabel: 'View Two Bedroom',
+    ctaLabel: 'View Two Bedroom Residences',
   },
 ];
 
 const residenceEyebrowClass =
   'font-sans uppercase tracking-[0.32em] text-harbour text-[clamp(0.875rem,0.35vw+0.78rem,1.05rem)]';
+const bodyClass =
+  'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal';
+
+function Paragraphs({ items }: { items: string[] }) {
+  return (
+    <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
+      {items.map((p, i) => (
+        <p key={i} className={bodyClass}>
+          {p}
+        </p>
+      ))}
+    </div>
+  );
+}
 
 export default function ResidencesPage() {
   return (
@@ -70,21 +99,24 @@ export default function ResidencesPage() {
         <div className="section-px section-py mx-auto w-full max-w-[80rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
             <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-              A Collection by the Water
+              A Collection by the Water.
             </h2>
-            <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal max-w-[60rem]">
-              The Boathouse Residences invites a limited collection of studio, one and two bedroom homes,
-              thoughtfully positioned along the edge of the Hobsonville Marina. Each residence is designed
-              to capture light, outlook and a direct connection to the water, resulting in homes that feel
-              calm, refined and enduring.
-            </p>
+            <div className="max-w-[60rem]">
+              <Paragraphs
+                items={[
+                  'A considered collection of Studio, One Bedroom and Two Bedroom residences, thoughtfully positioned along the edge of Hobsonville Point Marina.',
+                  'Designed to embrace light, outlook and connection to the water, each residence reflects a commitment to timeless design, refined detailing and the art of considered living.',
+                  'From intimate retreats to more generous waterfront residences, every space has been carefully resolved to create a sense of calm, comfort and enduring quality.',
+                ]}
+              />
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
       {residenceTypes.map((r, i) => {
         const left = r.layout === 'left';
-        const isElevated = r.heading === 'Elevated in Scale';
+        const isElevated = r.elevated === true;
         return (
           <Fragment key={r.heading}>
             {isElevated && (
@@ -103,9 +135,7 @@ export default function ResidencesPage() {
                     <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                       {r.heading}
                     </h2>
-                    <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-                      {r.body}
-                    </p>
+                    <Paragraphs items={r.body} />
                     {r.ctaHref && (
                       <LinkButton
                         href={r.ctaHref}
@@ -162,9 +192,7 @@ export default function ResidencesPage() {
                       <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                         {r.heading}
                       </h2>
-                      <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-                        {r.body}
-                      </p>
+                      <Paragraphs items={r.body} />
                       {r.ctaHref && (
                         <LinkButton
                           href={r.ctaHref}
@@ -200,9 +228,7 @@ export default function ResidencesPage() {
                       <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                         {r.heading}
                       </h2>
-                      <p className="font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal">
-                        {r.body}
-                      </p>
+                      <Paragraphs items={r.body} />
                       {r.ctaHref && (
                         <LinkButton
                           href={r.ctaHref}
@@ -223,11 +249,19 @@ export default function ResidencesPage() {
 
       <section className="bg-linen-white">
         <div className="section-py w-full max-w-none">
-          <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[78rem] flex-col items-center gap-[clamp(1rem,2vw,1.5rem)] px-[var(--section-pad-x)] text-center">
+          <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[78rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] px-[var(--section-pad-x)] text-center">
             <span className={residenceEyebrowClass}>Floor Plans</span>
             <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-              Indicative Layouts
+              Considered Layouts.
             </h2>
+            <div className="max-w-[52rem]">
+              <Paragraphs
+                items={[
+                  'Every residence has been thoughtfully planned to maximise natural light, functionality and connection to the surrounding environment.',
+                  'Explore the considered layouts and discover a residence designed around the way you want to live.',
+                ]}
+              />
+            </div>
           </ScrollReveal>
           <ImageCarousel
             variant="landscape"
@@ -253,16 +287,36 @@ export default function ResidencesPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px section-py-tight mx-auto w-full max-w-[80rem] text-center">
-          <ScrollReveal className="mx-auto flex max-w-[68rem] flex-col items-center gap-section-sm">
+        <div className="section-px section-py mx-auto w-full max-w-[80rem] text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(0.85rem,2vw,1.35rem)]">
             <p className="text-balance font-sans text-[clamp(0.95rem,0.4vw+0.82rem,1.2rem)] font-light leading-[1.6] text-charcoal">
-              Across every residence, materials are refined, proportions are balanced, and natural light
-              is central to the design, shaping homes that feel calm, enduring and uniquely connected to
-              the marina.
+              Across every residence, thoughtful proportions, refined materials and natural light come
+              together to create spaces that feel timeless, considered and deeply connected to the marina.
+            </p>
+            <p className="text-balance font-sans text-[clamp(0.95rem,0.4vw+0.82rem,1.2rem)] font-light leading-[1.6] text-charcoal">
+              A new address on the water, designed to be experienced.
             </p>
           </ScrollReveal>
         </div>
       </section>
+
+      <section className="bg-salt">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
+            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+              Enquire Now
+            </h2>
+            <div className="max-w-[52rem]">
+              <Paragraphs
+                items={[
+                  'Our sales team will welcome you to Boathouse Residences and provide further information about this unique waterfront collection.',
+                ]}
+              />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+      <EnquiryForm hideIntro />
     </>
   );
 }
