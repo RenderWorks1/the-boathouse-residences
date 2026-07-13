@@ -15,10 +15,15 @@ export default function EnquirePage() {
         <div className="section-px section-py-tight w-full max-w-none">
           <ScrollReveal className="mx-auto flex max-w-[60rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)] text-center">
             <h1 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
-              Enquire Now
+              Begin Your Journey to the Water.
             </h1>
             <p className="text-balance font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal max-w-[44rem]">
-              Our sales team will be in touch to welcome you to your new address on the water…
+              Discover Boathouse Residences, a unique collection of waterfront residences shaped by
+              thoughtful design, refined interiors and an enduring connection to the marina.
+            </p>
+            <p className="text-balance font-sans text-[clamp(1rem,0.5vw+0.88rem,1.25rem)] font-light leading-[1.65] text-charcoal max-w-[44rem]">
+              Register your interest to receive further information and arrange a private viewing with
+              our sales team today.
             </p>
 
             <div className="mt-[clamp(1rem,2.5vw,1.75rem)] grid w-full grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] font-sans text-charcoal/80 text-[clamp(0.8125rem,0.35vw+0.72rem,0.9375rem)] sm:grid-cols-3">
