@@ -42,9 +42,9 @@ export default function LifestylePage() {
   return (
     <>
       <PageHero
-        image="/hero-videos/lifestyle-poster.jpg"
+        image="/hero-videos/residences-poster.jpg"
         title="Life at the Marina"
-        videoUrl="/hero-videos/lifestyle.mp4"
+        videoUrl="/hero-videos/residences.mp4"
       />
 
       <section className="bg-salt">
