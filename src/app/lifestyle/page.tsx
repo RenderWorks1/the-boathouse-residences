@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/shared/PageHero';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
+import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -171,7 +172,7 @@ export default function LifestylePage() {
       })}
 
       <section className="bg-salt">
-        <div className="section-px section-py w-full max-w-none text-center">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
           <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
             <h2 className={headingClass}>Enquire Now</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
@@ -184,6 +185,7 @@ export default function LifestylePage() {
           </ScrollReveal>
         </div>
       </section>
+      <EnquiryForm hideIntro />
     </>
   );
 }
