@@ -118,7 +118,7 @@ export default function HomePage() {
 
       {/* 04 — The Architecture (ropes image, aspect-video) */}
       <ArchitecturalVision
-        imageSrc="/images/ropesonboatlandscape4k.jpeg"
+        imageSrc="/images/actual-final-renders/Studio_finals/studio_int_v7_landscape_evening_final.jpg"
         heading="Architecture That Belongs."
         body={[
           'Every element has been carefully resolved to sit naturally within its marina setting.',
