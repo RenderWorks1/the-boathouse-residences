@@ -23,7 +23,7 @@ export function Footer() {
 
         <div className="text-center font-sans font-light leading-loose text-white text-[clamp(0.8125rem,0.35vw+0.72rem,0.9375rem)]">
           <p>Boathouse Residences</p>
-          <p>18 Clearwater Cove, West Harbour, Auckland 0618</p>
+          <p>Clearwater Cove, West Harbour, Auckland</p>
           <p>+64 21 027 20203</p>
           <p>
             <a href="mailto:info@boathouseresidences.co.nz" className="hover:text-white/70 transition-colors">

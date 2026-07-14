@@ -28,7 +28,7 @@ const intro = {
 
 const sections = [
   {
-    heading: 'A Rare Waterfront Position.',
+    heading: 'A Unique Waterfront Position.',
     body: [
       'Set along the edge of Hobsonville Point Marina, Boathouse Residences enjoys a unique relationship with the water.',
       'The movement of boats, the changing tides and uninterrupted harbour outlooks create an ever-evolving sense of place, a connection to nature that becomes part of daily life.',
@@ -54,7 +54,7 @@ const sections = [
       'While the marina offers a sense of retreat, Boathouse Residences remains connected to everything Auckland has to offer.',
       'With ferry services, established transport links and easy access to the city, airport and surrounding destinations, residents can enjoy the best of both worlds, a peaceful waterfront setting with effortless connectivity.',
     ],
-    image: '/images/connected2.jpeg',
+    image: '/images/newdock.jpeg',
     layout: 'left' as const,
     variant: 'split' as const,
   },

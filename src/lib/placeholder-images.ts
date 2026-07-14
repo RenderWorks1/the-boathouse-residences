@@ -12,6 +12,12 @@ export const coastalLivingImages = [
   { src: '/images/final-renders/2bedroom/dining_portrait.jpg', alt: 'Dining area with linen tones' },
   { src: '/images/final-renders/2bedroom/exteriornight_portrait.jpg', alt: 'Marina outlook at dusk' },
   { src: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg', alt: 'Deck and harbour by day' },
+  { src: '/images/final-renders/2bedroom/living_portrait.jpg', alt: 'Marina view residence living' },
+  { src: '/images/final-renders/2bedroom/living_portrait2.jpg', alt: 'Living space with harbour outlook' },
+  { src: '/images/final-renders/studio/kitchen_portrait.jpg', alt: 'Studio kitchen with refined finishes' },
+  { src: '/images/final-renders/studio/interiordining_portrait.jpg', alt: 'Studio dining in natural light' },
+  { src: '/images/final-renders/2bedroom/bedroom_portrait.jpg', alt: 'Harbour corner residence bedroom' },
+  { src: '/images/final-renders/2bedroom/bedroom_portrait2.jpg', alt: 'Bedroom with water views' },
 ];
 
 export const residenceGallery = [
@@ -33,6 +39,5 @@ export const studioGallery = [
   '/images/final-renders/studio/kitchen_portrait.jpg',
   '/images/final-renders/studio/bedroom_portrait.jpg',
   '/images/final-renders/studio/bathroom_portrait.jpg',
-  '/images/final-renders/studio/exteriordeck_portrait.jpg',
   '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg',
 ];

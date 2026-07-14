@@ -7,7 +7,6 @@ import { FlagStatement } from '@/components/sections/FlagStatement';
 import { FullBleedVideo } from '@/components/sections/FullBleedVideo';
 import { CoastalLiving } from '@/components/sections/CoastalLiving';
 import { ParallaxSection } from '@/components/sections/ParallaxSection';
-import { ResidencesTriptych } from '@/components/sections/ResidencesTriptych';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { LinkButton } from '@/components/ui/Button';
@@ -171,30 +170,6 @@ export default function HomePage() {
         height="lg"
         overlayOpacity={0.4}
         strength={0.28}
-      />
-
-      <ResidencesTriptych
-        eyebrow=""
-        items={[
-          {
-            primary: '/images/final-renders/2bedroom/living_portrait.jpg',
-            secondary: '/images/final-renders/2bedroom/living_portrait2.jpg',
-            alt: 'Marina view residence',
-            href: '/residences/residence-01',
-          },
-          {
-            primary: '/images/final-renders/studio/kitchen_portrait.jpg',
-            secondary: '/images/final-renders/studio/interiordining_portrait.jpg',
-            alt: 'Studio interior',
-            href: '/residences/residence-07',
-          },
-          {
-            primary: '/images/final-renders/2bedroom/bedroom_portrait.jpg',
-            secondary: '/images/final-renders/2bedroom/bedroom_portrait2.jpg',
-            alt: 'Harbour corner residence',
-            href: '/residences/residence-04',
-          },
-        ]}
       />
 
       {/* 07 — Enquire */}

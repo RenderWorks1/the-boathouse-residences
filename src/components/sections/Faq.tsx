@@ -38,7 +38,7 @@ const groups: Group[] = [
       },
       {
         q: 'Is there rent payable for the berth?',
-        a: 'No. There is no rent for the berth. Operational and maintenance costs (OPEX) and a live-aboard levy apply, similar to an apartment building body corporate.',
+        a: 'No. There is no rent for the berth. Operational and maintenance costs (OPEX) apply, similar to an apartment building body corporate.',
       },
       {
         q: 'What do OPEX costs typically cover?',
@@ -127,7 +127,7 @@ const groups: Group[] = [
       },
       {
         q: 'What deposit is required?',
-        a: 'An initial deposit of $500 is required to secure your Boathouse Residence, with a further 50% of the purchase price payable within 14 days, at which time your berth licence will be issued to you.',
+        a: 'An initial deposit of $500 is required to secure your Boathouse Residence berth, with a further deposit payable within 14 days, and the balance of the purchase price on settlement date.',
       },
       {
         q: 'When is the remaining balance payable?',

@@ -43,10 +43,7 @@ const schemes = [
       'Gentle oak tones, warm whites and subtle caramel hues establish a sense of continuity throughout the residence, creating spaces that feel light, balanced and effortlessly connected.',
       'Designed as a retreat from the outside world, this palette reflects the quiet beauty of the marina, a place of warmth, ease and natural tranquillity.',
     ],
-    images: [
-      '/images/final-renders/studio/interiorlounge_portrait.jpg',
-      '/images/final-renders/studio/interiordining_portrait.jpg',
-    ] as const,
+    image: '/images/lighttheme.jpg',
   },
   {
     eyebrow: 'The Dark Palette (Tide)',
@@ -56,10 +53,7 @@ const schemes = [
       'Layered neutrals, rich timber finishes and tactile textures create interiors with a sense of warmth, sophistication and quiet confidence.',
       'Balanced and enduring, this palette offers a deeper expression of the Boathouse Residences design philosophy, refined, composed and connected to the natural environment.',
     ],
-    images: [
-      '/images/final-renders/2bedroom/dining_portrait.jpg',
-      '/images/final-renders/2bedroom/exteriornight_portrait.jpg',
-    ] as const,
+    image: '/images/darktheme.jpg',
   },
 ];
 
@@ -144,25 +138,14 @@ export default function InteriorsPage() {
                     ))}
                   </div>
                 </ScrollReveal>
-                <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] grid w-full max-w-[52rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-2">
-                  <ScrollReveal direction="left">
-                    <div className="group relative aspect-[4/5] w-full overflow-hidden">
+                <div className="mx-auto mt-[clamp(5rem,9vw,8rem)] w-full max-w-[42rem]">
+                  <ScrollReveal>
+                    <div className="group relative aspect-[3/2] w-full overflow-hidden">
                       <Image
-                        src={s.images[0]}
-                        alt={`${s.heading} — view one`}
+                        src={s.image}
+                        alt={s.heading}
                         fill
-                        sizes="(min-width:768px) 40vw, 90vw"
-                        className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
-                      />
-                    </div>
-                  </ScrollReveal>
-                  <ScrollReveal direction="right">
-                    <div className="group relative aspect-[4/5] w-full overflow-hidden">
-                      <Image
-                        src={s.images[1]}
-                        alt={`${s.heading} — view two`}
-                        fill
-                        sizes="(min-width:768px) 40vw, 90vw"
+                        sizes="(min-width:768px) 72rem, 90vw"
                         className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
                       />
                     </div>
@@ -206,9 +189,9 @@ export default function InteriorsPage() {
           </ScrollReveal>
           <div className="mx-auto mt-[clamp(3rem,6vw,5rem)] grid w-full max-w-[78rem] grid-cols-1 gap-[clamp(1.5rem,3.5vw,2.5rem)] md:grid-cols-3">
             {[
-              { src: '/images/finish1.jpeg', alt: 'Material finish — sample one' },
-              { src: '/images/finish2.jpeg', alt: 'Material finish — sample two' },
-              { src: '/images/finish3.jpeg', alt: 'Material finish — sample three' },
+              { src: '/images/closeup2.jpeg', alt: 'Kitchen detail — timber joinery and stone benchtop' },
+              { src: '/images/closeup3.jpeg', alt: 'Oak table detail on a textured rug' },
+              { src: '/images/closeup4.jpeg', alt: 'Bathroom detail — fluted timber vanity and basin' },
             ].map((f, i) => (
               <ScrollReveal
                 key={f.src}
