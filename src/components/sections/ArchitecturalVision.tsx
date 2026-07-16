@@ -80,7 +80,7 @@ export function ArchitecturalVision({
               WebkitMaskSize: '100% 100%',
               maskSize: '100% 100%',
             }}
-            className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.1rem,2.5vw,1.85rem)] text-center"
+            className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.1rem,2.5vw,1.85rem)] text-left md:items-center md:text-center"
           >
             <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.75rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               {heading}

@@ -33,8 +33,8 @@ function CopyBlock({
 }) {
   return (
     <section className="bg-salt">
-      <div className="section-px section-py w-full max-w-none text-center">
-        <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.5rem,3.5vw,2.5rem)]">
+      <div className="section-px section-py w-full max-w-none text-left md:text-center">
+        <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.5rem,3.5vw,2.5rem)] md:items-center">
           <h2 className={headingClass}>{heading}</h2>
           <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
             {paragraphs.map((p, i) => (
@@ -149,7 +149,7 @@ export default function HomePage() {
         <LinkButton
           href="/residences"
           variant="outline"
-          className="mt-[clamp(0.5rem,1.5vw,1rem)] border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
+          className="mt-[clamp(0.5rem,1.5vw,1rem)] self-center border-charcoal/70 text-charcoal hover:bg-charcoal hover:text-linen-white"
         >
           View the Residences
         </LinkButton>
@@ -174,8 +174,8 @@ export default function HomePage() {
 
       {/* 07 — Enquire */}
       <section className="bg-salt">
-        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.5rem,3.5vw,2.5rem)]">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.5rem,3.5vw,2.5rem)] md:items-center">
             <h2 className={headingClass}>Your Place on the Water.</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={bodyClass}>

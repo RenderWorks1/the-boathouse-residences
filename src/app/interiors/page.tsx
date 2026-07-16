@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const headingClass =
-  'w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
+  'w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
 const bodyClass =
   'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal';
 const eyebrowClass =
@@ -107,9 +107,9 @@ export default function InteriorsPage() {
       />
 
       <section className="bg-salt">
-        <div className="section-px section-py w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
-            <p className={eyebrowClass}>A Refined Interior Palette</p>
+        <div className="section-px section-py w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] md:items-center">
+            <p className={`w-full text-center ${eyebrowClass}`}>A Refined Interior Palette</p>
             <h2 className={headingClass}>Thoughtful Simplicity.</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               {paletteBody.map((p, i) => (
@@ -127,8 +127,8 @@ export default function InteriorsPage() {
           <Fragment key={s.eyebrow}>
             <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
               <div className="section-px section-py w-full max-w-none">
-                <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.25rem,3vw,2rem)] text-center">
-                  <p className={eyebrowClass}>{s.eyebrow}</p>
+                <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-start gap-[clamp(1.25rem,3vw,2rem)] text-left md:items-center md:text-center">
+                  <p className={`w-full text-center ${eyebrowClass}`}>{s.eyebrow}</p>
                   <h2 className={headingClass}>{s.heading}</h2>
                   <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
                     {s.body.map((p, j) => (
@@ -177,7 +177,7 @@ export default function InteriorsPage() {
 
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] text-left md:items-center md:text-center">
             <h2 className={headingClass}>Crafted Through Detail.</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               {materialityBody.map((p, i) => (
@@ -214,8 +214,8 @@ export default function InteriorsPage() {
       </section>
 
       <section className="bg-linen-white">
-        <div className="section-px section-py w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(0.85rem,2vw,1.35rem)]">
+        <div className="section-px section-py w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(0.85rem,2vw,1.35rem)] md:items-center">
             <p className="text-balance font-sans text-[clamp(1.125rem,0.6vw+0.95rem,1.5rem)] font-light leading-[1.5] text-charcoal">
               Every element within Boathouse Residences has been thoughtfully considered, creating
               interiors that are refined yet effortless a timeless expression of life beside the water.
@@ -228,8 +228,8 @@ export default function InteriorsPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] md:items-center">
             <h2 className={headingClass}>Enquire Now</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={bodyClass}>

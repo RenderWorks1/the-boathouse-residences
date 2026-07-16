@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const headingClass =
-  'w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
+  'w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
 const bodyClass =
   'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal';
 
@@ -80,8 +80,8 @@ export default function LifestylePage() {
       />
 
       <section className="bg-salt">
-        <div className="section-px section-py w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)]">
+        <div className="section-px section-py w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.75rem,4vw,3rem)] md:items-center">
             <h2 className={headingClass}>{intro.heading}</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               {intro.body.map((p, i) => (
@@ -108,7 +108,7 @@ export default function LifestylePage() {
             <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
               {s.variant === 'feature' ? (
                 <div className="section-px section-py w-full max-w-none">
-                  <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-center gap-[clamp(1.75rem,4vw,3rem)] text-center">
+                  <ScrollReveal className="mx-auto flex max-w-[44rem] flex-col items-start gap-[clamp(1.75rem,4vw,3rem)] text-left md:items-center md:text-center">
                     <h2 className={headingClass}>{s.heading}</h2>
                     <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
                       {s.body.map((p, j) => (
@@ -154,7 +154,7 @@ export default function LifestylePage() {
                   </ScrollReveal>
                   <ScrollReveal direction={left ? 'right' : 'left'}>
                     <div className="flex flex-col gap-[clamp(1.75rem,4vw,3rem)] md:px-[clamp(0.5rem,2vw,1.5rem)]">
-                      <h2 className={headingClass}>{s.heading}</h2>
+                      <h2 className={`${headingClass} md:text-left`}>{s.heading}</h2>
                       <div className="flex flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
                         {s.body.map((p, j) => (
                           <p key={j} className={bodyClass}>
@@ -172,8 +172,8 @@ export default function LifestylePage() {
       })}
 
       <section className="bg-salt">
-        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] md:items-center">
             <h2 className={headingClass}>Enquire Now</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={bodyClass}>

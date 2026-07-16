@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const visionSectionTitleClass =
-  'mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.75rem)] font-normal leading-[1.15] tracking-tight text-charcoal';
+  'mb-[clamp(1.35rem,3vw,2.35rem)] w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.75rem)] font-normal leading-[1.15] tracking-tight text-charcoal md:text-left';
 const visionSectionBodyClass =
   'font-sans text-[clamp(0.9375rem,0.42vw+0.82rem,1.125rem)] font-light leading-[1.65] text-charcoal';
 
@@ -29,7 +29,7 @@ export default function VisionPage() {
       <section className="bg-salt">
         <div className="section-px section-py mx-auto w-full max-w-[88rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
-            <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+            <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal md:text-left">
               A Clear Vision.
             </h2>
             <div className="flex max-w-[60rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
@@ -137,8 +137,8 @@ export default function VisionPage() {
 
       <section className="bg-linen-white">
         <div className="section-px section-py mx-auto w-full max-w-[88rem]">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] text-center">
-            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] text-left md:items-center md:text-center">
+            <h2 className="w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               Designed for Now. Created to Endure.
             </h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
@@ -154,9 +154,9 @@ export default function VisionPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
-            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] md:items-center">
+            <h2 className="w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               Enquire Now
             </h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">

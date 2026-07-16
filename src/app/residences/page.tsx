@@ -116,7 +116,7 @@ export default function ResidencesPage() {
       <section className="bg-salt">
         <div className="section-px section-py mx-auto w-full max-w-[80rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
-            <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+            <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal md:text-left">
               A Collection by the Water.
             </h2>
             <div className="max-w-[60rem]">
@@ -145,12 +145,12 @@ export default function ResidencesPage() {
                 overlayOpacity={0.2}
               />
             )}
-            <section className={i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}>
+            <section className={`overflow-x-clip ${i % 2 === 0 ? 'bg-linen-white' : 'bg-sand'}`}>
               {r.carousel ? (
                 <div className="section-py w-full max-w-none">
-                  <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[44rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] px-[var(--section-pad-x)] text-center">
-                    <span className={residenceEyebrowClass}>{r.eyebrow}</span>
-                    <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+                  <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[44rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] px-[var(--section-pad-x)] text-left md:items-center md:text-center">
+                    <span className={`self-center text-center ${residenceEyebrowClass}`}>{r.eyebrow}</span>
+                    <h2 className="w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                       {r.heading}
                     </h2>
                     <Paragraphs items={r.body} />
@@ -177,8 +177,8 @@ export default function ResidencesPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-[clamp(1.75rem,4vw,3rem)] md:px-[clamp(0.5rem,2vw,1.5rem)]">
-                      <span className={residenceEyebrowClass}>{r.eyebrow}</span>
-                      <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+                      <span className={`text-center md:text-left ${residenceEyebrowClass}`}>{r.eyebrow}</span>
+                      <h2 className="w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal md:text-left">
                         {r.heading}
                       </h2>
                       <Paragraphs items={r.body} />
@@ -193,9 +193,9 @@ export default function ResidencesPage() {
 
       <section className="bg-linen-white">
         <div className="section-py w-full max-w-none">
-          <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[78rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)] px-[var(--section-pad-x)] text-center">
-            <span className={residenceEyebrowClass}>Floor Plans</span>
-            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+          <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[78rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] px-[var(--section-pad-x)] text-left md:items-center md:text-center">
+            <span className={`self-center text-center ${residenceEyebrowClass}`}>Floor Plans</span>
+            <h2 className="w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               Considered Layouts.
             </h2>
             <div className="max-w-[52rem]">
@@ -231,8 +231,8 @@ export default function ResidencesPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px section-py mx-auto w-full max-w-[80rem] text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(0.85rem,2vw,1.35rem)]">
+        <div className="section-px section-py mx-auto w-full max-w-[80rem] text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(0.85rem,2vw,1.35rem)] md:items-center">
             <p className="text-balance font-sans text-[clamp(0.95rem,0.4vw+0.82rem,1.2rem)] font-light leading-[1.6] text-charcoal">
               Across every residence, thoughtful proportions, refined materials and natural light come
               together to create spaces that feel timeless, considered and deeply connected to the marina.
@@ -245,9 +245,9 @@ export default function ResidencesPage() {
       </section>
 
       <section className="bg-salt">
-        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-center">
-          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-center gap-[clamp(1.35rem,3vw,2.35rem)]">
-            <h2 className="w-full font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+        <div className="section-px pt-[var(--section-pad-y)] w-full max-w-none text-left md:text-center">
+          <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.35rem,3vw,2.35rem)] md:items-center">
+            <h2 className="w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
               Enquire Now
             </h2>
             <div className="max-w-[52rem]">
