@@ -121,7 +121,7 @@ export default function HomePage() {
         heading="Architecture That Belongs."
         body={[
           'Every element has been carefully resolved to sit naturally within its marina setting.',
-          'Refined architectural forms, enduring materials and generous proportions create a collection that feels quietly confident contemporary in expression yet timeless in character.',
+          'Refined architectural forms, enduring materials and generous proportions create a collection that feels quietly confident and contemporary in expression, yet timeless in character.',
           'Designed with a considered approach to indoor-outdoor living, each residence embraces natural light, open views and a seamless connection to the water beyond.',
         ]}
       />

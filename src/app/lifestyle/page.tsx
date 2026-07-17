@@ -20,7 +20,7 @@ const bodyClass =
 const intro = {
   heading: 'Life Shaped by the Water.',
   body: [
-    'There is a different rhythm to life at Hobsonville Point Marina.',
+    'There is a different rhythm to life at the Hobsonville Point Marina.',
     'Defined by open water, changing light and a strong connection to the surrounding landscape, Boathouse Residences offers a setting where everyday moments unfold at a more considered pace.',
     'Here, the marina is more than a backdrop. It shapes the way you arrive home, spend your time and experience each day.',
   ],

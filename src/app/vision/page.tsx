@@ -34,7 +34,7 @@ export default function VisionPage() {
             </h2>
             <div className="flex max-w-[60rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={visionSectionBodyClass}>
-                Boathouse Residences was born from a desire to create something truly considered — a collection of waterfront residences shaped by architecture, craftsmanship and a deep connection to place.
+                Boathouse Residences is the result of a vision to create something truly considered — a collection of waterfront residences shaped by architecture, craftsmanship and a deep connection to place.
               </p>
               <p className={visionSectionBodyClass}>
                 Guided by a disciplined design philosophy, every element has been carefully resolved, from form and proportion to materiality and experience.

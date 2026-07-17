@@ -23,7 +23,6 @@ const studioRenders: CarouselSlide[] = [
   { src: '/images/final-renders/studio/kitchen_portrait.jpg', alt: 'Studio kitchen detail' },
   { src: '/images/final-renders/studio/bedroom_portrait.jpg', alt: 'Studio bedroom' },
   { src: '/images/final-renders/studio/bathroom_portrait.jpg', alt: 'Studio bathroom' },
-  { src: '/images/final-renders/studio/exteriordeck_portrait.jpg', alt: 'Studio deck' },
   { src: '/images/final-renders/studio/exteriordeckdaytime_portrait.jpg', alt: 'Studio deck by day' },
   { src: '/images/final-renders/studio/bedroom_landscape.jpg', alt: 'Studio bedroom outlook' },
 ];
