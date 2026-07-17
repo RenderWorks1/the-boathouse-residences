@@ -121,7 +121,7 @@ export default function ResidencesPage() {
             <div className="max-w-[60rem]">
               <Paragraphs
                 items={[
-                  'A considered collection of Studio, One Bedroom and Two Bedroom residences, thoughtfully positioned along the edge of Hobsonville Point Marina.',
+                  'A considered collection of Studio, One Bedroom and Two Bedroom residences, thoughtfully positioned along the edge of Hobsonville Marina.',
                   'Designed to embrace light, outlook and connection to the water, each residence reflects a commitment to timeless design, refined detailing and the art of considered living.',
                   'From intimate retreats to more generous waterfront residences, every space has been carefully resolved to create a sense of calm, comfort and enduring quality.',
                 ]}

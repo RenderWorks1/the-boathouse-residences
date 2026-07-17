@@ -70,7 +70,7 @@ export default function InteriorsPage() {
         <div className="section-px section-py w-full max-w-none">
           <div className="mx-auto flex max-w-[88rem] flex-col gap-[clamp(2.75rem,6vw,4.5rem)]">
             <ScrollReveal fadeOnly className="self-start max-w-[72rem]">
-              <h2 className="text-left font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+              <h2 className="text-left font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
                 Designed Around the Surrounds.
               </h2>
             </ScrollReveal>

@@ -111,7 +111,7 @@ export default function HomePage() {
         paragraphs={[
           'The waterfront is more than a view; it shapes the way each day unfolds.',
           'Mornings begin with still water and soft light, afternoons drift between the marina and the village, and evenings settle as the harbour reflects the last colours of the day.',
-          'Set within Hobsonville Point Marina, Boathouse Residences offers a unique opportunity to live surrounded by open water, coastal landscapes and a vibrant village community, a place where connection, convenience and calm exist naturally together.',
+          'Set within Hobsonville Marina, Boathouse Residences offers a unique opportunity to live surrounded by open water, coastal landscapes and a vibrant village community, a place where connection, convenience and calm exist naturally together.',
         ]}
       />
 
@@ -159,7 +159,7 @@ export default function HomePage() {
         src="/hero-videos/vision.mp4"
         poster="/hero-videos/vision-poster.jpg"
         alt="A clear vision"
-        tint="rgba(0, 0, 0, 0.35)"
+        tint="transparent"
       />
 
       <CoastalLiving slides={coastalLivingImages} />
@@ -168,7 +168,7 @@ export default function HomePage() {
         image="/birdseye.jpg"
         alt="Boathouse Residences — birdseye view"
         height="lg"
-        overlayOpacity={0.4}
+        overlayOpacity={0}
         strength={0.28}
       />
 

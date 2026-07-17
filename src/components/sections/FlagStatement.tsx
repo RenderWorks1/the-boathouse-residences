@@ -23,7 +23,7 @@ export function FlagStatement({
   imageAlt,
   heading,
   body,
-  tint = 'rgba(0, 0, 0, 0.4)',
+  tint = 'transparent',
   imageSide = 'left',
 }: {
   imageSrc: string;

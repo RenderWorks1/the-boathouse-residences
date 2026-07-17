@@ -58,11 +58,6 @@ export default function VisionPage() {
                 sizes="(min-width:768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
               />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
-              />
             </div>
           </ScrollReveal>
           <ScrollReveal direction="right">
@@ -90,7 +85,7 @@ export default function VisionPage() {
         image="/images/sectionheros/DJI_20260319081312_0375_D.jpg"
         alt="The marina from above"
         height="min(75vh, 75dvh)"
-        overlayOpacity={0.15}
+        overlayOpacity={0}
       />
 
       <section className="bg-sand">
@@ -103,11 +98,6 @@ export default function VisionPage() {
                 fill
                 sizes="(min-width:768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
               />
             </div>
           </ScrollReveal>

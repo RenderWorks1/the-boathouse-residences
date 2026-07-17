@@ -20,7 +20,7 @@ const bodyClass =
 const intro = {
   heading: 'Life Shaped by the Water.',
   body: [
-    'There is a different rhythm to life at the Hobsonville Point Marina.',
+    'There is a different rhythm to life at the Hobsonville Marina.',
     'Defined by open water, changing light and a strong connection to the surrounding landscape, Boathouse Residences offers a setting where everyday moments unfold at a more considered pace.',
     'Here, the marina is more than a backdrop. It shapes the way you arrive home, spend your time and experience each day.',
   ],
@@ -30,7 +30,7 @@ const sections = [
   {
     heading: 'A Unique Waterfront Position.',
     body: [
-      'Set along the edge of Hobsonville Point Marina, Boathouse Residences enjoys a unique relationship with the water.',
+      'Set along the edge of Hobsonville Marina, Boathouse Residences enjoys a unique relationship with the water.',
       'The movement of boats, the changing tides and uninterrupted harbour outlooks create an ever-evolving sense of place, a connection to nature that becomes part of daily life.',
       'Few Auckland addresses offer this combination of waterfront living, open space and community.',
     ],
@@ -98,7 +98,7 @@ export default function LifestylePage() {
         image="/images/sectionheros/DJI_20260319080743_0344_D.jpg"
         alt="Hobsonville Marina from above"
         height="min(70vh, 70dvh)"
-        overlayOpacity={0.15}
+        overlayOpacity={0}
       />
 
       {sections.map((s, i) => {
@@ -144,11 +144,6 @@ export default function LifestylePage() {
                         fill
                         sizes="(min-width:768px) 50vw, 100vw"
                         className="object-cover transition-transform duration-[1200ms] ease-luxe will-change-transform group-hover:scale-[1.04]"
-                      />
-                      <div
-                        aria-hidden
-                        className="pointer-events-none absolute inset-0"
-                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
                       />
                     </div>
                   </ScrollReveal>

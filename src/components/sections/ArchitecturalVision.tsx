@@ -64,11 +64,6 @@ export function ArchitecturalVision({
               className="absolute inset-0 h-full w-full"
               animate={false}
             />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }}
-            />
           </motion.div>
           <motion.div
             ref={ref}
