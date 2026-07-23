@@ -17,6 +17,7 @@ Build a luxury property marketing website for **The Boathouse Residences** — a
 Luxury coastal — restrained, warm, and tactile. Think linen-draped interiors with harbour light streaming through floor-to-ceiling glass. The design language bridges nautical heritage with contemporary architectural refinement. NOT a generic property template — this should feel like a boutique hospitality brand.
 
 **Core design principles:**
+
 - Generous whitespace — let images and typography breathe
 - Warm, muted palette with natural texture cues (linen, driftwood, sand)
 - Cinematic full-bleed imagery as the dominant visual element
@@ -67,6 +68,7 @@ Use Google Fonts via `next/font/google`. Pair a refined serif display face with 
 - **Accent / Labels:** `Outfit` uppercase with generous letter-spacing (`tracking-[0.15em]` to `tracking-[0.2em]`)
 
 **Type Scale:**
+
 - Hero title: `text-5xl md:text-6xl lg:text-7xl`, Cormorant Garamond, font-weight 300–400
 - Section headings: `text-3xl md:text-4xl lg:text-5xl`, Cormorant Garamond, font-weight 400, uppercase, tracked
 - Subheadings: `text-xl md:text-2xl`, Cormorant Garamond, font-weight 500
@@ -89,6 +91,7 @@ Reference images by their filenames in `/public/images/`. Use placeholder images
 ### Global Components
 
 #### Navigation (Header)
+
 - Fixed/sticky header with transparent background over hero, transitioning to `--color-linen-white` with subtle backdrop-blur on scroll
 - Logo: "THE BOATHOUSE" (top line, larger) + "RESIDENCES" (second line, smaller, tracked) — left-aligned. Use Cormorant Garamond, font-weight 400. Render as styled text (not an image), linking to homepage
 - Nav links (right-aligned, desktop): HOME | LIFESTYLE | RESIDENCES | VISION | ENQUIRE
@@ -98,13 +101,14 @@ Reference images by their filenames in `/public/images/`. Use placeholder images
 - Active page indicator: subtle bottom border on current nav link
 
 #### Footer
+
 - Background: `--color-deep-navy`
 - Text: `--color-linen-white` / `--color-driftwood`
 - Layout (desktop): Three columns
   - **Left column:** Developer logos (use placeholder images from `/public/images/` if available, or styled text placeholders)
   - **Centre column:** Social icons — Instagram + Facebook (use Lucide icons, `--color-driftwood`, hover to white)
   - **Right column:** Copyright line: "© 2025 The Boathouse Residences. All rights reserved."
-- Contact details centred above columns: "Sales Suite Open Daily" / "123 Boathouse Way, Waterfront City" / "1300 BOATHOUSE" / "info@boathouseresidences.com"
+- Contact details centred above columns: "Sales Suite Open Daily" / "123 Boathouse Way, Waterfront City" / "1300 BOATHOUSE" / "[info@boathouseresidences.com](mailto:info@boathouseresidences.com)"
 - All contact details use Outfit, light weight, generous line-height
 - Mobile: Stack vertically, centre-aligned
 
@@ -115,6 +119,7 @@ Reference images by their filenames in `/public/images/`. Use placeholder images
 Follow the wireframe layout structure precisely. Each section described top-to-bottom:
 
 #### Section 1 — Hero
+
 - Full-viewport-height (`h-screen`) image section
 - Background: Full-bleed hero image from `/public/images/` — waterfront building exterior render
 - Support for optional video background (MP4) — controlled via Sanity toggle. If video exists, autoplay muted loop with image fallback
@@ -123,6 +128,7 @@ Follow the wireframe layout structure precisely. Each section described top-to-b
 - Smooth scroll-down indicator at bottom centre: thin animated chevron or line
 
 #### Section 2 — The Boathouse Lifestyle (Introduction)
+
 - Background: `--color-salt` (near-white)
 - Centred text block, max-width `max-w-3xl`
 - Heading: "THE BOATHOUSE LIFESTYLE" — `text-4xl md:text-5xl`, Cormorant Garamond, uppercase, tracked, `--color-harbour`
@@ -131,6 +137,7 @@ Follow the wireframe layout structure precisely. Each section described top-to-b
 - Framer Motion: Fade-up on scroll into view (stagger heading then body)
 
 #### Section 3 — Lifestyle Image (Full-Bleed)
+
 - Full-width image section, no text overlay
 - Image: Waterfront/harbour lifestyle shot — golden hour, boats on water, building in background
 - Aspect ratio: roughly 16:9 on desktop, can crop taller on mobile
@@ -138,6 +145,7 @@ Follow the wireframe layout structure precisely. Each section described top-to-b
 - Optional: Very subtle parallax scroll effect (2–3% movement, not aggressive)
 
 #### Section 4 — Architectural Vision
+
 - Background: `--color-salt`
 - Centred layout, `max-w-3xl`
 - Heading: "ARCHITECTURAL VISION" — same styling as Section 2 heading
@@ -146,6 +154,7 @@ Follow the wireframe layout structure precisely. Each section described top-to-b
 - Framer Motion: Fade-up on scroll
 
 #### Section 5 — Coastal Living (Image Carousel)
+
 - Background: `--color-linen-white`
 - Heading: "COASTAL LIVING" — centred, same heading style
 - Horizontal image carousel/slider below the heading
@@ -156,6 +165,7 @@ Follow the wireframe layout structure precisely. Each section described top-to-b
 - Generous vertical padding
 
 #### Section 6 — Residences (Split Layout)
+
 - Background: `--color-sand`
 - Two-column layout on desktop (image left, text right), stacks on mobile
 - Left: Large interior/exterior render showing living space with harbour view and boat
@@ -166,6 +176,7 @@ Follow the wireframe layout structure precisely. Each section described top-to-b
 - Framer Motion: Image slides in from left, text fades up from right (triggered on scroll)
 
 #### Section 7 — Enquiry Form
+
 - Background: `--color-salt`
 - Heading: "ENQUIRY NOW" — centred, uppercase, tracked
 - Form fields in a single row on desktop (stacks 2×2 on tablet, single column on mobile):
@@ -566,7 +577,9 @@ src/
 Use Framer Motion throughout. Keep animations refined and restrained — luxury, not playful.
 
 ### Scroll Reveals
+
 Create a reusable `<ScrollReveal>` wrapper component:
+
 ```tsx
 // Default: fade up with slight Y translate
 <ScrollReveal>
@@ -577,6 +590,7 @@ Create a reusable `<ScrollReveal>` wrapper component:
 ```
 
 **Settings:**
+
 - Duration: `0.8s` default
 - Ease: `[0.25, 0.1, 0.25, 1]` (smooth ease-out)
 - Y offset: `30px` (subtle, not dramatic)
@@ -584,16 +598,19 @@ Create a reusable `<ScrollReveal>` wrapper component:
 - Trigger: when element is 20% in viewport (`viewport={{ once: true, amount: 0.2 }}`)
 
 ### Navigation
+
 - Background transition: `transition-all duration-500`
 - Mobile menu: `AnimatePresence` with slide-in from right + fade overlay
 
 ### Hover Effects
+
 - Buttons: background colour shift, `transition-colors duration-300`
 - Cards: `hover:-translate-y-1 hover:shadow-lg transition-all duration-300`
 - Images in cards: `hover:scale-105 transition-transform duration-700` (with `overflow-hidden` on parent)
 - Nav links: subtle underline slide-in from left on hover
 
 ### Page Transitions
+
 - Optional: Fade transition between pages using Framer Motion `AnimatePresence` in the root layout
 - Keep it simple — `opacity` only, `0.3s` duration
 
@@ -602,6 +619,7 @@ Create a reusable `<ScrollReveal>` wrapper component:
 ## Performance & SEO Requirements
 
 ### Core Web Vitals
+
 - All images via `next/image` with responsive `sizes` attribute
 - Hero image: `priority` prop, serve WebP/AVIF via Next.js image optimisation
 - Lazy load all below-fold images
@@ -610,6 +628,7 @@ Create a reusable `<ScrollReveal>` wrapper component:
 - Font loading: `next/font/google` with `display: 'swap'` and `preload: true`
 
 ### SEO
+
 - Dynamic `<title>` and `<meta name="description">` per page via Next.js `metadata` export
 - Open Graph tags: `og:title`, `og:description`, `og:image`, `og:url`, `og:type`
 - Twitter card meta tags
@@ -620,7 +639,9 @@ Create a reusable `<ScrollReveal>` wrapper component:
 - Semantic HTML: proper heading hierarchy (single `h1` per page), `<nav>`, `<main>`, `<section>`, `<footer>`
 
 ### Responsive Breakpoints
+
 Follow Tailwind defaults:
+
 - Mobile: `< 768px` (base styles)
 - Tablet: `md: 768px`
 - Desktop: `lg: 1024px`
@@ -632,6 +653,7 @@ Follow Tailwind defaults:
 ## Development Notes
 
 ### Dependencies
+
 ```json
 {
   "dependencies": {
@@ -660,6 +682,7 @@ Follow Tailwind defaults:
 ```
 
 ### Environment Variables
+
 ```env
 NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET=production
@@ -672,6 +695,7 @@ SANITY_API_TOKEN=          # Server-side only — for writing enquiry documents
 When Sanity is not yet configured or no CMS data exists, render the site with hardcoded placeholder content so the frontend is fully previewable. Use the images from `/public/images/` and the following placeholder copy:
 
 **Homepage:**
+
 - Lifestyle heading: "THE BOATHOUSE LIFESTYLE"
 - Lifestyle body: "Discover an unparalleled living experience where modern luxury meets coastal serenity. The Boathouse Residences offer a curated collection of waterfront homes, designed for those who appreciate the finer things in life. Wake up to panoramic views of the harbour, enjoy direct access to private marinas, and indulge in a lifestyle defined by elegance and ease."
 - Vision heading: "ARCHITECTURAL VISION"
@@ -680,12 +704,14 @@ When Sanity is not yet configured or no CMS data exists, render the site with ha
 - Residences body: "Each residence is a sanctuary of light and space, with meticulously designed interiors and panoramic water views, offering the ultimate in modern luxury living."
 
 **Contact details:**
+
 - Sales Suite Open Daily
 - 123 Boathouse Way, Waterfront City
 - 1300 BOATHOUSE
-- info@boathouseresidences.com
+- [info@boathouseresidences.com](mailto:info@boathouseresidences.com)
 
 ### Build Order
+
 1. **Scaffold:** `npx create-next-app@latest` with TypeScript, Tailwind, App Router, src directory
 2. **Tailwind config:** Extend with custom colours, fonts, animations
 3. **Globals CSS:** CSS custom properties, base typography styles, smooth scroll
@@ -702,17 +728,19 @@ When Sanity is not yet configured or no CMS data exists, render the site with ha
 14. **Final pass:** Responsive QA, animation polish, Lighthouse audit
 
 ### Quality Checklist
-- [ ] Navigation scroll transparency works smoothly
-- [ ] Mobile menu opens/closes with animation, no scroll lock issues
-- [ ] All images use `next/image` with proper sizing
-- [ ] Hero video autoplay works (muted, loop, playsinline)
-- [ ] Enquiry form validates and submits correctly
-- [ ] Status badges render correct colours per status
-- [ ] Carousel is touch-swipeable on mobile
-- [ ] All scroll animations trigger correctly and only once
-- [ ] Footer contact details match siteSettings
-- [ ] Lighthouse score: 90+ Performance, 90+ Accessibility, 90+ SEO
-- [ ] All pages render correctly at 375px, 768px, 1024px, 1440px
-- [ ] Sanity Studio accessible and all schemas editable
-- [ ] Favicon and OG image configured
-- [ ] Fallback content renders correctly when Sanity is empty
+
+- Navigation scroll transparency works smoothly
+- Mobile menu opens/closes with animation, no scroll lock issues
+- All images use `next/image` with proper sizing
+- Hero video autoplay works (muted, loop, playsinline)
+- Enquiry form validates and submits correctly
+- Status badges render correct colours per status
+- Carousel is touch-swipeable on mobile
+- All scroll animations trigger correctly and only once
+- Footer contact details match siteSettings
+- Lighthouse score: 90+ Performance, 90+ Accessibility, 90+ SEO
+- All pages render correctly at 375px, 768px, 1024px, 1440px
+- Sanity Studio accessible and all schemas editable
+- Favicon and OG image configured
+- Fallback content renders correctly when Sanity is empty
+
