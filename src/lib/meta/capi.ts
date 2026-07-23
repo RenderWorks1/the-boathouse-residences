@@ -13,10 +13,12 @@
 
 import { createHash } from 'node:crypto';
 
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-const ACCESS_TOKEN = process.env.META_CONVERSIONS_API_TOKEN;
+// Trimmed: env vars set via a shell pipe or pasted into a dashboard commonly
+// carry trailing whitespace, which would corrupt the request URL or the token.
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
+const ACCESS_TOKEN = process.env.META_CONVERSIONS_API_TOKEN?.trim();
 /** Set only while testing in Events Manager. Must be unset in production. */
-const TEST_EVENT_CODE = process.env.META_TEST_EVENT_CODE;
+const TEST_EVENT_CODE = process.env.META_TEST_EVENT_CODE?.trim();
 const GRAPH_VERSION = 'v21.0';
 
 function sha256(value: string) {

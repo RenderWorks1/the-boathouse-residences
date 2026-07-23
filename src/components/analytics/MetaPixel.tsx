@@ -4,7 +4,10 @@ import { useEffect } from 'react';
 import Script from 'next/script';
 import { usePathname } from 'next/navigation';
 
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+// Trimmed deliberately: this value is interpolated into an inline script, so a
+// stray newline from however the env var was set would land inside a string
+// literal and break the snippet with a SyntaxError, taking the Pixel down.
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
 
 /**
  * Last path we fired a PageView for.
