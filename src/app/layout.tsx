@@ -52,7 +52,7 @@ const atteron = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://theboathouseresidences.com'),
+  metadataBase: new URL('https://boathouseresidences.co.nz'),
   title: {
     default: 'The Boathouse Residences — Luxury Waterfront Living',
     template: '%s | The Boathouse Residences',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'The Boathouse Residences',
     description: 'Luxury waterfront living by the harbour.',
-    url: 'https://theboathouseresidences.com',
+    url: 'https://boathouseresidences.co.nz',
     siteName: 'The Boathouse Residences',
     type: 'website',
   },

@@ -3,6 +3,6 @@ import type { MetadataRoute } from 'next';
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [{ userAgent: '*', allow: '/', disallow: ['/studio', '/api/'] }],
-    sitemap: 'https://theboathouseresidences.com/sitemap.xml',
+    sitemap: 'https://boathouseresidences.co.nz/sitemap.xml',
   };
 }

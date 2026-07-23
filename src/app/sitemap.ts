@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { residences } from '@/lib/placeholder-residences';
 
-const base = 'https://theboathouseresidences.com';
+const base = 'https://boathouseresidences.co.nz';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

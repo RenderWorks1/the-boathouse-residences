@@ -54,7 +54,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'The Boathouse Residences',
-  url: 'https://theboathouseresidences.com',
+  url: 'https://boathouseresidences.co.nz',
   description: 'Luxury waterfront residences with private marina access.',
   address: {
     '@type': 'PostalAddress',
