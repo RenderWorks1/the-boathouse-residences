@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Script from 'next/script';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { submitLead } from '@/lib/meta/lead';
 import { cn } from '@/lib/utils';
 
 const sources = [
@@ -94,15 +95,9 @@ export function EnquiryForm({
     if (captchaToken) payload.turnstileToken = captchaToken;
 
     try {
-      const res = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j.error || 'Submission failed');
-      }
+      // Posts the enquiry and, only on a confirmed success, fires the Meta Lead
+      // event with an ID shared with the server-side Conversions API event.
+      await submitLead(payload);
       setStatus('success');
     } catch (err) {
       setStatus('error');

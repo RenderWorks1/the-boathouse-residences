@@ -5,6 +5,7 @@ import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { GlobalEnquiry } from '@/components/layout/GlobalEnquiry';
+import { MetaPixel } from '@/components/analytics/MetaPixel';
 import '@/styles/globals.css';
 
 const display = Cormorant_Garamond({
@@ -98,6 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <MetaPixel />
         <SmoothScroll>
           <Navigation />
           <main>{children}</main>
