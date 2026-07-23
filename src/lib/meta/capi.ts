@@ -19,7 +19,10 @@ const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
 const ACCESS_TOKEN = process.env.META_CONVERSIONS_API_TOKEN?.trim();
 /** Set only while testing in Events Manager. Must be unset in production. */
 const TEST_EVENT_CODE = process.env.META_TEST_EVENT_CODE?.trim();
-const GRAPH_VERSION = 'v21.0';
+// Meta supports each Graph API version for roughly two years from release, so a
+// pinned version is a slow-burning expiry, not a permanent choice. Matches the
+// version Meta's own Graph API Explorer currently defaults to.
+const GRAPH_VERSION = 'v25.0';
 
 function sha256(value: string) {
   return createHash('sha256').update(value).digest('hex');
