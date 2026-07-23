@@ -53,16 +53,19 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '${PIXEL_ID}');
 fbq('track', 'PageView');`}
       </Script>
-      <noscript>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          height="1"
-          width="1"
-          style={{ display: 'none' }}
-          alt=""
-          src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
-        />
-      </noscript>
     </>
   );
 }
+
+/*
+ * Meta's <noscript> fallback image is deliberately omitted.
+ *
+ * React preloads the `src` of an <img> it renders, so the tracking pixel was
+ * fetched on every visit even with JavaScript enabled — verified in a browser:
+ * one hit to /tr?ev=PageView&noscript=1 alongside the real fbq PageView, i.e.
+ * every page view counted twice.
+ *
+ * Nothing is lost by dropping it. Every enquiry form on this site is a React
+ * client component, so a visitor without JavaScript cannot submit one and can
+ * never become a lead — there is no conversion for the fallback to attribute.
+ */
