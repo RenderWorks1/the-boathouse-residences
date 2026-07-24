@@ -236,7 +236,7 @@ export default function InteriorsPage() {
                 Discover Boathouse Residences where considered architecture, refined interiors and
                 waterfront living come together in perfect balance.
               </p>
-              <p className={bodyClass}>Our sales team will welcome you to arrange a private viewing.</p>
+              <p className={bodyClass}>Our sales team welcomes you to arrange a private viewing.</p>
             </div>
           </ScrollReveal>
         </div>

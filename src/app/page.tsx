@@ -130,7 +130,7 @@ export default function HomePage() {
       <FlagStatement
         imageSrc="/images/lifestyle2.jpg"
         imageAlt="Waterfront lifestyle"
-        heading="Designed with Intention"
+        heading="Designed with Intention."
         body={[
           'The interiors of Boathouse Residences have been thoughtfully designed around a philosophy of restraint, balance and timeless design.',
           'Designed by Paula Herbert Studio, each residence reflects a considered approach to materiality, texture and form, where natural finishes, refined detailing and a timeless palette create spaces that feel both effortless and enduring.',

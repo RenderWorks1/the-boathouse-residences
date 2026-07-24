@@ -172,10 +172,10 @@ export default function LifestylePage() {
             <h2 className={headingClass}>Enquire Now</h2>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={bodyClass}>
-                Discover Boathouse Residences — an address shaped by thoughtful design, a remarkable
+                Discover Boathouse Residences, an address shaped by thoughtful design, a remarkable
                 waterfront setting and a connection to the water that will endure.
               </p>
-              <p className={bodyClass}>Our sales team will welcome you to arrange a private viewing.</p>
+              <p className={bodyClass}>Our sales team welcomes you to arrange a private viewing.</p>
             </div>
           </ScrollReveal>
         </div>

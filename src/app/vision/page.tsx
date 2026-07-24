@@ -155,7 +155,7 @@ export default function VisionPage() {
                 in balance beside the water.
               </p>
               <p className={visionSectionBodyClass}>
-                Our sales team will welcome you to arrange a private viewing.
+                Our sales team welcomes you to arrange a private viewing.
               </p>
             </div>
           </ScrollReveal>
