@@ -157,7 +157,10 @@ export function ImageCarousel({
           >
             {variant === 'landscape' ? (
               <>
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-[#E4E0DC]">
+                {/* Aspect ratio matches the floor-plan artwork (3038x1725)
+                    exactly, so object-contain fills the frame with no
+                    letterbox bars showing the background colour. */}
+                <div className="relative aspect-[3038/1725] w-full overflow-hidden rounded-sm bg-[#E4E0DC]">
                   <Image
                     src={s.src}
                     alt={s.alt}
