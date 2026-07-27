@@ -61,8 +61,6 @@ export function Footer() {
           <div className="flex flex-wrap justify-end gap-[clamp(0.75rem,2vw,1.1rem)] uppercase tracking-[0.2em] text-white text-[clamp(0.625rem,0.2vw+0.52rem,0.7rem)] md:text-right">
             <Link href="/enquire" className="hover:text-white/70 transition-colors">Contact</Link>
             <span className="text-white/50">·</span>
-            <Link href="/updates" className="hover:text-white/70 transition-colors">Updates</Link>
-            <span className="text-white/50">·</span>
             <Link href="/privacy-policy" className="hover:text-white/70 transition-colors">Privacy</Link>
           </div>
         </div>

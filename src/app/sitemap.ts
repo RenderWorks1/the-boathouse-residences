@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/lifestyle',
     '/residences',
     '/vision',
-    '/updates',
     '/enquire',
     '/privacy-policy',
   ];

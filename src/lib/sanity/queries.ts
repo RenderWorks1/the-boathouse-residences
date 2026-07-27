@@ -15,10 +15,6 @@ export const residenceBySlugQuery = /* groq */ `*[_type == "residence" && slug.c
   ..., gallery, floorplans
 }`;
 
-export const buildUpdatesQuery = /* groq */ `*[_type == "buildUpdate"] | order(date desc){
-  _id, title, date, content, images, milestone
-}`;
-
 export const siteSettingsQuery = /* groq */ `*[_type == "siteSettings"][0]`;
 
 export const lifestylePageQuery = /* groq */ `*[_type == "lifestylePage"][0]{
