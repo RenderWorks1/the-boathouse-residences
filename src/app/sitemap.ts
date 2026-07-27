@@ -5,7 +5,15 @@ const base = 'https://boathouseresidences.co.nz';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticPaths = ['', '/lifestyle', '/residences', '/vision', '/updates', '/enquire'];
+  const staticPaths = [
+    '',
+    '/lifestyle',
+    '/residences',
+    '/vision',
+    '/updates',
+    '/enquire',
+    '/privacy-policy',
+  ];
   const staticEntries = staticPaths.map((p) => ({
     url: `${base}${p}`,
     lastModified: now,
