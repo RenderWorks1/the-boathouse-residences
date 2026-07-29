@@ -12,6 +12,7 @@ import { LinkButton } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import {
   heroImage,
+  heroImageMobile,
   coastalLivingImages,
 } from '@/lib/placeholder-images';
 
@@ -93,7 +94,7 @@ export default function HomePage() {
         The Boathouse Residences — waterfront homes at Hobsonville Marina, Auckland
       </h1>
 
-      <Hero image={heroImage} videoUrl="/herovideo.mp4" />
+      <Hero image={heroImage} imageMobile={heroImageMobile} videoUrl="/herovideo.mp4" />
 
       {/* 01 — Hero statement */}
       <CopyBlock

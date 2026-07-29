@@ -1,7 +1,12 @@
 // Hand-picked placeholder image assignments sourced from /public/images/
 // Until Sanity delivers real imagery, every section references these files.
 
+/** Stands in for the hero video whenever it can't autoplay (Low Power Mode,
+ *  Data Saver) as well as during the first decode. Two crops: the landscape
+ *  render suits a wide viewport, the portrait deck shot suits a phone. Using
+ *  one for both would centre-crop away most of whichever it wasn't cut for. */
 export const heroImage = '/images/final-renders/studio/exteriorlight_landscape.jpg';
+export const heroImageMobile = '/images/deckshot.jpg';
 export const fullBleedLifestyleImage = '/images/final-renders/studio/exteriordark_landscape.jpg';
 export const residencesPreviewImage = '/images/final-renders/2bedroom/exteriorday_portrait.jpg';
 

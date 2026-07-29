@@ -26,12 +26,16 @@ import {
   logoHandoffDelayMs,
 } from '@/lib/nav-header-layout';
 import { attemptPlay, useAutoplayVideo, useSaveData } from '@/lib/video-autoplay';
+import { cn } from '@/lib/utils';
 
 type Stage = 'logoOnly' | 'intro' | 'reveal' | 'final';
 
 type HeroProps = {
   videoUrl: string;
   image?: string;
+  /** Portrait-crop alternative shown below the md breakpoint. Omit to use
+   *  `image` at every width. */
+  imageMobile?: string;
   logoSrc?: string;
   logoAlt?: string;
 };
@@ -74,6 +78,7 @@ const FINAL_STAGE_MS = REVEAL_START_MS + REVEAL_CLIP_S * 1000;
 export function Hero({
   videoUrl,
   image,
+  imageMobile,
   logoSrc = '/logos/logo-white.png',
   logoAlt = 'The Boathouse Residences',
 }: HeroProps) {
@@ -275,15 +280,33 @@ export function Hero({
         animate={stage}
         style={{ willChange: 'clip-path' }}
       >
+        {/* Art direction rather than one responsive source: the two crops have
+            different aspect ratios, so `sizes` alone can't do this. Each is
+            hidden at the other's breakpoint, and `sizes` is narrowed to match
+            so the browser never fetches the one it won't show. */}
         {image && (
           <Image
             src={image}
             alt=""
             fill
             priority
-            sizes="100vw"
+            sizes={imageMobile ? '(min-width: 768px) 100vw, 0px' : '100vw'}
             aria-hidden
-            className="pointer-events-none absolute inset-0 object-cover"
+            className={cn(
+              'pointer-events-none absolute inset-0 object-cover',
+              imageMobile && 'hidden md:block',
+            )}
+          />
+        )}
+        {imageMobile && (
+          <Image
+            src={imageMobile}
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 768px) 0px, 100vw"
+            aria-hidden
+            className="pointer-events-none absolute inset-0 object-cover md:hidden"
           />
         )}
 
@@ -303,6 +326,9 @@ export function Hero({
             preload="auto"
             poster={image}
             aria-hidden
+            /* The <Image> pair above is the visible fallback; this attribute
+               only ever shows in the gap before React paints, so it stays on
+               the landscape crop rather than fetching a second poster. */
             tabIndex={-1}
             className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
             style={{ opacity: videoReady ? 1 : 0 }}
