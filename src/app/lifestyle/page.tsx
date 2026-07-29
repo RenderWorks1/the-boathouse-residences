@@ -82,7 +82,8 @@ export default function LifestylePage() {
       <section className="bg-salt">
         <div className="section-px section-py w-full max-w-none text-left md:text-center">
           <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.75rem,4vw,3rem)] md:items-center">
-            <h2 className={headingClass}>{intro.heading}</h2>
+            {/* h1: the page's first heading, so it carries the page. */}
+            <h1 className={headingClass}>{intro.heading}</h1>
             <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               {intro.body.map((p, i) => (
                 <p key={i} className={bodyClass}>

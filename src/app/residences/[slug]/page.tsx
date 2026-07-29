@@ -9,7 +9,7 @@ import { ResidenceGallery } from '@/components/residences/Lightbox';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { LinkButton } from '@/components/ui/Button';
-import { residences, getResidenceBySlug } from '@/lib/placeholder-residences';
+import { residences, getResidenceBySlug, type Residence } from '@/lib/placeholder-residences';
 import { ChevronLeft } from 'lucide-react';
 
 export function generateStaticParams() {
@@ -25,12 +25,51 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
+const SITE = 'https://www.boathouseresidences.co.nz';
+
+/**
+ * Listing markup for a single residence. Every field mirrors something already
+ * visible on the page (name, description, specs bar, status, gallery), so the
+ * markup can't assert anything the page doesn't already say. Deliberately no
+ * price: none is published, and Google treats an invented one as a violation.
+ */
+function listingJsonLd(r: Residence) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateListing',
+    name: r.name,
+    url: `${SITE}/residences/${r.slug}`,
+    description: r.description,
+    image: r.gallery.map((src) => `${SITE}${src}`),
+    about: {
+      '@type': 'Accommodation',
+      name: r.name,
+      numberOfBedrooms: r.bedrooms,
+      numberOfBathroomsTotal: r.bathrooms,
+      floorSize: {
+        '@type': 'QuantitativeValue',
+        value: r.internalArea,
+        unitCode: 'MTK', // square metres
+      },
+    },
+  };
+}
+
 export default function ResidencePage({ params }: { params: { slug: string } }) {
   const residence = getResidenceBySlug(params.slug);
   if (!residence) notFound();
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(listingJsonLd(residence)) }}
+      />
+
+      {/* The hero renders the name as image alt text only, so the page had no
+          heading naming the residence. Visually hidden to keep the hero clean. */}
+      <h1 className="sr-only">{residence.name} — Boathouse Residences, Hobsonville Marina</h1>
+
       <PageHero image={residence.featuredImage} eyebrow="Residence" title={residence.name} />
 
       <section className="bg-linen-white">

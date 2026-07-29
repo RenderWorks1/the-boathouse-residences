@@ -29,9 +29,10 @@ export default function VisionPage() {
       <section className="bg-salt">
         <div className="section-px section-py mx-auto w-full max-w-[88rem]">
           <ScrollReveal className="flex max-w-[78rem] flex-col items-start text-left">
-            <h2 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal md:text-left">
+            {/* h1: the page's first heading, so it carries the page. */}
+            <h1 className="mb-[clamp(1.35rem,3vw,2.35rem)] w-full text-center font-vision text-[clamp(1.5rem,0.92rem+1.15vw,2.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal md:text-left">
               A Clear Vision.
-            </h2>
+            </h1>
             <div className="flex max-w-[60rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
               <p className={visionSectionBodyClass}>
                 Boathouse Residences is the result of a vision to create something truly considered — a collection of waterfront residences shaped by architecture, craftsmanship and a deep connection to place.
