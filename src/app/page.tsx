@@ -10,6 +10,7 @@ import { ParallaxSection } from '@/components/sections/ParallaxSection';
 import { EnquiryForm } from '@/components/sections/EnquiryForm';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { LinkButton } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
 import {
   heroImage,
   coastalLivingImages,
@@ -26,14 +27,21 @@ function CopyBlock({
   heading,
   paragraphs,
   children,
+  className,
 }: {
   heading: string;
   paragraphs: string[];
   children?: ReactNode;
+  className?: string;
 }) {
   return (
     <section className="bg-salt">
-      <div className="section-px section-py w-full max-w-none text-left md:text-center">
+      <div
+        className={cn(
+          'section-px section-py w-full max-w-none text-left md:text-center',
+          className,
+        )}
+      >
         <ScrollReveal className="mx-auto flex max-w-[62rem] flex-col items-start gap-[clamp(1.5rem,3.5vw,2.5rem)] md:items-center">
           <h2 className={headingClass}>{heading}</h2>
           <div className="flex max-w-[52rem] flex-col gap-[clamp(0.85rem,2vw,1.35rem)]">
@@ -107,6 +115,7 @@ export default function HomePage() {
 
       {/* 03 — The Location */}
       <CopyBlock
+        className="max-md:pb-6"
         heading="Life, Framed by the Harbour."
         paragraphs={[
           'The waterfront is more than a view; it shapes the way each day unfolds.',
