@@ -164,7 +164,7 @@ export default function PrivacyPolicyPage() {
             <div className={`${bodyClass} flex flex-col`}>
               <p>Boathouse Residences</p>
               <p>18 Clearwater Cove</p>
-              <p>West Harbour</p>
+              <p>Hobsonville</p>
               <p>Auckland 0618</p>
             </div>
             <div className={`${bodyClass} flex flex-col`}>

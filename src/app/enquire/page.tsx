@@ -69,10 +69,13 @@ export default function EnquirePage() {
         <div className="section-px w-full max-w-none">
           <div className="aspect-[21/9] w-full overflow-hidden bg-driftwood/30">
             <iframe
-              title="Boathouse Residences — 18 Clearwater Cove, West Harbour, Auckland"
+              title="Boathouse Residences — 18 Clearwater Cove, Hobsonville, Auckland"
               loading="lazy"
               className="h-full w-full border-0"
-              src="https://www.google.com/maps?q=18+Clearwater+Cove,+West+Harbour,+Auckland+0618&output=embed"
+              /* Named marina first: it's an established Google place, so the
+                 pin resolves to the marina itself rather than to whichever
+                 suburb boundary Google favours for the street on its own. */
+              src="https://www.google.com/maps?q=Hobsonville+Marina,+18+Clearwater+Cove,+Auckland&output=embed"
             />
           </div>
         </div>

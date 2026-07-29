@@ -67,7 +67,7 @@ const jsonLd = {
   address: {
     '@type': 'PostalAddress',
     streetAddress: '18 Clearwater Cove',
-    addressLocality: 'West Harbour',
+    addressLocality: 'Hobsonville',
     addressRegion: 'Auckland',
     postalCode: '0618',
     addressCountry: 'NZ',
