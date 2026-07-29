@@ -25,6 +25,7 @@ import {
   LOGO_TRAVEL_S,
   logoHandoffDelayMs,
 } from '@/lib/nav-header-layout';
+import { attemptPlay, useAutoplayVideo, useSaveData } from '@/lib/video-autoplay';
 
 type Stage = 'logoOnly' | 'intro' | 'reveal' | 'final';
 
@@ -91,7 +92,17 @@ export function Hero({
   const [stage, setStage] = useState<Stage>(() =>
     skipIntroRef.current ? 'final' : 'logoOnly',
   );
-  const [videoReady, setVideoReady] = useState(false);
+  /** True only once the video is genuinely rendering frames. `canplay` and
+   *  friends fire even when a browser has refused to autoplay (iOS Low Power
+   *  Mode, Data Saver), and revealing the element in that state is what puts
+   *  the browser's play-button overlay on screen — so we keep the still image
+   *  showing instead and let lib/video-autoplay keep retrying. */
+  const videoPlaying = useAutoplayVideo([videoRef]);
+  /** Data Saver is a different problem from an autoplay block: nothing is
+   *  stopping the video, the visitor has asked not to be sent large files.
+   *  The hero still image is the whole hero in that case. */
+  const saveData = useSaveData();
+  const videoReady = videoPlaying && !saveData;
   /** True once the hero logo image has finished decoding/loading. The intro
    *  sequence waits on this so the logo is visible from the very first frame
    *  of the animation rather than popping in part-way through. */
@@ -104,36 +115,6 @@ export function Hero({
     const t = window.setTimeout(() => setLogoReady(true), 2500);
     return () => window.clearTimeout(t);
   }, [logoReady]);
-
-  // Prime decode immediately: load() + play() as early as possible so motion
-  // isn’t waiting on the decoder when the mask opens.
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-
-    const markReady = () => setVideoReady(true);
-    el.addEventListener('loadeddata', markReady);
-    el.addEventListener('loadedmetadata', markReady);
-    el.addEventListener('canplay', markReady);
-    el.addEventListener('playing', markReady);
-
-    const attemptPlay = () => {
-      const p = el.play();
-      if (p && typeof p.catch === 'function') p.catch(() => {});
-    };
-
-    el.load();
-    attemptPlay();
-    const raf = requestAnimationFrame(() => attemptPlay());
-
-    return () => {
-      cancelAnimationFrame(raf);
-      el.removeEventListener('loadeddata', markReady);
-      el.removeEventListener('loadedmetadata', markReady);
-      el.removeEventListener('canplay', markReady);
-      el.removeEventListener('playing', markReady);
-    };
-  }, []);
 
   useEffect(() => {
     if (skipIntro || reducedMotion) {
@@ -176,14 +157,12 @@ export function Hero({
     }
   }, [stage, reducedMotion, skipIntro]);
 
+  // Each stage change is another chance to start — by `final` the mask is
+  // open and any load-time block (backgrounded tab, slow decode) has usually
+  // lifted.
   useEffect(() => {
     const el = videoRef.current;
-    if (!el) return;
-    const attemptPlay = () => {
-      const p = el.play();
-      if (p && typeof p.catch === 'function') p.catch(() => {});
-    };
-    attemptPlay();
+    if (el) attemptPlay(el);
   }, [stage]);
 
   const maskVariants: Variants = {
@@ -308,19 +287,29 @@ export function Hero({
           />
         )}
 
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
-          style={{ opacity: videoReady ? 1 : 0 }}
-        >
-          <source src={videoUrl} type="video/mp4" />
-        </video>
+        {/* Not mounted at all under Data Saver, so the clip is never fetched.
+            Otherwise `autoPlay` starts it as early as the parser allows, and
+            useAutoplayVideo re-primes and retries for the cases the attribute
+            can't cover (Low Power Mode, backgrounded load), holding the still
+            image on top until frames actually advance — see
+            lib/video-autoplay. */}
+        {saveData ? null : (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster={image}
+            aria-hidden
+            tabIndex={-1}
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+            style={{ opacity: videoReady ? 1 : 0 }}
+          >
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+        )}
 
       </motion.div>
 

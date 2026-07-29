@@ -11,6 +11,7 @@ import {
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
+import { attemptPlay, primeForAutoplay, useSaveData } from '@/lib/video-autoplay';
 
 const luxeEase = [0.25, 0.1, 0.25, 1] as const;
 
@@ -35,6 +36,8 @@ export function FullBleedImage({
   const [curtainComplete, setCurtainComplete] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const reduceMotion = useReducedMotion();
+  /** Data Saver: leave the clip unfetched and let the still image stand. */
+  const saveData = useSaveData();
   const inView = useInView(ref, { once: true, margin: IN_VIEW_MARGIN });
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -47,15 +50,32 @@ export function FullBleedImage({
 
   useEffect(() => {
     const el = videoRef.current;
-    if (!el || !videoUrl || !inView) return;
+    if (!el || !videoUrl || !inView || saveData) return;
 
-    const onPlaying = () => setVideoPlaying(true);
-    el.addEventListener('playing', onPlaying);
+    // Only reveal once frames are actually advancing — a video the browser
+    // has refused to start still fires `canplay`, and showing it in that
+    // state is what puts a play-button overlay over the still image.
+    const onProgress = () => {
+      if (!el.paused && el.currentTime > 0) setVideoPlaying(true);
+    };
+    const retry = () => attemptPlay(el);
+
+    el.addEventListener('timeupdate', onProgress);
+    el.addEventListener('playing', onProgress);
+    el.addEventListener('canplay', retry);
+    el.addEventListener('loadeddata', retry);
+
+    primeForAutoplay(el);
     el.load();
-    el.play().catch(() => {});
+    attemptPlay(el);
 
-    return () => el.removeEventListener('playing', onPlaying);
-  }, [videoUrl, inView]);
+    return () => {
+      el.removeEventListener('timeupdate', onProgress);
+      el.removeEventListener('playing', onProgress);
+      el.removeEventListener('canplay', retry);
+      el.removeEventListener('loadeddata', retry);
+    };
+  }, [videoUrl, inView, saveData]);
 
   const tryStartClosing = useCallback(
     (video: HTMLVideoElement) => {
@@ -99,15 +119,20 @@ export function FullBleedImage({
       <motion.div style={{ y }} className="absolute inset-[-3%]">
         <Image src={src} alt={alt} fill sizes="100vw" className="object-cover" />
 
-        {videoUrl && (
+        {/* Under Data Saver nothing below mounts: the clip is never fetched,
+            and the curtain that follows it is video-driven, so the still image
+            simply stands on its own. */}
+        {videoUrl && !saveData && (
           <>
             <video
               ref={videoRef}
-              className="absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700"
+              className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700"
               style={{ opacity: videoPlaying ? 1 : 0 }}
               muted
               playsInline
               preload="none"
+              poster={src}
+              tabIndex={-1}
               aria-label={alt}
               onTimeUpdate={onTimeUpdate}
               onEnded={onEnded}
