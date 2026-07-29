@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import Script from 'next/script';
 import { Hero } from '@/components/sections/Hero';
 import { FullBleedImage } from '@/components/sections/FullBleedImage';
 import { ArchitecturalVision } from '@/components/sections/ArchitecturalVision';
@@ -62,7 +61,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'The Boathouse Residences',
-  url: 'https://boathouseresidences.co.nz',
+  url: 'https://www.boathouseresidences.co.nz',
   description: 'Luxury waterfront residences with private marina access.',
   address: {
     '@type': 'PostalAddress',
@@ -79,9 +78,20 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <>
-      <Script id="ld-org" type="application/ld+json" strategy="afterInteractive">
-        {JSON.stringify(jsonLd)}
-      </Script>
+      {/* Rendered inline rather than via next/script so the structured data is
+          present in the initial HTML. `afterInteractive` injects it client-side,
+          where crawlers that don't execute JS never see it. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* The hero is an image/video sequence with no text, so the page carried
+          no h1 at all. Visually hidden, but it gives crawlers and screen readers
+          the one thing every page needs: what this page is, and where. */}
+      <h1 className="sr-only">
+        The Boathouse Residences — waterfront homes at Hobsonville Marina, Auckland
+      </h1>
 
       <Hero image={heroImage} videoUrl="/herovideo.mp4" />
 

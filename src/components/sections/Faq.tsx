@@ -141,17 +141,37 @@ const groups: Group[] = [
   },
 ];
 
+/** FAQPage structured data, built from the same `groups` the page renders, so
+ *  the markup can never drift from the visible copy. This is the content answer
+ *  engines quote most readily: real questions, self-contained answers. */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: groups.flatMap((group) =>
+    group.items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  ),
+};
+
 export function Faq() {
   return (
     <section id="faq" className="bg-salt">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="section-px section-py w-full max-w-none">
         <ScrollReveal className="mx-auto mb-[clamp(2.5rem,5vw,4rem)] flex max-w-[68rem] flex-col items-center gap-[clamp(1rem,2.5vw,1.75rem)] text-center">
           <p className="font-sans uppercase tracking-[0.3em] text-rope text-[clamp(0.65rem,0.22vw+0.55rem,0.78rem)]">
             Boathouse Residences
           </p>
-          <h2 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
+          {/* h1: this component is only used on /faq, which had no h1 at all. */}
+          <h1 className="w-full font-vision text-[clamp(1.875rem,1.05rem+1.55vw,3.5rem)] font-normal leading-[1.15] tracking-tight text-charcoal">
             Frequently Asked Questions
-          </h2>
+          </h1>
         </ScrollReveal>
 
         <div className="mx-auto flex w-full max-w-[68rem] flex-col gap-[clamp(2.5rem,5vw,4rem)]">

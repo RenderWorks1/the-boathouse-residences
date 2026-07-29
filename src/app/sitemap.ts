@@ -1,15 +1,17 @@
 import type { MetadataRoute } from 'next';
 import { residences } from '@/lib/placeholder-residences';
 
-const base = 'https://boathouseresidences.co.nz';
+const base = 'https://www.boathouseresidences.co.nz';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const staticPaths = [
     '',
     '/lifestyle',
+    '/interiors',
     '/residences',
     '/vision',
+    '/faq',
     '/enquire',
     '/privacy-policy',
   ];

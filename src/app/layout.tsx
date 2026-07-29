@@ -53,17 +53,21 @@ const atteron = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://boathouseresidences.co.nz'),
+  // The apex 308-redirects to www, so www is the canonical host. Everything
+  // Google sees — canonical tags, OG urls, sitemap entries — must agree on it,
+  // or each page is discovered via a redirect from a second, competing URL.
+  metadataBase: new URL('https://www.boathouseresidences.co.nz'),
   title: {
     default: 'The Boathouse Residences — Luxury Waterfront Living',
     template: '%s | The Boathouse Residences',
   },
   description:
     'A curated collection of waterfront residences where cinematic harbour views, private marina access, and elegant coastal architecture meet.',
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'The Boathouse Residences',
     description: 'Luxury waterfront living by the harbour.',
-    url: 'https://boathouseresidences.co.nz',
+    url: 'https://www.boathouseresidences.co.nz',
     siteName: 'The Boathouse Residences',
     type: 'website',
   },
